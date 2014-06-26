@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="allDemos_code">
+      <UniqueIdentifier>{62eedab3-4f48-4319-b689-3a40262d9db0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes">
+      <UniqueIdentifier>{ab7229ae-f0e1-4e85-9263-32481a071506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\break">
+      <UniqueIdentifier>{fc5b40e9-a993-4b74-bb89-c081b55233f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\colorAdjust">
+      <UniqueIdentifier>{06cf7401-afbc-4383-851c-ac8d880edf7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\common">
+      <UniqueIdentifier>{6d7550db-2b8c-4bcf-ab7e-0dda6b48de9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\ghost-like">
+      <UniqueIdentifier>{a74c3280-720a-4867-8247-611413af0c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\lightningBolt">
+      <UniqueIdentifier>{e98715a3-3f6a-48c4-adac-599791b0096e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\normalMapped">
+      <UniqueIdentifier>{78a06c74-1bcf-4edd-8a16-ac045c6a7e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\ripple">
+      <UniqueIdentifier>{2bf37601-3756-46e5-ae69-6844c06887b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\ripple_horizontal">
+      <UniqueIdentifier>{40c2464a-c68f-47e9-939c-0a9561df5381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\shatter">
+      <UniqueIdentifier>{0c25d7fc-c8eb-436d-a8b1-d1549ea01249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\tail">
+      <UniqueIdentifier>{aad96384-66e2-4418-b684-679a28925dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\break">
+      <UniqueIdentifier>{7f1b5589-5fa2-4896-8e7e-55b61210d592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\chooseDemoUI">
+      <UniqueIdentifier>{1c539feb-c52f-41f1-a4f0-311d92e3bd65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\colorAdjust">
+      <UniqueIdentifier>{88d2e562-094c-4011-919e-ca56940983a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\common">
+      <UniqueIdentifier>{34243e8c-a321-463f-9819-8398f7d13583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\ghost-like">
+      <UniqueIdentifier>{dbef0d17-44ce-45e1-9cb3-075210011bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\lightningBolt">
+      <UniqueIdentifier>{d7511256-3d6c-4bb2-ae8c-79ac78484bcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\normalMapped">
+      <UniqueIdentifier>{8f29918d-d8f4-4c75-8f8b-7b7a168723f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\ripple">
+      <UniqueIdentifier>{96163068-44a6-4ff3-90cf-c6b6c4238a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\ripple_horizontal">
+      <UniqueIdentifier>{8e3241a7-f495-4184-bbf2-519dd5fc5e6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\shatter">
+      <UniqueIdentifier>{a6744dc6-1310-4a8e-bf33-ec3bca21807b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\tail">
+      <UniqueIdentifier>{6cb2bd64-7245-4e94-9b96-eb8dce6815b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\break\ensBreakNode.cpp">
+      <Filter>effectNodes\break</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\colorAdjust\ensColorAdjustNode.cpp">
+      <Filter>effectNodes\colorAdjust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensDefine.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensFunc.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensGLProgramWithUnifos.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensIndexVBO.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensMath.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensMesh.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\common\ensSimpleClasses.cpp">
+      <Filter>effectNodes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ghost-like\ensGhostNode.cpp">
+      <Filter>effectNodes\ghost-like</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\lightningBolt\ensLightningBoltNode.cpp">
+      <Filter>effectNodes\lightningBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\normalMapped\ensNormalMappedNode.cpp">
+      <Filter>effectNodes\normalMapped</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ripple\ensRippleNode.cpp">
+      <Filter>effectNodes\ripple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ripple_horizontal\ensRipple_horizontalNode.cpp">
+      <Filter>effectNodes\ripple_horizontal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\tail\ensTailNode.cpp">
+      <Filter>effectNodes\tail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\break\layer_break.cpp">
+      <Filter>allDemos_code\break</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\break\scene_break.cpp">
+      <Filter>allDemos_code\break</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\chooseDemoUI\chooseLayer.cpp">
+      <Filter>allDemos_code\chooseDemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\chooseDemoUI\chooseScene.cpp">
+      <Filter>allDemos_code\chooseDemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\colorAdjust\layer_colorAdjust.cpp">
+      <Filter>allDemos_code\colorAdjust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\colorAdjust\scene_colorAdjust.cpp">
+      <Filter>allDemos_code\colorAdjust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\common\func.cpp">
+      <Filter>allDemos_code\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\ghost-like\layer_ghostlike.cpp">
+      <Filter>allDemos_code\ghost-like</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\ghost-like\scene_ghostlike.cpp">
+      <Filter>allDemos_code\ghost-like</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\lightningBolt\layer_lightningBolt.cpp">
+      <Filter>allDemos_code\lightningBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\lightningBolt\scene_lightningBolt.cpp">
+      <Filter>allDemos_code\lightningBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\normalMapped\layer_normalMapped.cpp">
+      <Filter>allDemos_code\normalMapped</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\normalMapped\scene_normalMapped.cpp">
+      <Filter>allDemos_code\normalMapped</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\ripple\layer_ripple.cpp">
+      <Filter>allDemos_code\ripple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\ripple\scene_ripple.cpp">
+      <Filter>allDemos_code\ripple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\shatter\layer_shatter.cpp">
+      <Filter>allDemos_code\shatter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\shatter\scene_shatter.cpp">
+      <Filter>allDemos_code\shatter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\tail\layer_tail.cpp">
+      <Filter>allDemos_code\tail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\tail\scene_tail.cpp">
+      <Filter>allDemos_code\tail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\ripple_horizontal\layer_ripple_horizontal.cpp">
+      <Filter>allDemos_code\ripple_horizontal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\ripple_horizontal\scene_ripple_horizontal.cpp">
+      <Filter>allDemos_code\ripple_horizontal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\shatter\ensShatterNode.cpp">
+      <Filter>effectNodes\shatter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppMacros.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\break\ensBreakNode.h">
+      <Filter>effectNodes\break</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\colorAdjust\ensColorAdjustNode.h">
+      <Filter>effectNodes\colorAdjust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensCommon.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensDefine.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensFunc.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensGLProgramWithUnifos.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensIndexVBO.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensMath.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensMesh.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\common\ensSimpleClasses.h">
+      <Filter>effectNodes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ghost-like\ensGhostNode.h">
+      <Filter>effectNodes\ghost-like</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\lightningBolt\ensLightningBoltNode.h">
+      <Filter>effectNodes\lightningBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\normalMapped\ensNormalMappedNode.h">
+      <Filter>effectNodes\normalMapped</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ripple\ensRippleNode.h">
+      <Filter>effectNodes\ripple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ripple_horizontal\ensRipple_horizontalNode.h">
+      <Filter>effectNodes\ripple_horizontal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\tail\ensTailNode.h">
+      <Filter>effectNodes\tail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\break\layer_break.h">
+      <Filter>allDemos_code\break</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\break\scene_break.h">
+      <Filter>allDemos_code\break</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\chooseDemoUI\chooseLayer.h">
+      <Filter>allDemos_code\chooseDemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\chooseDemoUI\chooseScene.h">
+      <Filter>allDemos_code\chooseDemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\colorAdjust\layer_colorAdjust.h">
+      <Filter>allDemos_code\colorAdjust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\colorAdjust\scene_colorAdjust.h">
+      <Filter>allDemos_code\colorAdjust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\common\common.h">
+      <Filter>allDemos_code\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\common\func.h">
+      <Filter>allDemos_code\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\ghost-like\layer_ghostlike.h">
+      <Filter>allDemos_code\ghost-like</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\ghost-like\scene_ghostlike.h">
+      <Filter>allDemos_code\ghost-like</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\lightningBolt\layer_lightningBolt.h">
+      <Filter>allDemos_code\lightningBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\lightningBolt\scene_lightningBolt.h">
+      <Filter>allDemos_code\lightningBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\normalMapped\layer_normalMapped.h">
+      <Filter>allDemos_code\normalMapped</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\normalMapped\scene_normalMapped.h">
+      <Filter>allDemos_code\normalMapped</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\ripple\layer_ripple.h">
+      <Filter>allDemos_code\ripple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\ripple\scene_ripple.h">
+      <Filter>allDemos_code\ripple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\shatter\layer_shatter.h">
+      <Filter>allDemos_code\shatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\shatter\scene_shatter.h">
+      <Filter>allDemos_code\shatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\tail\layer_tail.h">
+      <Filter>allDemos_code\tail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\tail\scene_tail.h">
+      <Filter>allDemos_code\tail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\ripple_horizontal\layer_ripple_horizontal.h">
+      <Filter>allDemos_code\ripple_horizontal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\ripple_horizontal\scene_ripple_horizontal.h">
+      <Filter>allDemos_code\ripple_horizontal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\shatter\ensShatterNode.h">
+      <Filter>effectNodes\shatter</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

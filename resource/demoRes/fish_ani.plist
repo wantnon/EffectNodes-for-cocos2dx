@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>animations</key>
+	<dict>
+		<key>fish_ani</key>
+		<dict>
+			<key>delay</key>
+  			<real>0.05</real>
+			<key>frames</key>
+			<array>
+<string>actor_fish_shayu_normal_001.png</string>
+<string>actor_fish_shayu_normal_002.png</string>
+<string>actor_fish_shayu_normal_003.png</string>
+<string>actor_fish_shayu_normal_004.png</string>
+<string>actor_fish_shayu_normal_005.png</string>
+<string>actor_fish_shayu_normal_006.png</string>
+<string>actor_fish_shayu_normal_007.png</string>
+<string>actor_fish_shayu_normal_008.png</string>
+<string>actor_fish_shayu_normal_009.png</string>
+<string>actor_fish_shayu_normal_010.png</string>
+<string>actor_fish_shayu_normal_011.png</string>
+<string>actor_fish_shayu_normal_012.png</string>
+<string>actor_fish_shayu_normal_013.png</string>
+<string>actor_fish_shayu_normal_014.png</string>
+<string>actor_fish_shayu_normal_015.png</string>
+<string>actor_fish_shayu_normal_016.png</string>
+<string>actor_fish_shayu_normal_017.png</string>
+<string>actor_fish_shayu_normal_018.png</string>
+<string>actor_fish_shayu_normal_019.png</string>
+<string>actor_fish_shayu_normal_020.png</string>
+<string>actor_fish_shayu_normal_021.png</string>
+<string>actor_fish_shayu_normal_022.png</string>
+<string>actor_fish_shayu_normal_023.png</string>
+<string>actor_fish_shayu_normal_024.png</string>
+<string>actor_fish_shayu_normal_025.png</string>
+<string>actor_fish_shayu_normal_026.png</string>
+<string>actor_fish_shayu_normal_027.png</string>
+<string>actor_fish_shayu_normal_028.png</string>
+<string>actor_fish_shayu_normal_029.png</string>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>
+

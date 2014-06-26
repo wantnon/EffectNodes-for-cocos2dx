@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ClineSeg::addChildRef(ClineSeg*):lightingSprite.h">
+      </ContextState>
+      <ContextState
+         contextName = "CindexVBO::draw(unsigned int):indexVBO.h">
+      </ContextState>
+      <ContextState
+         contextName = "ClightingSprite::doJitter_reGenBranches():lightingSprite.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "branchSeg-&gt;branchStartGenerationID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClightingSprite::genSeges():lightingSprite.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "tailSeg">
+            </PersistentString>
+            <PersistentString
+               value = "tailSeg-&gt;branchID">
+            </PersistentString>
+            <PersistentString
+               value = "headSeg">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClightingSprite::splitSeg(ClineSeg*, int):lightingSprite.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "addChildRef">
+            </PersistentString>
+            <PersistentString
+               value = "seg-&gt;father">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -1,0 +1,10 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+Release.win32
+Debug.win32
+ipch
+*.sdf
+*.opensdf 
+#if we close vs2010 before commit, then the .opensdf will not show in sourceTree, everything will be ok.
