@@ -11,6 +11,8 @@ currently, iOS, Mac and Win32 project are available.
 how to run the demo: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/wikis/how-to-run-the-demo  
 如何运行demo: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/wikis/如何运行demo  
   
+here is executable for win32 and mac: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
+  
 screenshots:  
   
 ![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/frontPage.png)  
