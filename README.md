@@ -1,4 +1,4 @@
-﻿EffectNodes for Cocos2dx
+EffectNodes for Cocos2dx
 ==========
 by yang chao (wantnon), 2014-6-26  
 
@@ -9,5 +9,16 @@ EffectNodes is based on cocos2d-x 2.2.0
 currently, iOS, Mac and Win32 project are available.  
     
   
+screenshots:  
+  
+![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/frontPage.png)  
+  
+![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/lightningBolt.png)   
+  
+![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/break.png)      
+    
+![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/normalMapped.png)    
+  
+
 qq group: 338565878   
   
