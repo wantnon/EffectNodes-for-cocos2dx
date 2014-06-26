@@ -7,7 +7,8 @@ EffectNodes for Cocos2dx is a collection of 2d special effects implemented with 
 EffectNodes is based on cocos2d-x 2.2.0   
    
 currently, iOS, Mac and Win32 project are available.  
-    
+  
+如何运行demo: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/wikis/如何运行demo    
   
 screenshots:  
   
