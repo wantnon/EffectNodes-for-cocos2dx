@@ -26,3 +26,5 @@ screenshots:
 
 qq group: 338565878   
   
+blog: http://user.qzone.qq.com/350479720/blog/1403785410  
+  
