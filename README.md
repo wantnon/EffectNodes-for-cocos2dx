@@ -24,8 +24,10 @@ screenshots:
     
 ![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/normalMapped.png)    
   
-
+  
 qq group: 338565878   
+  
+my email: 350479720@qq.com  
   
 blog: http://user.qzone.qq.com/350479720/blog/1403785410  
   
