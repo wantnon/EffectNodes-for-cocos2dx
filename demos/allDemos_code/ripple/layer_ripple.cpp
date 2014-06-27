@@ -12,6 +12,7 @@ bool Clayer_ripple::init()
     
     
 	m_rippleSprite=new CrippleSprite();
+    m_rippleSprite->autorelease();
 	m_rippleSprite->init("demoRes/frozen_small.png",8);
 	m_rippleSprite->setPosition(ccp(winSize.width/2,winSize.height/2));
     m_rippleSprite->scheduleUpdate();

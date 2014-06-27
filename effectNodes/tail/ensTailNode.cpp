@@ -10,6 +10,8 @@ bool CtailSprite::init(const string&texFileName)
     this->CCSprite::initWithFile(texFileName.c_str());
     //indexVBO
     m_indexVBO=new CindexVBO();
+    m_indexVBO->autorelease();
+    m_indexVBO->retain();
     //create and set shader program
 	{
         GLchar * vertSource = (GLchar*) CCString::createWithContentsOfFile(CCFileUtils::sharedFileUtils()->fullPathForFilename("shaders/tailEffect.vsh").c_str())->getCString();

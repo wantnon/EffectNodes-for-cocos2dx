@@ -102,42 +102,51 @@ void CchooseLayer::controlButtonEvent(CCObject *senderz, CCControlEvent controlE
     //cout<<"demoName:"<<demoName<<endl;
     if(demoName=="lightningBolt"){
         Cscene_lightningBolt *scene=new Cscene_lightningBolt();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     }else if(demoName=="tail"){
         Cscene_tail *scene=new Cscene_tail();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     }else if(demoName=="colorAdjust"){
         Cscene_colorAdjust *scene=new Cscene_colorAdjust();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     
     }else if(demoName=="ghost-like"){
         Cscene_ghostlike *scene=new Cscene_ghostlike();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
         
     }else if(demoName=="ripple"){
         Cscene_ripple *scene=new Cscene_ripple();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
         
     }else if(demoName=="break"){
         Cscene_break *scene=new Cscene_break();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     }else if(demoName=="normalMapped"){
         Cscene_normalMapped *scene=new Cscene_normalMapped();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     
     }else if(demoName=="shatter"){
         Cscene_shatter *scene=new Cscene_shatter();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     }else if(demoName=="ripple_horizontal"){
         Cscene_ripple_horizontal *scene=new Cscene_ripple_horizontal();
+        scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
     }
