@@ -12,6 +12,7 @@ bool Clayer_ripple_horizontal::init()
     
     
 	m_ripple_horizontalNode=new Cripple_horizontalNode();
+    m_ripple_horizontalNode->autorelease();
 	m_ripple_horizontalNode->init("demoRes/water.png");
 	m_ripple_horizontalNode->setPosition(ccp(winSize.width/2,winSize.height/2));
     m_ripple_horizontalNode->scheduleUpdate();
