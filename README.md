@@ -3,6 +3,7 @@ EffectNodes for Cocos2dx
 by yang chao (wantnon), 2014-6-26  
 
 EffectNodes for Cocos2dx is a collection of 2d special effects implemented with cocos2dx. i will add more when i got good effects.  
+BTW: if you found good effects or tutorials, please give a link, i will try to study it and maybe implement it in this project.  
   
 EffectNodes is based on cocos2d-x 2.2.0   
    
