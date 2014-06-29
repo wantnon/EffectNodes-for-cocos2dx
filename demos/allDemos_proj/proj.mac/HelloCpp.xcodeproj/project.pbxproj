@@ -11,6 +11,9 @@
 		1514DA40163004980095A81C /* ipadhd in Resources */ = {isa = PBXBuildFile; fileRef = 1514DA3D163004980095A81C /* ipadhd */; };
 		1514DA41163004980095A81C /* iphone in Resources */ = {isa = PBXBuildFile; fileRef = 1514DA3E163004980095A81C /* iphone */; };
 		15C156BB1683155600D239F2 /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C156B81683151A00D239F2 /* libcocos2dx.a */; };
+		18FC1B251960774100B7695D /* layer_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B211960774100B7695D /* layer_tinyWingsTerrain.cpp */; };
+		18FC1B261960774100B7695D /* scene_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B231960774100B7695D /* scene_tinyWingsTerrain.cpp */; };
+		18FC1B2A1960775900B7695D /* ensTinyWingsTerrainNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B281960775900B7695D /* ensTinyWingsTerrainNode.cpp */; };
 		41BC70AD15BF7CCE006A0A6C /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 41BC70AC15BF7CCE006A0A6C /* Icon.icns */; };
 		41CD6C6515BF7574005E6F29 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41CD6C6315BF7574005E6F29 /* AppController.mm */; };
 		41CD6C6615BF7574005E6F29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD6C6415BF7574005E6F29 /* main.m */; };
@@ -307,6 +310,12 @@
 		1514DA3E163004980095A81C /* iphone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphone; path = ../Resources/iphone; sourceTree = "<group>"; };
 		15A6969B1630E63B00D7A229 /* AppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppMacros.h; path = ../Classes/AppMacros.h; sourceTree = "<group>"; };
 		15C156B01683151A00D239F2 /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = ../../../../cocos2dx/proj.mac/cocos2dx.xcodeproj; sourceTree = "<group>"; };
+		18FC1B211960774100B7695D /* layer_tinyWingsTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer_tinyWingsTerrain.cpp; sourceTree = "<group>"; };
+		18FC1B221960774100B7695D /* layer_tinyWingsTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer_tinyWingsTerrain.h; sourceTree = "<group>"; };
+		18FC1B231960774100B7695D /* scene_tinyWingsTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_tinyWingsTerrain.cpp; sourceTree = "<group>"; };
+		18FC1B241960774100B7695D /* scene_tinyWingsTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_tinyWingsTerrain.h; sourceTree = "<group>"; };
+		18FC1B281960775900B7695D /* ensTinyWingsTerrainNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ensTinyWingsTerrainNode.cpp; sourceTree = "<group>"; };
+		18FC1B291960775900B7695D /* ensTinyWingsTerrainNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ensTinyWingsTerrainNode.h; sourceTree = "<group>"; };
 		41BC70AC15BF7CCE006A0A6C /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		41CD6C5115BF748C005E6F29 /* HelloCpp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloCpp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CD6C6215BF7574005E6F29 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -881,6 +890,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		18FC1B201960774100B7695D /* tinyWingsTerrain */ = {
+			isa = PBXGroup;
+			children = (
+				18FC1B211960774100B7695D /* layer_tinyWingsTerrain.cpp */,
+				18FC1B221960774100B7695D /* layer_tinyWingsTerrain.h */,
+				18FC1B231960774100B7695D /* scene_tinyWingsTerrain.cpp */,
+				18FC1B241960774100B7695D /* scene_tinyWingsTerrain.h */,
+			);
+			path = tinyWingsTerrain;
+			sourceTree = "<group>";
+		};
+		18FC1B271960775900B7695D /* tinyWingsTerrain */ = {
+			isa = PBXGroup;
+			children = (
+				18FC1B281960775900B7695D /* ensTinyWingsTerrainNode.cpp */,
+				18FC1B291960775900B7695D /* ensTinyWingsTerrainNode.h */,
+			);
+			path = tinyWingsTerrain;
+			sourceTree = "<group>";
+		};
 		41851B8715B93C32004083E9 = {
 			isa = PBXGroup;
 			children = (
@@ -981,6 +1010,7 @@
 				5796326E195BFAB200F29877 /* ripple_horizontal */,
 				57963271195BFAB200F29877 /* shatter */,
 				57963274195BFAB200F29877 /* tail */,
+				18FC1B271960775900B7695D /* tinyWingsTerrain */,
 			);
 			name = effectNodes;
 			path = ../../../effectNodes;
@@ -1103,6 +1133,7 @@
 				579632AF195BFAC500F29877 /* ripple_horizontal */,
 				579632B4195BFAC500F29877 /* shatter */,
 				579632B9195BFAC500F29877 /* tail */,
+				18FC1B201960774100B7695D /* tinyWingsTerrain */,
 			);
 			name = allDemos_code;
 			path = ../../allDemos_code;
@@ -2156,6 +2187,7 @@
 				57963590195C015800F29877 /* CCControlLoader.cpp in Sources */,
 				579637DF195C0F3C00F29877 /* cpSpaceQuery.c in Sources */,
 				5796372B195C02CB00F29877 /* b2MouseJoint.cpp in Sources */,
+				18FC1B261960774100B7695D /* scene_tinyWingsTerrain.cpp in Sources */,
 				5796371C195C02CB00F29877 /* b2World.cpp in Sources */,
 				5796371F195C02CB00F29877 /* b2ChainAndPolygonContact.cpp in Sources */,
 				579635AB195C015800F29877 /* CCBatchNode.cpp in Sources */,
@@ -2268,6 +2300,7 @@
 				57963595195C015800F29877 /* CCLayerGradientLoader.cpp in Sources */,
 				5796327D195BFAB200F29877 /* ensMath.cpp in Sources */,
 				57963623195C015800F29877 /* Skin.cpp in Sources */,
+				18FC1B251960774100B7695D /* layer_tinyWingsTerrain.cpp in Sources */,
 				579637E1195C0F3C00F29877 /* cpSpatialIndex.c in Sources */,
 				579632D0195BFAC500F29877 /* scene_shatter.cpp in Sources */,
 				579632BF195BFAC500F29877 /* scene_break.cpp in Sources */,
@@ -2365,6 +2398,7 @@
 				57963722195C02CB00F29877 /* b2ContactSolver.cpp in Sources */,
 				579635C4195C015800F29877 /* UIInputManager.cpp in Sources */,
 				579635E2195C015800F29877 /* CCControlHuePicker.cpp in Sources */,
+				18FC1B2A1960775900B7695D /* ensTinyWingsTerrainNode.cpp in Sources */,
 				5796327F195BFAB200F29877 /* ensSimpleClasses.cpp in Sources */,
 				579635CC195C015800F29877 /* UIImageView.cpp in Sources */,
 				5796372F195C02CB00F29877 /* b2RopeJoint.cpp in Sources */,

@@ -294,6 +294,9 @@
 		57963241195BE0FA00F29877 /* ensShatterNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5796323F195BE0FA00F29877 /* ensShatterNode.cpp */; };
 		57963244195BE2C100F29877 /* scene_ripple_horizontal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57963242195BE2C100F29877 /* scene_ripple_horizontal.cpp */; };
 		57963247195BE5D400F29877 /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 57963246195BE5D400F29877 /* shaders */; };
+		579849FB195D1CE80022F0B4 /* layer_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 579849F7195D1CE80022F0B4 /* layer_tinyWingsTerrain.cpp */; };
+		579849FC195D1CE80022F0B4 /* scene_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 579849F9195D1CE80022F0B4 /* scene_tinyWingsTerrain.cpp */; };
+		57984A04195D25970022F0B4 /* ensTinyWingsTerrainNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57984A02195D25970022F0B4 /* ensTinyWingsTerrainNode.cpp */; };
 		57FF1359194EE57300042049 /* layer_colorAdjust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FF1355194EE57300042049 /* layer_colorAdjust.cpp */; };
 		57FF135A194EE57300042049 /* scene_colorAdjust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FF1357194EE57300042049 /* scene_colorAdjust.cpp */; };
 		57FF136E194EF64E00042049 /* func.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FF136C194EF64E00042049 /* func.cpp */; };
@@ -881,6 +884,12 @@
 		57963242195BE2C100F29877 /* scene_ripple_horizontal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_ripple_horizontal.cpp; sourceTree = "<group>"; };
 		57963243195BE2C100F29877 /* scene_ripple_horizontal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_ripple_horizontal.h; sourceTree = "<group>"; };
 		57963246195BE5D400F29877 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
+		579849F7195D1CE80022F0B4 /* layer_tinyWingsTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer_tinyWingsTerrain.cpp; sourceTree = "<group>"; };
+		579849F8195D1CE80022F0B4 /* layer_tinyWingsTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer_tinyWingsTerrain.h; sourceTree = "<group>"; };
+		579849F9195D1CE80022F0B4 /* scene_tinyWingsTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_tinyWingsTerrain.cpp; sourceTree = "<group>"; };
+		579849FA195D1CE80022F0B4 /* scene_tinyWingsTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_tinyWingsTerrain.h; sourceTree = "<group>"; };
+		57984A02195D25970022F0B4 /* ensTinyWingsTerrainNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ensTinyWingsTerrainNode.cpp; sourceTree = "<group>"; };
+		57984A03195D25970022F0B4 /* ensTinyWingsTerrainNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ensTinyWingsTerrainNode.h; sourceTree = "<group>"; };
 		57FF1355194EE57300042049 /* layer_colorAdjust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer_colorAdjust.cpp; sourceTree = "<group>"; };
 		57FF1356194EE57300042049 /* layer_colorAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer_colorAdjust.h; sourceTree = "<group>"; };
 		57FF1357194EE57300042049 /* scene_colorAdjust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_colorAdjust.cpp; sourceTree = "<group>"; };
@@ -1939,6 +1948,7 @@
 				18E22BB11956D04B00F46189 /* normalMapped */,
 				572B29C719583F27006A1BAC /* shatter */,
 				5706CB1319591ECC006E84AF /* ripple_horizontal */,
+				57984A01195D25970022F0B4 /* tinyWingsTerrain */,
 			);
 			name = effectNodes;
 			path = ../../../effectNodes;
@@ -2154,6 +2164,7 @@
 				18E22BAA1956CDEF00F46189 /* normalMapped */,
 				572B29CB195840B1006A1BAC /* shatter */,
 				5706CB0C19591EAB006E84AF /* ripple_horizontal */,
+				579849F6195D1CE80022F0B4 /* tinyWingsTerrain */,
 			);
 			name = allDemos_code;
 			path = ../../allDemos_code;
@@ -2271,6 +2282,26 @@
 				575CD7811950314C00A0450F /* ensRippleNode.h */,
 			);
 			path = ripple;
+			sourceTree = "<group>";
+		};
+		579849F6195D1CE80022F0B4 /* tinyWingsTerrain */ = {
+			isa = PBXGroup;
+			children = (
+				579849F7195D1CE80022F0B4 /* layer_tinyWingsTerrain.cpp */,
+				579849F8195D1CE80022F0B4 /* layer_tinyWingsTerrain.h */,
+				579849F9195D1CE80022F0B4 /* scene_tinyWingsTerrain.cpp */,
+				579849FA195D1CE80022F0B4 /* scene_tinyWingsTerrain.h */,
+			);
+			path = tinyWingsTerrain;
+			sourceTree = "<group>";
+		};
+		57984A01195D25970022F0B4 /* tinyWingsTerrain */ = {
+			isa = PBXGroup;
+			children = (
+				57984A02195D25970022F0B4 /* ensTinyWingsTerrainNode.cpp */,
+				57984A03195D25970022F0B4 /* ensTinyWingsTerrainNode.h */,
+			);
+			path = tinyWingsTerrain;
 			sourceTree = "<group>";
 		};
 		57FF1354194EE57300042049 /* colorAdjust */ = {
@@ -2461,6 +2492,7 @@
 				1839B1A218029A77005EA308 /* b2CollideEdge.cpp in Sources */,
 				1839B1A318029A77005EA308 /* b2CollidePolygon.cpp in Sources */,
 				1839B1A418029A77005EA308 /* b2Collision.cpp in Sources */,
+				579849FC195D1CE80022F0B4 /* scene_tinyWingsTerrain.cpp in Sources */,
 				1839B1A518029A77005EA308 /* b2Distance.cpp in Sources */,
 				1839B1A618029A77005EA308 /* b2DynamicTree.cpp in Sources */,
 				1839B1A718029A77005EA308 /* b2TimeOfImpact.cpp in Sources */,
@@ -2579,6 +2611,7 @@
 				1839B50D18029AC8005EA308 /* CCActionFrame.cpp in Sources */,
 				1839B50E18029AC8005EA308 /* CCActionFrameEasing.cpp in Sources */,
 				572B29D0195840B1006A1BAC /* layer_shatter.cpp in Sources */,
+				579849FB195D1CE80022F0B4 /* layer_tinyWingsTerrain.cpp in Sources */,
 				1839B50F18029AC8005EA308 /* CCActionManager.cpp in Sources */,
 				1839B51018029AC8005EA308 /* CCActionNode.cpp in Sources */,
 				1839B51118029AC8005EA308 /* CCActionObject.cpp in Sources */,
@@ -2665,6 +2698,7 @@
 				1839B55718029AC9005EA308 /* CCScale9Sprite.cpp in Sources */,
 				1839B55818029AC9005EA308 /* CCEditBox.cpp in Sources */,
 				1839B55918029AC9005EA308 /* CCEditBoxImplAndroid.cpp in Sources */,
+				57984A04195D25970022F0B4 /* ensTinyWingsTerrainNode.cpp in Sources */,
 				1839B55A18029AC9005EA308 /* CCEditBoxImplIOS.mm in Sources */,
 				1839B55B18029AC9005EA308 /* CCEditBoxImplMac.mm in Sources */,
 				1839B55C18029AC9005EA308 /* CCEditBoxImplNone.cpp in Sources */,

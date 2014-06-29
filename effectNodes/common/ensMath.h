@@ -25,6 +25,7 @@ CCPoint rotateVector2(const CCPoint&vec,float cosA,float sinA);
 float calculateAngleFromCosAndSin(float cosA,float sinA);
 CCPoint calculateCosASinAOfVec1ToVec2(const CCPoint&vec1,const CCPoint&vec2);
 float nPow(float a,int n);
+float pow2(float x);
 float PNDisPointToLine(const CCPoint&point,const CCPoint&start,const CCPoint&end);
 bool isPointEqual(const CCPoint&p1,const CCPoint&p2);
 CCPoint getIntersectPointOfTwoLine(const CCPoint&p1,const CCPoint&dir1, const CCPoint&p2,const CCPoint&dir2);

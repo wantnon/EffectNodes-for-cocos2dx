@@ -30,6 +30,7 @@ public:
         IDtriList.clear();
     }
 };
+
 class CmeshWire:public CCObject
 {
 public:
@@ -42,6 +43,21 @@ public:
         texCoordList.clear();
         colorList.clear();
         IDlineList.clear();
+    }
+    
+};
+class CmeshGeneral:public CCObject
+{
+public:
+    vector<Cv2> vlist;
+    vector<Cv2> texCoordList;
+    vector<Cv4> colorList;
+    vector<short> indexList;
+    void clear(){
+        vlist.clear();
+        texCoordList.clear();
+        colorList.clear();
+        indexList.clear();
     }
     
 };

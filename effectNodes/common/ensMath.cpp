@@ -8,6 +8,9 @@
 
 #include "common/ensMath.h"
 namespace_ens_begin
+float pow2(float x){
+    return x*x;
+}
 float random01(){
     return rand()*1.0/RAND_MAX;
 }

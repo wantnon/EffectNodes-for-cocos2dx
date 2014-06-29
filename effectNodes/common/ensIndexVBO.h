@@ -107,6 +107,13 @@ public:
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(short)*m_indexArrayLen, &IDlineList.front(), usage);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      }
+    void submitIndex(const vector<short> &indexList,GLenum usage){//element must use short type
+		m_indexArrayLen=((int)indexList.size())*1;
+        if(m_indexArrayLen==0)return;
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(short)*m_indexArrayLen, &indexList.front(), usage);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
     void setPointer_position(){
 		//set position format
 		glBindBuffer(GL_ARRAY_BUFFER, posBuffer);
