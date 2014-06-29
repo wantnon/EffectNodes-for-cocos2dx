@@ -78,6 +78,12 @@
     <Filter Include="allDemos_code\tail">
       <UniqueIdentifier>{6cb2bd64-7245-4e94-9b96-eb8dce6815b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="effectNodes\tinyWingsTerrain">
+      <UniqueIdentifier>{f028ec17-00f5-4653-b819-3f4ac5b84fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="allDemos_code\tinyWingsTerrain">
+      <UniqueIdentifier>{684abcf9-ca7e-48e6-88d4-8d5296842ebd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -196,6 +202,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\effectNodes\shatter\ensShatterNode.cpp">
       <Filter>effectNodes\shatter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\tinyWingsTerrain\ensTinyWingsTerrainNode.cpp">
+      <Filter>effectNodes\tinyWingsTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\tinyWingsTerrain\layer_tinyWingsTerrain.cpp">
+      <Filter>allDemos_code\tinyWingsTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\tinyWingsTerrain\scene_tinyWingsTerrain.cpp">
+      <Filter>allDemos_code\tinyWingsTerrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +339,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\effectNodes\shatter\ensShatterNode.h">
       <Filter>effectNodes\shatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\tinyWingsTerrain\ensTinyWingsTerrainNode.h">
+      <Filter>effectNodes\tinyWingsTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\tinyWingsTerrain\layer_tinyWingsTerrain.h">
+      <Filter>allDemos_code\tinyWingsTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\tinyWingsTerrain\scene_tinyWingsTerrain.h">
+      <Filter>allDemos_code\tinyWingsTerrain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

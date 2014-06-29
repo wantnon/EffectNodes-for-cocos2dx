@@ -124,7 +124,7 @@ void CtinyWingsTerrainSprite::reGenerateShape(int insertControlPointCount){
     for(int i=0;i<nPoint;i++){
         CCPoint&point=pointList[i];
         //find the first control point whose x is bigger than point.x
-        while(controlPointList[controlPointIndex].x<=point.x){
+        while(controlPointIndex<(int)controlPointList.size()&&controlPointList[controlPointIndex].x<=point.x){
             controlPointIndex++;
         }
         if(controlPointIndex>=(int)controlPointList.size()){//point is endPoint
