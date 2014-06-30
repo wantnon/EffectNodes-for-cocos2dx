@@ -39,7 +39,11 @@ void main() {
     
     
     vec4 finalColor=vec4(vec3(1.0),glowAlpha*(1.0-refTexColor.a)+ghostAlpha);
-    
+    //if you want to add a extra blue color, open below block
+   /*
+    //add blue
+    finalColor=vec4(finalColor.rgb*finalColor.a+(1.0-finalColor.a)*vec3(0.5,1.0,1.0),finalColor.a);
+    */
     gl_FragColor=finalColor;
     
 }
