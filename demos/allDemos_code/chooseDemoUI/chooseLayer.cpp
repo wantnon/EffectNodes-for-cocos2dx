@@ -18,6 +18,7 @@
 #include "shatter/scene_shatter.h"
 #include "ripple_horizontal/scene_ripple_horizontal.h"
 #include "tinyWingsTerrain/scene_tinyWingsTerrain.h"
+#include "2DSoftShadow/scene_2DSoftShadow.h"
 bool CchooseLayer::init(){
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
@@ -44,6 +45,7 @@ bool CchooseLayer::init(){
     m_demoNameList.push_back("normalMapped");
     m_demoNameList.push_back("shatter");
     m_demoNameList.push_back("tinyWingsTerrain");
+    m_demoNameList.push_back("2DSoftShadow");
     //head line height
     float headlineHeight=100;
     //button size and margin
@@ -157,6 +159,11 @@ void CchooseLayer::controlButtonEvent(CCObject *senderz, CCControlEvent controlE
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);
         
+    }else if(demoName=="2DSoftShadow"){
+        Cscene_2DSoftShadow *scene=new Cscene_2DSoftShadow();
+        scene->autorelease();
+        scene->init();
+        CCDirector::sharedDirector()->replaceScene(scene);
     }
     
 }
