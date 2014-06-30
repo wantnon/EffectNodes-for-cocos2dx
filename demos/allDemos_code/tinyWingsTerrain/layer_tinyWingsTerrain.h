@@ -18,7 +18,8 @@ using namespace cocos2d;
 using namespace cocos2d::extension;
 #include "tinyWingsTerrain/ensTinyWingsTerrainNode.h"
 using namespace ens;
-
+//ref to: http://www.cnblogs.com/andyque/archive/2011/07/01/2095479.html
+//and https://github.com/diwu/Tiny-Wings-Remake-on-Android
 class Clayer_tinyWingsTerrain : public CCLayer
 {
 public:
