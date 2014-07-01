@@ -161,11 +161,12 @@ protected:
     }
 };
 
-class Cpolygon:public CCObject
+class Cpolygon
 {
 public:
     vector<CCPoint> m_pointList;
     
 };
+Cpolygon makeRegularPolygon(int r,int n);
 namespace_ens_end
 #endif /* defined(__HelloCpp__ensSimpleClasses__) */

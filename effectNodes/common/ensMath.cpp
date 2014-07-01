@@ -202,6 +202,13 @@ CCPoint getRightNormal(const CCPoint&dir) {//right side normal or outer normal
     CCPoint normal(dir.y,-dir.x);
     return normal;
 }
+
+CCPoint getRightVector(const CCPoint&p1,const CCPoint&p2){//right side vector or outer vector, but not guarantee to be normalized
+    CCPoint vec=p2-p1;
+    CCPoint rightVec(vec.y,-vec.x);
+    return rightVec;
+    
+}
 float calculateTriangleArea(const CCPoint&v0,const CCPoint&v1,const CCPoint&v2)
 //calculate area of triangle v0v1v2
 //ref to: http://zhidao.baidu.com/link?url=zQUSnOMZK_hGlSDVy5kWXDRraAbedjUoNtav83p1fdmoCJvaSADSc5bJ1Wr0kmzFFewuDevYQ2fFOqX1vIJaja
@@ -215,4 +222,38 @@ float calculateTriangleArea(const CCPoint&v0,const CCPoint&v1,const CCPoint&v2)
     float Area=0.5*fabsf(x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2);
     return Area;
 }
+vector<CCPoint> calculateTangentPoints(const CCPoint &center, float r,const CCPoint &point)
+//the first return point is left tangent point
+//the second return point is right tangent point
+{
+    CCPoint tangentPointLeft,tangentPointRight;
+    CCPoint PC=center-point;
+    float disPC=ccpLength(PC);
+    if(disPC==0){
+        vector<CCPoint> rs;
+        rs.push_back(tangentPointLeft);
+        rs.push_back(tangentPointRight);
+        return rs;
+    }
+    
+    float sinA=r/disPC;
+    float cosA=sqrtf(1-sinA*sinA);
+    
+    float disPT=disPC*cosA;
+    
+    CCPoint dirPC=CCPoint(PC.x/disPC,PC.y/disPC);
+    
+    CCPoint dirPTLeft=rotateVector2(dirPC, cosA, sinA);
+    CCPoint dirPTRight=rotateVector2(dirPC, cosA, -sinA);
+    
+    tangentPointLeft=point+ccpMult(dirPTLeft, disPT);
+    
+    tangentPointRight=point+ccpMult(dirPTRight, disPT);
+    vector<CCPoint> rs;
+    rs.push_back(tangentPointLeft);
+    rs.push_back(tangentPointRight);
+    return rs;
+    
+}
+
 namespace_ens_end

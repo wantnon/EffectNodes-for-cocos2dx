@@ -16,7 +16,13 @@ bool Clayer_2DSoftShadow::init()
     m_light->init(40);
     addChild(m_light);
     m_light->setPosition(ccp(winSize.width/2,winSize.height/2));
-     
+    
+    m_2DSoftShadowNode=new C2DSoftShadowNode();
+    m_2DSoftShadowNode->autorelease();
+    m_2DSoftShadowNode->init(makeRegularPolygon(140,8));
+    m_2DSoftShadowNode->setLight(m_light);
+    addChild(m_2DSoftShadowNode);
+    m_2DSoftShadowNode->setPosition(ccp(winSize.width/2,winSize.height/2));
                                                  
     //back button
     {

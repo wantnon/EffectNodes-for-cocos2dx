@@ -24,7 +24,7 @@ class Clayer_2DSoftShadow : public CCLayer
 public:
    
     Clayer_2DSoftShadow(){
-        m_2DSoftShadowSprite=NULL;
+        m_2DSoftShadowNode=NULL;
         m_light=NULL;
     }
     virtual ~Clayer_2DSoftShadow(){
@@ -40,7 +40,7 @@ protected:
     CCControlButton* m_controlButton_back;
     void controlButtonEvent_back(CCObject *senderz, CCControlEvent controlEvent);
 protected:
-    C2DSoftShadowSprite*m_2DSoftShadowSprite;
+    C2DSoftShadowNode*m_2DSoftShadowNode;
     ClightNode*m_light;
 };
 
