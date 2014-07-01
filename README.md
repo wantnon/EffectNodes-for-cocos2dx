@@ -1,7 +1,9 @@
 EffectNodes for Cocos2dx
 ==========
 by yang chao (wantnon), 2014-6-26  
-
+  
+![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/demos/allDemos_proj/proj.ios/Icon-144.png)    
+  
 EffectNodes for Cocos2dx is a collection of 2d special effects implemented with cocos2dx. i will add more when i got good effects.  
 BTW: if you found good effects or tutorials, please give me a link, i will try to study it and maybe implement it in this project.  
   
