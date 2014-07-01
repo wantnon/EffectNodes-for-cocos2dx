@@ -11,7 +11,7 @@ bool Clayer_normalMapped::init()
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     //lightSprite
-    m_lightSprite=new ClightSprite();
+    m_lightSprite=new normalMapped::ClightSprite();
     m_lightSprite->autorelease();
     m_lightSprite->init("demoRes/light.png");
     m_lightSprite->setPosition(ccp(winSize.width/4, winSize.height/4*3));

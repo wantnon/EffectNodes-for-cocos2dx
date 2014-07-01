@@ -11,7 +11,11 @@ bool Clayer_2DSoftShadow::init()
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
     
     
-
+    m_light=new ClightNode();
+    m_light->autorelease();
+    m_light->init(40);
+    addChild(m_light);
+    m_light->setPosition(ccp(winSize.width/2,winSize.height/2));
      
                                                  
     //back button
@@ -97,7 +101,7 @@ void Clayer_2DSoftShadow::ccTouchesMoved(CCSet* touches , CCEvent* event)
         location = CCDirector::sharedDirector()->convertToGL(location);
         //    cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
 
-        
+        m_light->setPosition(location);
         break;
     }
     
@@ -117,7 +121,7 @@ void Clayer_2DSoftShadow::ccTouchesBegan(CCSet* touches, CCEvent* event)
         
         location = CCDirector::sharedDirector()->convertToGL(location);
         //  cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-        
+        m_light->setPosition(location);
         break;
     }
 }

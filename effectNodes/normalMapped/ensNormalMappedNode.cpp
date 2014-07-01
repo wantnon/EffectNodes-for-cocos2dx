@@ -12,7 +12,7 @@ bool CnormalMappedSprite::init(const string&texFileName,const string&normalMapFi
     m_normalMap->retain();
     //create lightSprite
     {
-        ClightSprite*lightSprite_dft=new ClightSprite();
+        normalMapped::ClightSprite*lightSprite_dft=new normalMapped::ClightSprite();
         lightSprite_dft->autorelease();
         lightSprite_dft->init("demoRes/light.png");
         this->setLightSprite(lightSprite_dft);

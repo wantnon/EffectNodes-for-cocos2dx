@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 using namespace std;
+#include "cocos2d.h"
+using namespace cocos2d;
 #include <assert.h>
 #include "common/ensDefine.h"
 namespace_ens_begin
@@ -157,6 +159,13 @@ protected:
     void initMembers(){
         m_i=m_j=0;
     }
+};
+
+class Cpolygon:public CCObject
+{
+public:
+    vector<CCPoint> m_pointList;
+    
 };
 namespace_ens_end
 #endif /* defined(__HelloCpp__ensSimpleClasses__) */

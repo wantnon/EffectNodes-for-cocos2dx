@@ -51,7 +51,7 @@ protected:
     void controlButtonEvent_back(CCObject *senderz, CCControlEvent controlEvent);
 protected:
     CnormalMappedSprite* m_normalMappedSprite;
-    ClightSprite* m_lightSprite;
+    normalMapped::ClightSprite* m_lightSprite;
 };
 
 #endif /* defined(__HelloCpp__layer_normalMapped__) */

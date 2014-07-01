@@ -10,46 +10,49 @@ using namespace std;
 using namespace cocos2d;
 #include "common/ensCommon.h"
 namespace_ens_begin
-class ClightSprite:public CCSprite
-{
-public:
-    ClightSprite(){
-        m_diffuse=ccc4f(1, 1, 1, 1);
-        m_ambient=ccc4f(1, 1, 1, 1);
-        m_z=0;
-    }
-    virtual~ClightSprite(){
+namespace normalMapped {
     
-    }
-    bool init(const string&texFileName){
-        this->CCSprite::initWithFile(texFileName.c_str());
-        return true;
-    }
-    ccColor4F getDiffuse()const{return m_diffuse;}
-    void setDiffuse(const ccColor4F&diffuse){
-        m_diffuse=diffuse;
-        setColor(ccc3(m_diffuse.r*255,m_diffuse.g*255,m_diffuse.b*255));
-    }
-    ccColor4F getAmbient()const{return m_ambient;}
-    void setAmbient(const ccColor4F&ambient){m_ambient=ambient;}
-    float getZ()const{return m_z;}
-    void setZ(float z){m_z=z;}
-protected:
-    ccColor4F m_diffuse;
-    ccColor4F m_ambient;
-    float m_z;//z value of the light
-};
-class Cmaterial{
-public:
-    ccColor4F m_diffuse;
-    ccColor4F m_ambient;
-    Cmaterial(){
-        m_diffuse=ccc4f(1, 1, 1, 1);
-        m_ambient=ccc4f(0.5, 0.5, 0.5, 1);
-    }
-};
+    class ClightSprite:public CCSprite
+    {
+    public:
+        ClightSprite(){
+            m_diffuse=ccc4f(1, 1, 1, 1);
+            m_ambient=ccc4f(1, 1, 1, 1);
+            m_z=0;
+        }
+        virtual~ClightSprite(){
+            
+        }
+        bool init(const string&texFileName){
+            this->CCSprite::initWithFile(texFileName.c_str());
+            return true;
+        }
+        ccColor4F getDiffuse()const{return m_diffuse;}
+        void setDiffuse(const ccColor4F&diffuse){
+            m_diffuse=diffuse;
+            setColor(ccc3(m_diffuse.r*255,m_diffuse.g*255,m_diffuse.b*255));
+        }
+        ccColor4F getAmbient()const{return m_ambient;}
+        void setAmbient(const ccColor4F&ambient){m_ambient=ambient;}
+        float getZ()const{return m_z;}
+        void setZ(float z){m_z=z;}
+    protected:
+        ccColor4F m_diffuse;
+        ccColor4F m_ambient;
+        float m_z;//z value of the light
+    };
+    class Cmaterial{
+    public:
+        ccColor4F m_diffuse;
+        ccColor4F m_ambient;
+        Cmaterial(){
+            m_diffuse=ccc4f(1, 1, 1, 1);
+            m_ambient=ccc4f(0.5, 0.5, 0.5, 1);
+        }
+    };
+    
 
-
+}
 class CnormalMappedSprite : public CCSprite
 //ref to http://www.alkemi-games.com/a-game-of-tricks/
 {
@@ -68,7 +71,7 @@ public:
 	bool init(const string&texFileName,const string&normalMapFileName) ;
 	virtual void draw() ;
 
-    void setLightSprite(ClightSprite*lightSprite){
+    void setLightSprite(normalMapped::ClightSprite*lightSprite){
         assert(lightSprite);
         if(m_lightSprite==NULL){
             m_lightSprite=lightSprite;
@@ -80,14 +83,14 @@ public:
         }
         
     }
-    ClightSprite* getLightSprite(){return m_lightSprite;}
+    normalMapped::ClightSprite* getLightSprite(){return m_lightSprite;}
     void setKBump(float value){m_kBump=value;}
     float getKBump()const{return m_kBump;}
 protected:
     CGLProgramWithUnifos*m_program;
     CCTexture2D*m_normalMap;
-    ClightSprite*m_lightSprite;
-    Cmaterial m_material;
+    normalMapped::ClightSprite*m_lightSprite;
+    normalMapped::Cmaterial m_material;
     float m_kBump;
 
 };
