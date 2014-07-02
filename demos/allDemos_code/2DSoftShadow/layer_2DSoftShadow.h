@@ -26,6 +26,7 @@ public:
     Clayer_2DSoftShadow(){
         m_2DSoftShadowNode=NULL;
         m_light=NULL;
+        m_backGround=NULL;
     }
     virtual ~Clayer_2DSoftShadow(){
     }
@@ -42,6 +43,7 @@ protected:
 protected:
     C2DSoftShadowNode*m_2DSoftShadowNode;
     ClightNode*m_light;
+    CCSprite*m_backGround;
 };
 
 #endif

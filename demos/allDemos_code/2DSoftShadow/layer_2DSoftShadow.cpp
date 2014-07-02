@@ -10,6 +10,13 @@ bool Clayer_2DSoftShadow::init()
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
     
+    m_backGround=CCSprite::create();
+    m_backGround->initWithFile("demoRes/tile.png");
+    m_backGround->setTextureRect(CCRect(0,0,winSize.width,winSize.height));
+    ccTexParams texParams={GL_LINEAR,GL_LINEAR,GL_REPEAT,GL_REPEAT};
+    m_backGround->getTexture()->setTexParameters(&texParams);
+    addChild(m_backGround);
+    m_backGround->setPosition(ccp(winSize.width/2,winSize.height/2));
     
     m_light=new ClightNode();
     m_light->autorelease();
@@ -21,7 +28,7 @@ bool Clayer_2DSoftShadow::init()
     m_2DSoftShadowNode->autorelease();
     m_2DSoftShadowNode->init(makeRegularPolygon(140,8));
     m_2DSoftShadowNode->setLight(m_light);
-    addChild(m_2DSoftShadowNode);
+    addChild(m_2DSoftShadowNode,10);
     m_2DSoftShadowNode->setPosition(ccp(winSize.width/2,winSize.height/2));
                                                  
     //back button
@@ -37,7 +44,7 @@ bool Clayer_2DSoftShadow::init()
         this->addChild(controlButton);
         m_controlButton_back=controlButton;
     }
-    //title
+  /*  //title
     {
         {
             CCLabelTTF* pLabel = CCLabelTTF::create("2D Soft Shadow", "Arial", 45);
@@ -58,7 +65,7 @@ bool Clayer_2DSoftShadow::init()
 
         
         
-    }
+    }*/
 	
     return true;
 }

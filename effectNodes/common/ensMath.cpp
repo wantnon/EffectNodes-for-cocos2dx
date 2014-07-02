@@ -222,13 +222,24 @@ float calculateTriangleArea(const CCPoint&v0,const CCPoint&v1,const CCPoint&v2)
     float Area=0.5*fabsf(x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2);
     return Area;
 }
-vector<CCPoint> calculateTangentPoints(const CCPoint &center, float r,const CCPoint &point)
+vector<CCPoint> calculateTangentPointsOfPointToCircle(const CCPoint &center, float r,const CCPoint &point)
 //the first return point is left tangent point
 //the second return point is right tangent point
+//if point in circle, then return empty vector
 {
     CCPoint tangentPointLeft,tangentPointRight;
     CCPoint PC=center-point;
     float disPC=ccpLength(PC);
+    if(disPC<r){//point in circle
+        vector<CCPoint> rs;
+        return rs;
+    }
+    if(disPC==r){//point on circle
+        vector<CCPoint> rs;
+        rs.push_back(point);
+        rs.push_back(point);
+        return rs;
+    }
     if(disPC==0){
         vector<CCPoint> rs;
         rs.push_back(tangentPointLeft);

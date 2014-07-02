@@ -14,6 +14,7 @@ using namespace std;
 #include "cocos2d.h"
 using namespace cocos2d;
 #include "common/ensDefine.h"
+#include "common/ensSimpleClasses.h"
 namespace_ens_begin
 
 float random01();
@@ -34,8 +35,7 @@ vector<CCPoint> makeTriangleSmaller(CCPoint v0,CCPoint v1,CCPoint v2,float d);
 CCPoint getRightNormal(const CCPoint&dir);
 CCPoint getRightVector(const CCPoint&p1,const CCPoint&p2);
 float calculateTriangleArea(const CCPoint&v0,const CCPoint&v1,const CCPoint&v2);
-vector<CCPoint> calculateTangentPoints(const CCPoint &center, float r,const CCPoint &point);
-
+vector<CCPoint> calculateTangentPointsOfPointToCircle(const CCPoint &center, float r,const CCPoint &point);
 namespace_ens_end
 
 #endif /* defined(__HelloCpp__ensMath__) */
