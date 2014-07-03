@@ -8,7 +8,7 @@
 
 #ifndef HelloWorld_ens2DSoftShadowNode_h
 #define HelloWorld_ens2DSoftShadowNode_h
-/*
+
 #include <vector>
 #include<iostream>
 using namespace std;
@@ -36,24 +36,35 @@ public:
     void draw(){
         glLineWidth(1);
         ccDrawColor4F(1, 1, 1, 1);
-        ccDrawCircle(CCPoint(0,0), m_r, 360, 10, false, 1, 1);
+        ccDrawCircle(CCPoint(0,0), m_r, 360, 30, false, 1, 1);
     }
 protected:
     float m_r;
+};
+class CPointType{
+public:
+    bool m_isLeftUmbraPoint;
+    bool m_isRightUmbraPoint;
+    bool m_isLeftPenumbraPoint;
+    bool m_isRightPenumbraPoint;
+    CPointType(){
+         m_isLeftUmbraPoint=false;
+         m_isRightUmbraPoint=false;
+         m_isLeftPenumbraPoint=false;
+         m_isRightPenumbraPoint=false;
+    }
+};
+
+enum eSideType{
+    eLeftSide=0,
+    eRightSide,
+    eOn,
 };
 class C2DSoftShadowNode:public CCSprite
 {
 public:
     C2DSoftShadowNode(){
         m_light=NULL;
-        m_isLeftUmbraCut=false;
-        m_isRightUmbraCut=false;
-        m_isLeftPenumbraCut=false;
-        m_isRightPenumbraCut=false;
-        m_leftTangentPointOfLeftShadowPoint=CCPoint(INFINITY,INFINITY);
-        m_leftTangentPointOfRightShadowPoint=CCPoint(INFINITY,INFINITY);
-        m_rightTangentPointOfLeftShadowPoint=CCPoint(INFINITY,INFINITY);
-        m_rightTangentPointOfRightShadowPoint=CCPoint(INFINITY,INFINITY);
         m_mesh=NULL;
         m_finTexture=NULL;
         m_indexVBO=NULL;
@@ -91,277 +102,123 @@ public:
     }
     void updateShadow(){
         if(m_light==NULL)return;
-        m_backLightEdgeList.clear();
-        m_facingLightEdgeList.clear();
         CCPoint lightPosLocal=getLightPosLocal();
+        m_pointTypeList.clear();
         int nPoint=(int)m_polygon.m_pointList.size();
-        vector<bool> isBackLightEdgeList;
+        m_pointTypeList.resize(nPoint);
         for(int i=0;i<nPoint;i++){
-            CCPoint p=m_polygon.m_pointList[i];
-            CCPoint pn=m_polygon.m_pointList[(i+1)%nPoint];
-            CCPoint rightVec=getRightVector(p,pn);
-            vector<CCPoint> leftAndRightTangentPointOfP=calculateTangentPointsOfPointToCircle(lightPosLocal, m_light->getR(), p);
-            if(leftAndRightTangentPointOfP.empty())return;//if any vertex is in point circle, return
-            CCPoint leftTangentPointOfP=leftAndRightTangentPointOfP[0];
-            CCPoint rightTangentPointOfP=leftAndRightTangentPointOfP[1];
-            CCPoint lightToLeftTangentPoint=p-leftTangentPointOfP;
-            CCPoint lightToRightTangentPoint=p-rightTangentPointOfP;
-            
-            float dotProduct1=ccpDot(rightVec, lightToLeftTangentPoint);
-            float dotProduct2=ccpDot(rightVec, lightToRightTangentPoint);
-            
-            if(dotProduct1<=0||dotProduct2<=0){//edge(p,pn) is all or partly facing light
-                isBackLightEdgeList.push_back(false);
-            }else{//edge(p,pn) is all back light
-                isBackLightEdgeList.push_back(true);
-            }
-        }//got isBackLightEdgeList
-        //find a edge which is facing the light
-        int facingLightEdgeIndex=-1;
-        for(int i=0;i<nPoint;i++){
-            if(isBackLightEdgeList[i]==false){//facing light
-                facingLightEdgeIndex=i;
-                break;
-            }
-        }//got facingLightEdgeIndex
-        if(facingLightEdgeIndex==-1)return;//if light is in this shape, facingLightEdgeIndex will be -1
-        //start search from facingLightEdgeIndex, find the first back-light edge
-        int firstBackLightEdgeIndex=-1;
-        for(int ioffset=0;ioffset<nPoint;ioffset++){
-            int index=facingLightEdgeIndex+ioffset+1;//start from facingLightEdgeIndex's next point
-            index=index%nPoint;
-            if(isBackLightEdgeList[index]==true){//back light
-                firstBackLightEdgeIndex=index;
-                break;
-            }
-        }//got firstBackLightEdgeIndex
-        if(firstBackLightEdgeIndex==-1){//all edges are facing light edge
-            int nPoint=(int)m_polygon.m_pointList.size();
-            for(int i=0;i<nPoint;i++){
-                CCPoint p=m_polygon.m_pointList[i];
-                CCPoint pn=m_polygon.m_pointList[(i+1)%nPoint];
-                Cedge edge;
-                edge.m_start=p;
-                edge.m_end=pn;
-                m_facingLightEdgeList.push_back(edge);
-            }
-            return;
-        }
-        //make m_backLightEdgeList and m_facingLightEdgeList
-        for(int ioffset=0;ioffset<nPoint;ioffset++){
-            int index=firstBackLightEdgeIndex+ioffset;
-            index=index%nPoint;
-            CCPoint p=m_polygon.m_pointList[index];
-            CCPoint pn=m_polygon.m_pointList[(index+1)%nPoint];
-            Cedge edge;
-            edge.m_start=p;
-            edge.m_end=pn;
-            if(isBackLightEdgeList[index]==true){//back light
-                m_backLightEdgeList.push_back(edge);
-            }else{//facing light
-                m_facingLightEdgeList.push_back(edge);
-            }
-        }//got m_backLightEdgeList and m_facingLightEdgeList
-        //calculate:
-        // m_leftTangentOfLeftShadowPoint
-        // m_leftTangentOfRightShadowPoint
-        // m_rightTangentOfLeftShadowPoint
-        // m_rightTangentOfRightShadowPoint
-        if((int)m_backLightEdgeList.size()!=0)
-        {
-            CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-            CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-            vector<CCPoint> leftAndRightTangentOfLeftShadowPoint=calculateTangentPointsOfPointToCircle(lightPosLocal, m_light->getR(), leftShadowPoint);
-            if(leftAndRightTangentOfLeftShadowPoint.empty()==false){
-                m_leftTangentPointOfLeftShadowPoint=leftAndRightTangentOfLeftShadowPoint[0];
-                m_rightTangentPointOfLeftShadowPoint=leftAndRightTangentOfLeftShadowPoint[1];
-            }else{
-                m_leftTangentPointOfLeftShadowPoint=CCPoint(INFINITY,INFINITY);
-                m_rightTangentPointOfLeftShadowPoint=CCPoint(INFINITY,INFINITY);
-            }
-            vector<CCPoint> leftAndRightTangentOfRightShadowPoint=calculateTangentPointsOfPointToCircle(lightPosLocal, m_light->getR(), rightShadowPoint);
-            if(leftAndRightTangentOfRightShadowPoint.empty()==false){
-                m_leftTangentPointOfRightShadowPoint=leftAndRightTangentOfRightShadowPoint[0];
-                m_rightTangentPointOfRightShadowPoint=leftAndRightTangentOfRightShadowPoint[1];
-            }else{
-                m_leftTangentPointOfRightShadowPoint=CCPoint(INFINITY,INFINITY);
-                m_rightTangentPointOfRightShadowPoint=CCPoint(INFINITY,INFINITY);
-            }
-            
-        }else{
-            assert(false);
-        }
-        //calculate:
-        // m_isLeftUmbraCut
-        // m_isRightUnbraCut
-        // m_isLeftPenumbraCut
-        // m_isRightPenumbraCut
-        if((int)m_backLightEdgeList.size()!=0)
-        {
-            CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-            CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-            
-            if(isPointEqual(m_leftTangentPointOfLeftShadowPoint, CCPoint(INFINITY,INFINITY), 0)==false){
-                //left penumbra
-                CCPoint leftShadowPointToLeftTangentPoint=m_leftTangentPointOfLeftShadowPoint-leftShadowPoint;
-                if((int)m_facingLightEdgeList.size()!=0){
-                    Cedge nextEdgeOfLeftShadowPoint=m_facingLightEdgeList[0];
-                    Cedge foeEdgeOfLeftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1];
-                    CCPoint leftShadowPointToNext=nextEdgeOfLeftShadowPoint.m_end-nextEdgeOfLeftShadowPoint.m_start;
-                    CCPoint leftShadowPointToFoe=foeEdgeOfLeftShadowPoint.m_start-foeEdgeOfLeftShadowPoint.m_end;
-                    //see if leftShadowPointToLeftTangentPoint in the middle of leftShadowPointToNext and leftShadowPointToFoe
-                    //namely see if cross(leftShadowPointToNext,leftShadowPointToLeftTangentPoint)>0 and cross(leftShadowPointToLeftTangentPoint,leftShadowPointToFoe)>0
-                    if(ccpCross(leftShadowPointToNext,leftShadowPointToLeftTangentPoint)>0
-                       &&ccpCross(leftShadowPointToLeftTangentPoint,leftShadowPointToFoe)>0){//left penumbra is cut by nextEdgeOfLeftShadowPoint
-                        m_isLeftPenumbraCut=true;
-                    }else{
-                        m_isLeftPenumbraCut=false;
-                    }
-                }
-                
-                
-            }
-            if(isPointEqual(m_leftTangentPointOfRightShadowPoint, CCPoint(INFINITY,INFINITY), 0)==false){
-                //right umbra
-                CCPoint leftTangentPointToRightShadowPoint=rightShadowPoint-m_leftTangentPointOfRightShadowPoint;
-                if((int)m_facingLightEdgeList.size()!=0){
-                    Cedge nextEdgeOfRightShadowPoint=m_backLightEdgeList[0];
-                    Cedge foeEdgeOfRightShadowPoint=m_facingLightEdgeList[(int)m_facingLightEdgeList.size()-1];
-                    CCPoint rightShadowPointToNext=nextEdgeOfRightShadowPoint.m_end-nextEdgeOfRightShadowPoint.m_start;
-                    CCPoint rightShadowPointToFoe=foeEdgeOfRightShadowPoint.m_start-foeEdgeOfRightShadowPoint.m_end;
-                    //see if leftTangentPointToRightShadowPoint in the middle of rightShadowPointToNext and rightShadowPointToFoe
-                    //namely see if cross(rightShadowPointToNext,leftTangentPointToRightShadowPoint)>0 and cross(leftTangentPointToRightShadowPoint,rightShadowPointToFoe)>0
-                    if(ccpCross(rightShadowPointToNext,leftTangentPointToRightShadowPoint)>0
-                       &&ccpCross(leftTangentPointToRightShadowPoint,rightShadowPointToFoe)>0){//right umbra is cut by nextEdgeOfRightShadowPoint
-                        m_isRightUmbraCut=true;
-                    }else{
-                        m_isRightUmbraCut=false;
-                    }
-                }
-            }
-            
-            if(isPointEqual(m_rightTangentPointOfLeftShadowPoint, CCPoint(INFINITY,INFINITY), 0)==false){
-                //left umbra
-                CCPoint rightTangentPointToLeftShadowPoint=leftShadowPoint-m_rightTangentPointOfLeftShadowPoint;
-                if((int)m_facingLightEdgeList.size()!=0){
-                    Cedge nextEdgeOfLeftShadowPoint=m_facingLightEdgeList[0];
-                    Cedge foeEdgeOfLeftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1];
-                    CCPoint leftShadowPointToNext=nextEdgeOfLeftShadowPoint.m_end-nextEdgeOfLeftShadowPoint.m_start;
-                    CCPoint leftShadowPointToFoe=foeEdgeOfLeftShadowPoint.m_start-foeEdgeOfLeftShadowPoint.m_end;
-                    //see if rightTangentPointToLeftShadowPoint in the middle of leftShadowPointToNext and leftShadowPointToFoe
-                    //namely see if cross(leftShadowPointToNext,rightTangentPointToLeftShadowPoint)>0 and cross(rightTangentPointToLeftShadowPoint,leftShadowPointToFoe)>0
-                    if(ccpCross(leftShadowPointToNext,rightTangentPointToLeftShadowPoint)>0
-                       &&ccpCross(rightTangentPointToLeftShadowPoint,leftShadowPointToFoe)>0){//left umbra is cut by foeEdgeOfLeftShadowPoint
-                        m_isLeftUmbraCut=true;
-                    }else{
-                        m_isLeftUmbraCut=false;
-                    }
-                }
-            }
-            
-            if(isPointEqual(m_rightTangentPointOfRightShadowPoint, CCPoint(INFINITY,INFINITY), 0)==false){
-                //right penumbra
-                CCPoint rightShadowPointToRightTangentPoint=m_rightTangentPointOfRightShadowPoint-rightShadowPoint;
-                if((int)m_facingLightEdgeList.size()!=0){
-                    Cedge nextEdgeOfRightShadowPoint=m_backLightEdgeList[0];
-                    Cedge foeEdgeOfRightShadowPoint=m_facingLightEdgeList[(int)m_facingLightEdgeList.size()-1];
-                    CCPoint rightShadowPointToNext=nextEdgeOfRightShadowPoint.m_end-nextEdgeOfRightShadowPoint.m_start;
-                    CCPoint rightShadowPointToFoe=foeEdgeOfRightShadowPoint.m_start-foeEdgeOfRightShadowPoint.m_end;
-                    //see if rightShadowPointToRightTangentPoint in the middle of rightShadowPointToNext and rightShadowPointToFoe
-                    //namely see if cross(rightShadowPointToNext,rightShadowPointToRightTangentPoint)>0 and cross(rightShadowPointToRightTangentPoint,rightShadowPointToFoe)>0
-                    if(ccpCross(rightShadowPointToNext,rightShadowPointToRightTangentPoint)>0
-                       &&ccpCross(rightShadowPointToRightTangentPoint,rightShadowPointToFoe)>0){//right penumbra is cut by foeEdgeOfRightShadowPoint
-                        m_isRightPenumbraCut=true;
-                    }else{
-                        m_isRightPenumbraCut=false;
-                    }
-                }
-            }
-          //  cout<<"isXXXXCut: "<<m_isLeftPenumbraCut<<" "<<m_isRightUmbraCut<<" "<<m_isLeftUmbraCut<<" "<<m_isRightPenumbraCut<<endl;
-            
-        }
-        //calculate:
-        // m_leftUmbraLine;
-        // m_rightUmbraLine;
-        // m_leftPenumbraLine;
-        // m_rightPenumbraLine;
-        {
-            // right umbra
-            if((int)m_backLightEdgeList.size()!=0)
-            {
-                if(m_isRightUmbraCut){
-                    if((int)m_facingLightEdgeList.size()!=0){
-                        Cedge nextEdgeOfRightShadowPoint=m_backLightEdgeList[0];
-                        m_rightUmbraLine.m_start=nextEdgeOfRightShadowPoint.m_start;
-                        m_rightUmbraLine.m_end=nextEdgeOfRightShadowPoint.m_start+ccpMult(ccpNormalize(nextEdgeOfRightShadowPoint.m_end-nextEdgeOfRightShadowPoint.m_start),m_shadowLength);
-                    }
-                    
+            const CCPoint&P=m_polygon.m_pointList[i];
+            CPointType&pointType=m_pointTypeList[i];
+            vector<CCPoint> LRT=calculateTangentPointsOfPointToCircle(lightPosLocal, m_light->getR(), P);
+            if(LRT.empty())return;//P in light circle, return
+            CCPoint LT=LRT[0];
+            CCPoint RT=LRT[1];
+            CCPoint PLT=LT-P;
+            CCPoint PRT=RT-P;
+            //for each point, determine it is on which side of PLT and PRT
+            vector<eSideType> sideTypeList_PLT;
+            vector<eSideType> sideTypeList_PRT;
+            for(int j=0;j<nPoint;j++){
+                const CCPoint&p=m_polygon.m_pointList[j];
+                CCPoint Pp=p-P;
+                if(j==i){
+                    sideTypeList_PLT.push_back(eOn);
+                    sideTypeList_PRT.push_back(eOn);
                 }else{
-                    CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-                    m_rightUmbraLine.m_start=rightShadowPoint;
-                    m_rightUmbraLine.m_end=rightShadowPoint+ccpMult(ccpNormalize(rightShadowPoint-m_leftTangentPointOfRightShadowPoint), m_shadowLength);
-                }
-                
-            }
-            // right penumbra
-            if((int)m_backLightEdgeList.size()!=0)
-            {
-                if(m_isRightPenumbraCut){
-                    if((int)m_facingLightEdgeList.size()!=0){
-                        Cedge foeEdgeOfRightShadowPoint=m_facingLightEdgeList[(int)m_facingLightEdgeList.size()-1];
-                        m_rightPenumbraLine.m_start=foeEdgeOfRightShadowPoint.m_end;
-                        m_rightPenumbraLine.m_end=foeEdgeOfRightShadowPoint.m_end+ccpMult(ccpNormalize(foeEdgeOfRightShadowPoint.m_end-foeEdgeOfRightShadowPoint.m_start), m_shadowLength);
+                    //sideTypeList_PLT
+                    {
+                        float cross=ccpCross(PLT, Pp);
+                        if(cross==0){
+                            sideTypeList_PLT.push_back(eOn);
+                        }else if(cross>0){
+                            sideTypeList_PLT.push_back(eLeftSide);
+                        }else{
+                            sideTypeList_PLT.push_back(eRightSide);
+                        }
                     }
-                }else{
-                    CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-                    m_rightPenumbraLine.m_start=rightShadowPoint;
-                    m_rightPenumbraLine.m_end=rightShadowPoint+ccpMult(ccpNormalize(rightShadowPoint-m_rightTangentPointOfRightShadowPoint), m_shadowLength);
-                
-                }
-            }
-            // left umbra
-            if((int)m_backLightEdgeList.size()!=0)
-            {
-                if(m_isLeftUmbraCut){
-                    if((int)m_facingLightEdgeList.size()!=0){
-                        Cedge foeEdgeOfLeftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1];
-                        m_leftUmbraLine.m_start=foeEdgeOfLeftShadowPoint.m_end;
-                        m_leftUmbraLine.m_end=foeEdgeOfLeftShadowPoint.m_end+ccpMult(ccpNormalize(foeEdgeOfLeftShadowPoint.m_start-foeEdgeOfLeftShadowPoint.m_end), m_shadowLength);
+                    //sideTypeList_PRT
+                    {
+                        float cross=ccpCross(PRT, Pp);
+                        if(cross==0){
+                            sideTypeList_PRT.push_back(eOn);
+                        }else if(cross>0){
+                            sideTypeList_PRT.push_back(eLeftSide);
+                        }else{
+                            sideTypeList_PRT.push_back(eRightSide);
+                        }
                         
                     }
-                }else{
-                    CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-                    m_leftUmbraLine.m_start=leftShadowPoint;
-                    m_leftUmbraLine.m_end=leftShadowPoint+ccpMult(ccpNormalize(leftShadowPoint-m_rightTangentPointOfLeftShadowPoint), m_shadowLength);
-                }
-                
-            }
-            // left penumbra
-            if((int)m_backLightEdgeList.size()!=0)
-            {
-                if(m_isLeftPenumbraCut){
-                    if((int)m_facingLightEdgeList.size()!=0){
-                        Cedge nextEdgeOfLeftShadowPoint=m_facingLightEdgeList[0];
-                        m_leftPenumbraLine.m_start=nextEdgeOfLeftShadowPoint.m_start;
-                        m_leftPenumbraLine.m_end=nextEdgeOfLeftShadowPoint.m_start+ccpMult(ccpNormalize(nextEdgeOfLeftShadowPoint.m_start-nextEdgeOfLeftShadowPoint.m_end), m_shadowLength);
-                    }
-                }else{
-                    CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-                    m_leftPenumbraLine.m_start=leftShadowPoint;
-                    m_leftPenumbraLine.m_end=leftShadowPoint+ccpMult(ccpNormalize(leftShadowPoint-m_leftTangentPointOfLeftShadowPoint), m_shadowLength);
                     
                 }
-                
+            }//got sideTypeList_PLT and sideTypeList_PRT
+            
+            
+            //see whether P is left umbra point
+            //namely see whether all points are on the left side of (or on) PRT
+            {
+                bool allOnLeftOrOn=true;
+                for(int j=0;j<nPoint;j++){
+                    eSideType sideType=sideTypeList_PRT[j];
+                    if(sideType==eLeftSide||sideType==eOn){
+                    }else{
+                        allOnLeftOrOn=false;
+                        break;
+                    }
+                }//got allOnLeftOrOn
+                if(allOnLeftOrOn)pointType.m_isLeftUmbraPoint=true;
+            }
+            //see whether P is right umbra point
+            //namely see whether all points are on the right side of (or on) PLT
+            {
+                bool allOnRightOrOn=true;
+                for(int j=0;j<nPoint;j++){
+                    eSideType sideType=sideTypeList_PLT[j];
+                    if(sideType==eRightSide||sideType==eOn){
+                    }else{
+                        allOnRightOrOn=false;
+                        break;
+                    }
+                }//got allOnRightOrOn
+                if(allOnRightOrOn)pointType.m_isRightUmbraPoint=true;
+            }
+            //see whether P is left penumbra point
+            //namely see whether all points are on the left side of (or on) PLT
+            {
+                bool allOnLeftOrOn=true;
+                for(int j=0;j<nPoint;j++){
+                    eSideType sideType=sideTypeList_PLT[j];
+                    if(sideType==eLeftSide||sideType==eOn){
+                    }else{
+                        allOnLeftOrOn=false;
+                        break;
+                    }
+                }//got allOnLeftOrOn
+                if(allOnLeftOrOn)pointType.m_isLeftPenumbraPoint=true;
+            }
+            //see whether P is right penumbra point
+            //namely see whether all points are on the right side of (or on) PRT
+            {
+                bool allOnRightOrOn=true;
+                for(int j=0;j<nPoint;j++){
+                    eSideType sideType=sideTypeList_PRT[j];
+                    if(sideType==eRightSide||sideType==eOn){
+                    }else{
+                        allOnRightOrOn=false;
+                        break;
+                    }
+                }//got allOnRightOrOn
+                if(allOnRightOrOn)pointType.m_isRightPenumbraPoint=true;
             }
 
-        
         }
+        
+        
         
     
     
     }
     void draw(){
-        //----draw mesh
+     /*   //----draw mesh
         {
             //----change shader
             ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
@@ -394,118 +251,46 @@ public:
             CindexVBO::enableAttribArray_texCoord(isAttribTexCoordOn);
             
 
-        }
+        }*/
         //----draw wire
-        //draw shape
         glLineWidth(1);
         ccDrawColor4F(1, 1, 1, 1);
         ccDrawPoly(&m_polygon.m_pointList.front(), (int)m_polygon.m_pointList.size(), true);
+        //
         //light pos local
         ccPointSize(4);
-        ccDrawColor4F(0, 0, 1, 1);
+        ccDrawColor4F(1, 1, 1, 1);
         ccDrawPoint(getLightPosLocal());
-        //draw m_backLightEdgeList
-        glLineWidth(4);
-        ccDrawColor4F(0, 0, 1, 1);
-        int nBackLightEdge=(int)m_backLightEdgeList.size();
-        for(int i=0;i<nBackLightEdge;i++){
-            const Cedge&edge=m_backLightEdgeList[i];
-            ccDrawLine(edge.m_start, edge.m_end);
-        }
-        //draw m_facingLightEdgeList
-        glLineWidth(4);
-        ccDrawColor4F(1, 0, 0, 1);
-        int nFacingLightEdge=(int)m_facingLightEdgeList.size();
-        for(int i=0;i<nFacingLightEdge;i++){
-            const Cedge&edge=m_facingLightEdgeList[i];
-            ccDrawLine(edge.m_start, edge.m_end);
-        }
 
-        //draw shadow line
-        {
-            
-            ccDrawColor4F(0, 0, 1, 1);
-            CCPoint lightPosLocal=getLightPosLocal();
-            int nBackLightEdge=(int)m_backLightEdgeList.size();
-            if(nBackLightEdge!=0){
-                //light to shadow point
+        //
+        int nPointType=(int)m_pointTypeList.size();
+        ccPointSize(5);
+        
+        for(int i=0;i<nPointType;i++){
+            const CCPoint&P=m_polygon.m_pointList[i];
+            CPointType pointType=m_pointTypeList[i];
+            if(pointType.m_isLeftPenumbraPoint){
+                ccDrawColor4F(1, 0, 0, 1);
                 glLineWidth(1);
-                CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-                CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-                ccDrawLine(lightPosLocal, rightShadowPoint);
-                ccDrawLine(lightPosLocal, leftShadowPoint);
-                //shadow point to infinite
+                ccDrawCircle(P, 5, 360, 10, false, 1, 1);
+            }
+            if(pointType.m_isRightPenumbraPoint){
+                ccDrawColor4F(0, 1, 0, 1);
                 glLineWidth(1);
-                CCPoint lightToRightShadowPoint=rightShadowPoint-lightPosLocal;
-                CCPoint lightToLeftShadowPoint=leftShadowPoint-lightPosLocal;
-                CCPoint shadowRightEnd=rightShadowPoint+ccpMult(lightToRightShadowPoint, 10000);
-                CCPoint shadowLeftEnd=leftShadowPoint+ccpMult(lightToLeftShadowPoint, 10000);
-                ccDrawLine(rightShadowPoint, shadowRightEnd);
-                ccDrawLine(leftShadowPoint, shadowLeftEnd);
-                
+                ccDrawCircle(P, 5, 360, 10, false, 1, 1);
+            }
+            if(pointType.m_isLeftUmbraPoint){
+                ccDrawColor4F(1, 0, 0, 1);
+                glLineWidth(5);
+                ccDrawPoint(P);
+            }
+            if(pointType.m_isRightUmbraPoint){
+                ccDrawColor4F(0, 1, 0, 1);
+                glLineWidth(5);
+                ccDrawPoint(P);
             }
             
-            
         }
-        //draw right umbra
-        if((int)m_backLightEdgeList.size()!=0)
-        {
-            
-            glLineWidth(1);
-            ccDrawColor4F(0, 0, 1, 1);
-            CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-            ccDrawLine(rightShadowPoint, m_leftTangentPointOfRightShadowPoint);
-            ccDrawLine(rightShadowPoint, rightShadowPoint+ccpMult(rightShadowPoint-m_leftTangentPointOfRightShadowPoint, m_shadowLength));
-            
-            glLineWidth(1);
-            ccDrawColor4F(0, 1, 0, 1);
-            ccDrawLine(m_rightUmbraLine.m_start, m_rightUmbraLine.m_end);
-            
-        }
-        //draw right penumbra
-        if((int)m_backLightEdgeList.size()!=0)
-        {
-            glLineWidth(1);
-            ccDrawColor4F(0, 0, 1, 1);
-            CCPoint rightShadowPoint=m_backLightEdgeList[0].m_start;
-            ccDrawLine(rightShadowPoint, m_rightTangentPointOfRightShadowPoint);
-            ccDrawLine(rightShadowPoint, rightShadowPoint+ccpMult(rightShadowPoint-m_rightTangentPointOfRightShadowPoint, m_shadowLength));
-            
-            glLineWidth(1);
-            ccDrawColor4F(0, 1, 0, 1);
-            ccDrawLine(m_rightPenumbraLine.m_start, m_rightPenumbraLine.m_end);
-            
-        }
-        //draw left umbra
-        if((int)m_backLightEdgeList.size()!=0)
-        {
-            glLineWidth(1);
-            ccDrawColor4F(0, 0, 1, 1);
-            CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-            ccDrawLine(leftShadowPoint, m_rightTangentPointOfLeftShadowPoint);
-            ccDrawLine(leftShadowPoint, leftShadowPoint+ccpMult(leftShadowPoint-m_rightTangentPointOfLeftShadowPoint, m_shadowLength));
-            
-            glLineWidth(1);
-            ccDrawColor4F(0, 1, 0, 1);
-            ccDrawLine(m_leftUmbraLine.m_start, m_leftUmbraLine.m_end);
-            
-        }
-        //draw left penumbra
-        if((int)m_backLightEdgeList.size()!=0)
-        {
-            glLineWidth(1);
-            ccDrawColor4F(0, 0, 1, 1);
-            CCPoint leftShadowPoint=m_backLightEdgeList[(int)m_backLightEdgeList.size()-1].m_end;
-            ccDrawLine(leftShadowPoint, m_leftTangentPointOfLeftShadowPoint);
-            ccDrawLine(leftShadowPoint, leftShadowPoint+ccpMult(leftShadowPoint-m_leftTangentPointOfLeftShadowPoint, m_shadowLength));
-            
-            glLineWidth(1);
-            ccDrawColor4F(0, 1, 0, 1);
-            ccDrawLine(m_leftPenumbraLine.m_start, m_leftPenumbraLine.m_end);
-            
-        }
-      
-       
     }
     void setLight(ClightNode*light){
         if(m_light==NULL){
@@ -525,7 +310,7 @@ protected:
         return lightPosLocal;
     }
     void updateMesh(){
-        m_mesh->clear();
+     /*   m_mesh->clear();
         //left penumbra area
         //v0
         Cv2 pos0=ccpTov2(m_leftPenumbraLine.m_start);
@@ -558,7 +343,7 @@ protected:
         m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
         
         
-        
+        */
         
         
         
@@ -575,21 +360,8 @@ protected:
     
 protected:
     Cpolygon m_polygon;
+    vector<CPointType> m_pointTypeList;
     ClightNode *m_light;
-    vector<Cedge> m_backLightEdgeList;
-    vector<Cedge> m_facingLightEdgeList;
-    CCPoint m_leftTangentPointOfLeftShadowPoint;
-    CCPoint m_leftTangentPointOfRightShadowPoint;
-    CCPoint m_rightTangentPointOfLeftShadowPoint;
-    CCPoint m_rightTangentPointOfRightShadowPoint;
-    bool m_isLeftUmbraCut;
-    bool m_isRightUmbraCut;
-    bool m_isLeftPenumbraCut;
-    bool m_isRightPenumbraCut;
-    Cedge m_leftUmbraLine;
-    Cedge m_rightUmbraLine;
-    Cedge m_leftPenumbraLine;
-    Cedge m_rightPenumbraLine;
     float m_shadowLength;
     CCTexture2D*m_finTexture;
     Cmesh*m_mesh;
@@ -597,7 +369,7 @@ protected:
 };
 
 
-*/
+
 
 namespace_ens_end
 #endif

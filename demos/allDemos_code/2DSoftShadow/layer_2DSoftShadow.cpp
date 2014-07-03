@@ -20,7 +20,7 @@ bool Clayer_2DSoftShadow::init()
     
     m_light=new ClightNode();
     m_light->autorelease();
-    m_light->init(40);
+    m_light->init(80);//(40);
     addChild(m_light);
     m_light->setPosition(ccp(winSize.width/2,winSize.height/2));
     
