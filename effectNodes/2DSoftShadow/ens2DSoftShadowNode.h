@@ -321,7 +321,9 @@ public:
         }
         
         
-
+        //calculate intersectPoint of m_leftUmbraLine and m_rightUmbraLine
+        m_intersectPoint=getIntersectPointOfTwoLine(m_leftUmbraLine[0], ccpNormalize(m_leftUmbraLine[1]-m_leftUmbraLine[0]),
+                                                    m_rightUmbraLine[0], ccpNormalize(m_rightUmbraLine[1]-m_rightUmbraLine[0]));
         
         
     
@@ -373,6 +375,15 @@ public:
         ccDrawColor4F(1, 1, 1, 1);
         ccDrawPoint(getLightPosLocal());
 
+        //m_intersectPoint
+        {
+            ccPointSize(4);
+            ccDrawColor4F(1, 1, 1, 1);
+            ccDrawPoint(m_intersectPoint);
+            
+            ccDrawLine(m_intersectPoint, m_leftUmbraLine[0]);
+            ccDrawLine(m_intersectPoint, m_rightUmbraLine[0]);
+        }
 
         //m_leftPenumbraLine
         {
@@ -577,7 +588,90 @@ protected:
             }
             
         }
+        //----umbra mesh
+        {
+            
+            if(isPointEqual(m_intersectPoint, CCPoint(INFINITY,INFINITY), 0)){//parallel
+                
+            }else{//not parallel
+                //see intersectP on which side of light
+                if(ccpDot(m_leftUmbraLine[1]-m_leftUmbraLine[0],m_leftUmbraLine[1]-m_intersectPoint)>0){//intersectP on back side of light
+                    vector<Cedge> edgeList;
+                    edgeList.push_back(Cedge(m_rightUmbraLine[1],m_rightUmbraLine[2]));
+                    int nPoint=(int)m_polygon.m_pointList.size();
+                    int index=(m_rightUmbraPointID+1)%nPoint;
+                    assert(m_rightUmbraPointID!=m_leftUmbraPointID);
+                    while(1){
+                        if(index==m_leftUmbraPointID)break;
+                        const CCPoint&point=m_polygon.m_pointList[index];
+                        Cedge edge;
+                        edge.m_start=point;
+                        edge.m_end=edge.m_start+ccpMult(ccpNormalize(point-m_intersectPoint), m_shadowLength);
+                        edgeList.push_back(edge);
+                        index=(index+1)%nPoint;
+                    }
+                    edgeList.push_back(Cedge(m_leftUmbraLine[1],m_leftUmbraLine[2]));
+                    //convert edgeList to mesh
+                    int nEdge=(int)edgeList.size();
+                    for(int i=0;i<nEdge-1;i++){
+                        const Cedge&edge=edgeList[i];
+                        const Cedge&edgen=edgeList[i+1];
+                        const CCPoint&p0=edge.m_start;//RU
+                        const CCPoint&p1=edge.m_end;//LU
+                        const CCPoint&p2=edgen.m_end;//LD
+                        const CCPoint&p3=edgen.m_start;//RD
+                        //v0
+                        Cv2 pos0=ccpTov2(p0);
+                        Cv2 texCoord0=Cv2(1,1);
+                        Cv4 color0=Cv4(1,1,0,1);
+                        //v1
+                        Cv2 pos1=ccpTov2(p1);
+                        Cv2 texCoord1=Cv2(1,1);
+                        Cv4 color1=Cv4(1,1,0,1);
+                        //v2
+                        Cv2 pos2=ccpTov2(p2);
+                        Cv2 texCoord2=Cv2(1,1);
+                        Cv4 color2=Cv4(1,1,0,1);
+                        //v3
+                        Cv2 pos3=ccpTov2(p3);
+                        Cv2 texCoord3=Cv2(1,1);
+                        Cv4 color3=Cv4(1,1,0,1);
+                        //add v0
+                        m_mesh->vlist.push_back(pos0);
+                        m_mesh->texCoordList.push_back(texCoord0);
+                        m_mesh->colorList.push_back(color0);
+                        int ID0=(int)m_mesh->vlist.size()-1;
+                        //add v1
+                        m_mesh->vlist.push_back(pos1);
+                        m_mesh->texCoordList.push_back(texCoord1);
+                        m_mesh->colorList.push_back(color1);
+                        int ID1=(int)m_mesh->vlist.size()-1;
+                        //add v2
+                        m_mesh->vlist.push_back(pos2);
+                        m_mesh->texCoordList.push_back(texCoord2);
+                        m_mesh->colorList.push_back(color2);
+                        int ID2=(int)m_mesh->vlist.size()-1;
+                        //add v3
+                        m_mesh->vlist.push_back(pos3);
+                        m_mesh->texCoordList.push_back(texCoord3);
+                        m_mesh->colorList.push_back(color3);
+                        int ID3=(int)m_mesh->vlist.size()-1;
+                        //add IDtri
+                        m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                        m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID2,ID3));
+                        
+                    }
 
+                }else{//intersectP on front side of light
+                    
+                
+                }
+            
+            }
+            
+            
+        }
+        
         
         
    
@@ -602,6 +696,7 @@ protected:
     int m_rightPenumbraPointID;
     int m_leftUmbraPointID;
     int m_rightUmbraPointID;
+    CCPoint m_intersectPoint;
     ClightNode *m_light;
     float m_shadowLength;
     CCTexture2D*m_finTexture;
