@@ -11,6 +11,9 @@
 		1514DA40163004980095A81C /* ipadhd in Resources */ = {isa = PBXBuildFile; fileRef = 1514DA3D163004980095A81C /* ipadhd */; };
 		1514DA41163004980095A81C /* iphone in Resources */ = {isa = PBXBuildFile; fileRef = 1514DA3E163004980095A81C /* iphone */; };
 		15C156BB1683155600D239F2 /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C156B81683151A00D239F2 /* libcocos2dx.a */; };
+		1888155519687ACB00212422 /* ens2DSoftShadowNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1888155319687ACB00212422 /* ens2DSoftShadowNode.cpp */; };
+		1888155B19687AE200212422 /* layer_2DSoftShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1888155719687AE200212422 /* layer_2DSoftShadow.cpp */; };
+		1888155C19687AE200212422 /* scene_2DSoftShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1888155919687AE200212422 /* scene_2DSoftShadow.cpp */; };
 		18FC1B251960774100B7695D /* layer_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B211960774100B7695D /* layer_tinyWingsTerrain.cpp */; };
 		18FC1B261960774100B7695D /* scene_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B231960774100B7695D /* scene_tinyWingsTerrain.cpp */; };
 		18FC1B2A1960775900B7695D /* ensTinyWingsTerrainNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B281960775900B7695D /* ensTinyWingsTerrainNode.cpp */; };
@@ -310,6 +313,12 @@
 		1514DA3E163004980095A81C /* iphone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphone; path = ../Resources/iphone; sourceTree = "<group>"; };
 		15A6969B1630E63B00D7A229 /* AppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppMacros.h; path = ../Classes/AppMacros.h; sourceTree = "<group>"; };
 		15C156B01683151A00D239F2 /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = ../../../../cocos2dx/proj.mac/cocos2dx.xcodeproj; sourceTree = "<group>"; };
+		1888155319687ACB00212422 /* ens2DSoftShadowNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ens2DSoftShadowNode.cpp; sourceTree = "<group>"; };
+		1888155419687ACB00212422 /* ens2DSoftShadowNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ens2DSoftShadowNode.h; sourceTree = "<group>"; };
+		1888155719687AE200212422 /* layer_2DSoftShadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer_2DSoftShadow.cpp; sourceTree = "<group>"; };
+		1888155819687AE200212422 /* layer_2DSoftShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer_2DSoftShadow.h; sourceTree = "<group>"; };
+		1888155919687AE200212422 /* scene_2DSoftShadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_2DSoftShadow.cpp; sourceTree = "<group>"; };
+		1888155A19687AE200212422 /* scene_2DSoftShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_2DSoftShadow.h; sourceTree = "<group>"; };
 		18FC1B211960774100B7695D /* layer_tinyWingsTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer_tinyWingsTerrain.cpp; sourceTree = "<group>"; };
 		18FC1B221960774100B7695D /* layer_tinyWingsTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer_tinyWingsTerrain.h; sourceTree = "<group>"; };
 		18FC1B231960774100B7695D /* scene_tinyWingsTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_tinyWingsTerrain.cpp; sourceTree = "<group>"; };
@@ -890,6 +899,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1888155219687ACB00212422 /* 2DSoftShadow */ = {
+			isa = PBXGroup;
+			children = (
+				1888155319687ACB00212422 /* ens2DSoftShadowNode.cpp */,
+				1888155419687ACB00212422 /* ens2DSoftShadowNode.h */,
+			);
+			path = 2DSoftShadow;
+			sourceTree = "<group>";
+		};
+		1888155619687AE200212422 /* 2DSoftShadow */ = {
+			isa = PBXGroup;
+			children = (
+				1888155719687AE200212422 /* layer_2DSoftShadow.cpp */,
+				1888155819687AE200212422 /* layer_2DSoftShadow.h */,
+				1888155919687AE200212422 /* scene_2DSoftShadow.cpp */,
+				1888155A19687AE200212422 /* scene_2DSoftShadow.h */,
+			);
+			path = 2DSoftShadow;
+			sourceTree = "<group>";
+		};
 		18FC1B201960774100B7695D /* tinyWingsTerrain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1011,6 +1040,7 @@
 				57963271195BFAB200F29877 /* shatter */,
 				57963274195BFAB200F29877 /* tail */,
 				18FC1B271960775900B7695D /* tinyWingsTerrain */,
+				1888155219687ACB00212422 /* 2DSoftShadow */,
 			);
 			name = effectNodes;
 			path = ../../../effectNodes;
@@ -1134,6 +1164,7 @@
 				579632B4195BFAC500F29877 /* shatter */,
 				579632B9195BFAC500F29877 /* tail */,
 				18FC1B201960774100B7695D /* tinyWingsTerrain */,
+				1888155619687AE200212422 /* 2DSoftShadow */,
 			);
 			name = allDemos_code;
 			path = ../../allDemos_code;
@@ -2177,6 +2208,7 @@
 				579635B7195C015800F29877 /* CCUtilMath.cpp in Sources */,
 				5796359B195C015800F29877 /* CCNodeLoaderLibrary.cpp in Sources */,
 				41CD6C6515BF7574005E6F29 /* AppController.mm in Sources */,
+				1888155519687ACB00212422 /* ens2DSoftShadowNode.cpp in Sources */,
 				579637D5195C0F3C00F29877 /* cpBB.c in Sources */,
 				57963723195C02CB00F29877 /* b2EdgeAndCircleContact.cpp in Sources */,
 				579637CC195C0F3C00F29877 /* cpGrooveJoint.c in Sources */,
@@ -2331,6 +2363,7 @@
 				5796327A195BFAB200F29877 /* ensFunc.cpp in Sources */,
 				57963717195C02CB00F29877 /* b2Timer.cpp in Sources */,
 				579635D0195C015800F29877 /* UILoadingBar.cpp in Sources */,
+				1888155C19687AE200212422 /* scene_2DSoftShadow.cpp in Sources */,
 				579637C8195C0F3C00F29877 /* cpConstraint.c in Sources */,
 				57963283195BFAB200F29877 /* ensRippleNode.cpp in Sources */,
 				5796361A195C015800F29877 /* BoneData.cpp in Sources */,
@@ -2349,6 +2382,7 @@
 				57963593195C015800F29877 /* CCLabelTTFLoader.cpp in Sources */,
 				579637D8195C0F3C00F29877 /* cpCollision.c in Sources */,
 				57963621195C015800F29877 /* SkeletonData.cpp in Sources */,
+				1888155B19687AE200212422 /* layer_2DSoftShadow.cpp in Sources */,
 				57963278195BFAB200F29877 /* ensColorAdjustNode.cpp in Sources */,
 				57963617195C015800F29877 /* Attachment.cpp in Sources */,
 				57963713195C02CB00F29877 /* b2Draw.cpp in Sources */,

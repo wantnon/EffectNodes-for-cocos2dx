@@ -23,4 +23,16 @@ Cpolygon makeRegularPolygon(int r,int n){
     polygon.m_pointList=pointList;
     return polygon;
 }
+Cpolygon makeRectPolygon(float rx,float ry){
+    CCPoint LU=CCPoint(-rx,ry);
+    CCPoint LD=CCPoint(-rx,-ry);
+    CCPoint RU=CCPoint(rx,ry);
+    CCPoint RD=CCPoint(rx,-ry);
+    Cpolygon polygon;
+    polygon.m_pointList.push_back(LU);
+    polygon.m_pointList.push_back(LD);
+    polygon.m_pointList.push_back(RD);
+    polygon.m_pointList.push_back(RU);
+    return polygon;
+}
 namespace_ens_end

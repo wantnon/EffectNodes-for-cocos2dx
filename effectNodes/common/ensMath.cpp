@@ -129,6 +129,9 @@ float PNDisPointToLine(const CCPoint&point,const CCPoint&start,const CCPoint&end
     CCPoint se=end-start;
     CCPoint se_e=ccpNormalize(se);
     float PNDis=ccpCross(sp, se_e);
+    //now if point at left side of line, PNDis will be negative
+    PNDis=-PNDis;
+    //now if point at left side of line, PNDis will be positive
     return PNDis;
     
     

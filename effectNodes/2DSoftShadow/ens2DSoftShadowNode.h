@@ -41,12 +41,17 @@ public:
     }
     float getR()const{return m_r;}
     void draw(){
-        glLineWidth(1);
-        ccDrawColor4F(1, 1, 1, 1);
-        ccDrawCircle(CCPoint(0,0), m_r, 360, 30, false, 1, 1);
+        if(m_isDrawDebug){
+            glLineWidth(2);
+            ccDrawColor4F(0, 0, 1, 1);
+            ccDrawCircle(CCPoint(0,0), m_r, 360, 30, false, 1, 1);
+        }
     }
+    void setIsDrawDebug(bool value){m_isDrawDebug=value;}
+    bool getIsDrawDebug()const{return m_isDrawDebug;}
 protected:
     float m_r;
+    bool m_isDrawDebug;
 };
 class CPointType{
 public:
@@ -85,6 +90,14 @@ public:
         m_rightPenumbraLine.resize(3);
         m_leftUmbraLine.resize(3);
         m_rightUmbraLine.resize(3);
+        m_leftPenumbraPointID=-1;
+        m_rightPenumbraPointID=-1;
+        m_leftUmbraPointID=-1;
+        m_rightUmbraPointID=-1;
+        m_lightStrength=1.0;
+        m_isDrawDebug=false;
+        m_isDrawNonDebug=true;
+        m_isUpdateShadowSucc=false;
     }
     virtual~C2DSoftShadowNode(){
         if(m_mesh)m_mesh->release();
@@ -95,6 +108,7 @@ public:
     }
     bool init(const Cpolygon&polygon){
         m_polygon=polygon;
+        //init this sprite
         this->CCSprite::init();
         //start update
         this->scheduleUpdate();
@@ -124,7 +138,7 @@ public:
             //get cocos2d-x build-in uniforms
             program->updateUniforms();
             //get my own uniforms
-            //...
+            program->attachUniform("u_lightStrength");
             //set program
             m_program=program;
             m_program->retain();
@@ -136,12 +150,18 @@ public:
         return true;
     }
     void update(float dt){
-        updateShadow();
+        m_isUpdateShadowSucc=updateShadow();
+        if(m_isUpdateShadowSucc==false){
+            makeFullWindowRectMesh();
+            submit(GL_DYNAMIC_DRAW);
+            return;
+        }
         updateMesh();
         submit(GL_DYNAMIC_DRAW);
     }
-    void updateShadow(){
-        if(m_light==NULL)return;
+
+    bool updateShadow(){
+        if(m_light==NULL)return false;
         CCPoint lightPosLocal=getLightPosLocal();
         m_pointTypeList.clear();
         int nPoint=(int)m_polygon.m_pointList.size();
@@ -150,7 +170,9 @@ public:
             const CCPoint&P=m_polygon.m_pointList[i];
             CPointType&pointType=m_pointTypeList[i];
             vector<CCPoint> LRT=calculateTangentPointsOfPointToCircle(lightPosLocal, m_light->getR(), P);
-            if(LRT.empty())return;//P in light circle, return
+            if(LRT.empty()){//P in light circle, return
+                return false;
+            }
             CCPoint LT=LRT[0];
             CCPoint RT=LRT[1];
             CCPoint PLT=LT-P;
@@ -291,6 +313,10 @@ public:
         //m_rightPenumbraPointID
         //m_leftUmbraPointID
         //m_rightUmbraPointID
+        m_leftPenumbraPointID=-1;
+        m_rightPenumbraPointID=-1;
+        m_leftUmbraPointID=-1;
+        m_rightUmbraPointID=-1;
         for(int i=0;i<nPointType;i++){
             const CCPoint&point=m_polygon.m_pointList[i];
             const CPointType&pointType=m_pointTypeList[i];
@@ -320,6 +346,10 @@ public:
             }
         }
         
+        if(m_leftPenumbraPointID==-1)return false;
+        if(m_rightPenumbraPointID==-1)return false;
+        if(m_leftUmbraPointID==-1)return false;
+        if(m_rightUmbraPointID==-1)return false;
         
         //calculate intersectPoint of m_leftUmbraLine and m_rightUmbraLine
         m_intersectPoint=getIntersectPointOfTwoLine(m_leftUmbraLine[0], ccpNormalize(m_leftUmbraLine[1]-m_leftUmbraLine[0]),
@@ -327,94 +357,113 @@ public:
         
         
     
-    
+        return true;
     }
     void draw(){
+     
         //----draw mesh
+        if(m_isDrawNonDebug)
         {
-            //----change shader
-            ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
-            ccGLEnable(m_eGLServerState);
-            //pass values for cocos2d-x build-in uniforms
-            this->setShaderProgram(m_program);
-            CGLProgramWithUnifos*program=(CGLProgramWithUnifos*)this->getShaderProgram();
-            program->use();
-            program->setUniformsForBuiltins();
-            //pass values for my own uniforms
-            //...
-            //enable attributes
-            bool isAttribPositionOn=CindexVBO::isEnabledAttribArray_position();
-            bool isAttribColorOn=CindexVBO::isEnabledAttribArray_color();
-            bool isAttribTexCoordOn=CindexVBO::isEnabledAttribArray_texCoord();
-            CindexVBO::enableAttribArray_position(true);
-            CindexVBO::enableAttribArray_color(true);
-            CindexVBO::enableAttribArray_texCoord(true);
-            //bind texture
-            ccGLBindTexture2D( m_finTexture->getName());
-            //draw m_indexVBO
-            m_indexVBO->setPointer_position();
-            m_indexVBO->setPointer_texCoord();
-            m_indexVBO->setPointer_color();
-            m_indexVBO->draw(GL_TRIANGLES);
-            //unbind texture
-            ccGLBindTexture2D(0);
-            //disable attributes
-            CindexVBO::enableAttribArray_position(isAttribPositionOn);
-            CindexVBO::enableAttribArray_color(isAttribColorOn);
-            CindexVBO::enableAttribArray_texCoord(isAttribTexCoordOn);
+           
+            {
+                //----change shader
+                ccBlendFunc blendFunc={GL_SRC_ALPHA,GL_ONE};//{GL_SRC_ALPHA, GL_DST_ALPHA};
+                this->setBlendFunc(blendFunc);
+                ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
+                ccGLEnable(m_eGLServerState);
+                //pass values for cocos2d-x build-in uniforms
+                this->setShaderProgram(m_program);
+                CGLProgramWithUnifos*program=(CGLProgramWithUnifos*)this->getShaderProgram();
+                program->use();
+                program->setUniformsForBuiltins();
+                //pass values for my own uniforms
+                program->passUnifoValue1f("u_lightStrength", m_lightStrength);
+                //enable attributes
+                bool isAttribPositionOn=CindexVBO::isEnabledAttribArray_position();
+                bool isAttribColorOn=CindexVBO::isEnabledAttribArray_color();
+                bool isAttribTexCoordOn=CindexVBO::isEnabledAttribArray_texCoord();
+                CindexVBO::enableAttribArray_position(true);
+                CindexVBO::enableAttribArray_color(true);
+                CindexVBO::enableAttribArray_texCoord(true);
+                //bind texture
+                ccGLBindTexture2D( m_finTexture->getName());
+                //draw m_indexVBO
+                m_indexVBO->setPointer_position();
+                m_indexVBO->setPointer_texCoord();
+                m_indexVBO->setPointer_color();
+                m_indexVBO->draw(GL_TRIANGLES);
+                
+                //unbind texture
+                ccGLBindTexture2D(0);
+                //disable attributes
+                CindexVBO::enableAttribArray_position(isAttribPositionOn);
+                CindexVBO::enableAttribArray_color(isAttribColorOn);
+                CindexVBO::enableAttribArray_texCoord(isAttribTexCoordOn);
             
-
-        }
-        //----draw wire
-        glLineWidth(1);
-        ccDrawColor4F(1, 1, 1, 1);
-        ccDrawPoly(&m_polygon.m_pointList.front(), (int)m_polygon.m_pointList.size(), true);
-        //
-        //light pos local
-        ccPointSize(4);
-        ccDrawColor4F(1, 1, 1, 1);
-        ccDrawPoint(getLightPosLocal());
-
-        //m_intersectPoint
-        {
-            ccPointSize(4);
-            ccDrawColor4F(1, 1, 1, 1);
-            ccDrawPoint(m_intersectPoint);
+            }
             
-            ccDrawLine(m_intersectPoint, m_leftUmbraLine[0]);
-            ccDrawLine(m_intersectPoint, m_rightUmbraLine[0]);
+        }
+        if(m_isDrawDebug){
+            if(m_isUpdateShadowSucc){
+                ccBlendFunc blendFunc={GL_ONE, GL_ONE_MINUS_SRC_ALPHA};
+                this->setBlendFunc(blendFunc);
+                ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
+                //----draw wire
+                glLineWidth(2);
+                ccDrawColor4F(0, 0, 1, 1);
+                ccDrawPoly(&m_polygon.m_pointList.front(), (int)m_polygon.m_pointList.size(), true);
+                //
+                //light pos local
+                ccPointSize(4);
+                ccDrawColor4F(0, 0, 1, 1);
+                ccDrawPoint(getLightPosLocal());
+                
+                //m_intersectPoint
+                if(isPointEqual(m_intersectPoint, CCPoint(INFINITY,INFINITY), 0)==false)
+                {
+                    ccPointSize(4);
+                    ccDrawColor4F(0, 0, 1, 1);
+                    ccDrawPoint(m_intersectPoint);
+                    
+                    ccDrawLine(m_intersectPoint, m_leftUmbraLine[0]);
+                    ccDrawLine(m_intersectPoint, m_rightUmbraLine[0]);
+                }
+                
+                //m_leftPenumbraLine
+                {
+                    ccDrawColor4F(1, 0, 0, 1);
+                    glLineWidth(1);
+                    ccDrawLine(m_leftPenumbraLine[0], m_leftPenumbraLine[2]);
+                    ccDrawCircle(m_leftPenumbraLine[1], 5, 360, 10, false, 1, 1);
+                }
+                //m_rightPenumbraLine
+                {
+                    ccDrawColor4F(0, 1, 0, 1);
+                    glLineWidth(1);
+                    ccDrawLine(m_rightPenumbraLine[0], m_rightPenumbraLine[2]);
+                    ccDrawCircle(m_rightPenumbraLine[1], 5, 360, 10, false, 1, 1);
+                }
+                //m_leftUmbraLine
+                {
+                    ccDrawColor4F(1, 0, 0, 1);
+                    glLineWidth(1);
+                    ccDrawLine(m_leftUmbraLine[0], m_leftUmbraLine[2]);
+                    ccPointSize(5);
+                    ccDrawPoint(m_leftUmbraLine[1]);
+                }
+                //m_rightUmbraLine
+                {
+                    ccDrawColor4F(0, 1, 0, 1);
+                    glLineWidth(1);
+                    ccDrawLine(m_rightUmbraLine[0], m_rightUmbraLine[2]);
+                    ccPointSize(5);
+                    ccDrawPoint(m_rightUmbraLine[1]);
+                }
+
+                
+            }
         }
 
-        //m_leftPenumbraLine
-        {
-            ccDrawColor4F(1, 0, 0, 1);
-            glLineWidth(1);
-            ccDrawLine(m_leftPenumbraLine[0], m_leftPenumbraLine[2]);
-            ccDrawCircle(m_leftPenumbraLine[1], 5, 360, 10, false, 1, 1);
-        }
-        //m_rightPenumbraLine
-        {
-            ccDrawColor4F(0, 1, 0, 1);
-            glLineWidth(1);
-            ccDrawLine(m_rightPenumbraLine[0], m_rightPenumbraLine[2]);
-            ccDrawCircle(m_rightPenumbraLine[1], 5, 360, 10, false, 1, 1);
-        }
-        //m_leftUmbraLine
-        {
-            ccDrawColor4F(1, 0, 0, 1);
-            glLineWidth(1);
-            ccDrawLine(m_leftUmbraLine[0], m_leftUmbraLine[2]);
-            ccPointSize(5);
-            ccDrawPoint(m_leftUmbraLine[1]);
-        }
-        //m_rightUmbraLine
-        {
-            ccDrawColor4F(0, 1, 0, 1);
-            glLineWidth(1);
-            ccDrawLine(m_rightUmbraLine[0], m_rightUmbraLine[2]);
-            ccPointSize(5);
-            ccDrawPoint(m_rightUmbraLine[1]);
-        }
         
     }
     void setLight(ClightNode*light){
@@ -428,16 +477,83 @@ public:
         }
     
     }
+    void setLightStrength(float value){m_lightStrength=value;}
+    float getLightStrength()const{return m_lightStrength;}
+    void setIsDrawDebug(bool value){
+        m_isDrawDebug=value;
+    }
+    bool getIsDrawDebug()const{return m_isDrawDebug;}
+    void setIsDrawNonDebug(bool value){
+        m_isDrawNonDebug=value;
+    }
+    bool getIsDrawNonDebug()const{return m_isDrawNonDebug;}
+    
+
+
 protected:
     CCPoint getLightPosLocal(){
         CCPoint lightPosWorld=m_light->convertToWorldSpaceAR(ccp(0,0));
         CCPoint lightPosLocal=this->convertToNodeSpace(lightPosWorld);
         return lightPosLocal;
     }
+    void makeFullWindowRectMesh(){
+        m_mesh->clear();
+        CCSize winSize=CCDirector::sharedDirector()->getWinSize();
+        const CCPoint p0World=CCPoint(winSize.width,winSize.height);//RU
+        const CCPoint p1World=CCPoint(0,winSize.height);//LU
+        const CCPoint p2World=CCPoint(0,0);//LD
+        const CCPoint p3World=CCPoint(winSize.width,0);//RD
+        const CCPoint p0=convertToNodeSpace(p0World);
+        const CCPoint p1=convertToNodeSpace(p1World);
+        const CCPoint p2=convertToNodeSpace(p2World);
+        const CCPoint p3=convertToNodeSpace(p3World);
+        //v0
+        Cv2 pos0=ccpTov2(p0);
+        Cv2 texCoord0=Cv2(0,0);
+        Cv4 color0=Cv4(1,1,0,1);
+        //v1
+        Cv2 pos1=ccpTov2(p1);
+        Cv2 texCoord1=Cv2(0,0);
+        Cv4 color1=Cv4(1,1,0,1);
+        //v2
+        Cv2 pos2=ccpTov2(p2);
+        Cv2 texCoord2=Cv2(0,0);
+        Cv4 color2=Cv4(1,1,0,1);
+        //v3
+        Cv2 pos3=ccpTov2(p3);
+        Cv2 texCoord3=Cv2(0,0);
+        Cv4 color3=Cv4(1,1,0,1);
+        //add v0
+        m_mesh->vlist.push_back(pos0);
+        m_mesh->texCoordList.push_back(texCoord0);
+        m_mesh->colorList.push_back(color0);
+        int ID0=(int)m_mesh->vlist.size()-1;
+        //add v1
+        m_mesh->vlist.push_back(pos1);
+        m_mesh->texCoordList.push_back(texCoord1);
+        m_mesh->colorList.push_back(color1);
+        int ID1=(int)m_mesh->vlist.size()-1;
+        //add v2
+        m_mesh->vlist.push_back(pos2);
+        m_mesh->texCoordList.push_back(texCoord2);
+        m_mesh->colorList.push_back(color2);
+        int ID2=(int)m_mesh->vlist.size()-1;
+        //add v3
+        m_mesh->vlist.push_back(pos3);
+        m_mesh->texCoordList.push_back(texCoord3);
+        m_mesh->colorList.push_back(color3);
+        int ID3=(int)m_mesh->vlist.size()-1;
+        //add IDtri
+        m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+        m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID2,ID3));
+
+        
+    }
     void updateMesh(){
         m_mesh->clear();
         CCPoint lightPosLocal=getLightPosLocal();
         //----right penumbra mesh
+    
         {
             vector<Cedge> edgeList;
             int nPoint=(int)m_polygon.m_pointList.size();
@@ -456,7 +572,6 @@ protected:
                     edgeList.push_back(edge);
                     if(index==m_rightUmbraPointID)break;
                     index=(index+1)%nPoint;
-                    
                 }
                 edgeList.push_back(Cedge(m_rightUmbraLine[1],m_rightUmbraLine[2]));
             }//got edgeList
@@ -470,7 +585,6 @@ protected:
                 brightList.push_back(area/(2*m_light->getR()));
             }
             //convert edgeList to mesh
-            
             for(int i=0;i<nEdge-1;i++){
                 const Cedge&edge=edgeList[i];
                 const Cedge&edgen=edgeList[i+1];
@@ -479,6 +593,8 @@ protected:
                 const CCPoint&p2=edgen.m_start;
                 float bright=brightList[i];
                 float brightn=brightList[i+1];
+
+
                 //v0
                 Cv2 pos0=ccpTov2(p0);
                 Cv2 texCoord0=Cv2(0,0);
@@ -509,7 +625,9 @@ protected:
                 //add IDtri
                 m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
                 
+                
             }
+  
         
         }
 
@@ -592,7 +710,73 @@ protected:
         {
             
             if(isPointEqual(m_intersectPoint, CCPoint(INFINITY,INFINITY), 0)){//parallel
-                
+                vector<Cedge> edgeList;
+                edgeList.push_back(Cedge(m_rightUmbraLine[1],m_rightUmbraLine[2]));
+                CCPoint dir=ccpNormalize(m_rightUmbraLine[2]-m_rightUmbraLine[1]);
+                int nPoint=(int)m_polygon.m_pointList.size();
+                int index=(m_rightUmbraPointID+1)%nPoint;
+                assert(m_rightUmbraPointID!=m_leftUmbraPointID);
+                while(1){
+                    if(index==m_leftUmbraPointID)break;
+                    const CCPoint&point=m_polygon.m_pointList[index];
+                    Cedge edge;
+                    edge.m_start=point;
+                    edge.m_end=edge.m_start+ccpMult(dir, m_shadowLength);
+                    edgeList.push_back(edge);
+                    index=(index+1)%nPoint;
+                }
+                edgeList.push_back(Cedge(m_leftUmbraLine[1],m_leftUmbraLine[2]));
+                //convert edgeList to mesh
+                int nEdge=(int)edgeList.size();
+                for(int i=0;i<nEdge-1;i++){
+                    const Cedge&edge=edgeList[i];
+                    const Cedge&edgen=edgeList[i+1];
+                    const CCPoint&p0=edge.m_start;//RU
+                    const CCPoint&p1=edge.m_end;//LU
+                    const CCPoint&p2=edgen.m_end;//LD
+                    const CCPoint&p3=edgen.m_start;//RD
+                    //v0
+                    Cv2 pos0=ccpTov2(p0);
+                    Cv2 texCoord0=Cv2(1,1);
+                    Cv4 color0=Cv4(0,0,0,1);
+                    //v1
+                    Cv2 pos1=ccpTov2(p1);
+                    Cv2 texCoord1=Cv2(1,1);
+                    Cv4 color1=Cv4(0,0,0,1);
+                    //v2
+                    Cv2 pos2=ccpTov2(p2);
+                    Cv2 texCoord2=Cv2(1,1);
+                    Cv4 color2=Cv4(0,0,0,1);
+                    //v3
+                    Cv2 pos3=ccpTov2(p3);
+                    Cv2 texCoord3=Cv2(1,1);
+                    Cv4 color3=Cv4(0,0,0,1);
+                    //add v0
+                    m_mesh->vlist.push_back(pos0);
+                    m_mesh->texCoordList.push_back(texCoord0);
+                    m_mesh->colorList.push_back(color0);
+                    int ID0=(int)m_mesh->vlist.size()-1;
+                    //add v1
+                    m_mesh->vlist.push_back(pos1);
+                    m_mesh->texCoordList.push_back(texCoord1);
+                    m_mesh->colorList.push_back(color1);
+                    int ID1=(int)m_mesh->vlist.size()-1;
+                    //add v2
+                    m_mesh->vlist.push_back(pos2);
+                    m_mesh->texCoordList.push_back(texCoord2);
+                    m_mesh->colorList.push_back(color2);
+                    int ID2=(int)m_mesh->vlist.size()-1;
+                    //add v3
+                    m_mesh->vlist.push_back(pos3);
+                    m_mesh->texCoordList.push_back(texCoord3);
+                    m_mesh->colorList.push_back(color3);
+                    int ID3=(int)m_mesh->vlist.size()-1;
+                    //add IDtri
+                    m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                    m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID2,ID3));
+                    
+                }
+
             }else{//not parallel
                 //see intersectP on which side of light
                 if(ccpDot(m_leftUmbraLine[1]-m_leftUmbraLine[0],m_leftUmbraLine[1]-m_intersectPoint)>0){//intersectP on back side of light
@@ -623,19 +807,19 @@ protected:
                         //v0
                         Cv2 pos0=ccpTov2(p0);
                         Cv2 texCoord0=Cv2(1,1);
-                        Cv4 color0=Cv4(1,1,0,1);
+                        Cv4 color0=Cv4(0,0,0,1);
                         //v1
                         Cv2 pos1=ccpTov2(p1);
                         Cv2 texCoord1=Cv2(1,1);
-                        Cv4 color1=Cv4(1,1,0,1);
+                        Cv4 color1=Cv4(0,0,0,1);
                         //v2
                         Cv2 pos2=ccpTov2(p2);
                         Cv2 texCoord2=Cv2(1,1);
-                        Cv4 color2=Cv4(1,1,0,1);
+                        Cv4 color2=Cv4(0,0,0,1);
                         //v3
                         Cv2 pos3=ccpTov2(p3);
                         Cv2 texCoord3=Cv2(1,1);
-                        Cv4 color3=Cv4(1,1,0,1);
+                        Cv4 color3=Cv4(0,0,0,1);
                         //add v0
                         m_mesh->vlist.push_back(pos0);
                         m_mesh->texCoordList.push_back(texCoord0);
@@ -663,14 +847,282 @@ protected:
                     }
 
                 }else{//intersectP on front side of light
-                    
-                
+                    vector<Cedge> edgeList;
+                    edgeList.push_back(Cedge(m_rightUmbraLine[1],m_intersectPoint));
+                    int nPoint=(int)m_polygon.m_pointList.size();
+                    int index=(m_rightUmbraPointID+1)%nPoint;
+                    assert(m_rightUmbraPointID!=m_leftUmbraPointID);
+                    while(1){
+                        if(index==m_leftUmbraPointID)break;
+                        const CCPoint&point=m_polygon.m_pointList[index];
+                        Cedge edge;
+                        edge.m_start=point;
+                        edge.m_end=m_intersectPoint;
+                        edgeList.push_back(edge);
+                        index=(index+1)%nPoint;
+                    }
+                    edgeList.push_back(Cedge(m_leftUmbraLine[1],m_intersectPoint));
+                    //convert edgeList to mesh
+                    int nEdge=(int)edgeList.size();
+                    for(int i=0;i<nEdge-1;i++){
+                        const Cedge&edge=edgeList[i];
+                        const Cedge&edgen=edgeList[i+1];
+                        const CCPoint&p0=edge.m_start;
+                        const CCPoint&p1=edge.m_end;
+                        const CCPoint&p2=edgen.m_start;
+                        //v0
+                        Cv2 pos0=ccpTov2(p0);
+                        Cv2 texCoord0=Cv2(1,1);
+                        Cv4 color0=Cv4(0,0,0,1);
+                        //v1
+                        Cv2 pos1=ccpTov2(p1);
+                        Cv2 texCoord1=Cv2(1,1);
+                        Cv4 color1=Cv4(0,0,0,1);
+                        //v2
+                        Cv2 pos2=ccpTov2(p2);
+                        Cv2 texCoord2=Cv2(1,1);
+                        Cv4 color2=Cv4(0,0,0,1);
+                        //add v0
+                        m_mesh->vlist.push_back(pos0);
+                        m_mesh->texCoordList.push_back(texCoord0);
+                        m_mesh->colorList.push_back(color0);
+                        int ID0=(int)m_mesh->vlist.size()-1;
+                        //add v1
+                        m_mesh->vlist.push_back(pos1);
+                        m_mesh->texCoordList.push_back(texCoord1);
+                        m_mesh->colorList.push_back(color1);
+                        int ID1=(int)m_mesh->vlist.size()-1;
+                        //add v2
+                        m_mesh->vlist.push_back(pos2);
+                        m_mesh->texCoordList.push_back(texCoord2);
+                        m_mesh->colorList.push_back(color2);
+                        int ID2=(int)m_mesh->vlist.size()-1;
+                        //add IDtri
+                        m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                        
+                    }
+                  
                 }
+            }
+        }
+        //make the full light space mesh
+        {
+            CCPoint intersectOfPenumbraLines=getIntersectPointOfTwoLine(m_leftPenumbraLine[0], ccpNormalize(m_leftPenumbraLine[1]-m_leftPenumbraLine[0]),
+                                                                            m_rightPenumbraLine[0], ccpNormalize(m_rightPenumbraLine[1]-m_rightPenumbraLine[0]));
+            //space between m_leftPenumbraLine, m_rightPenumbraLine and this polygon
+            if(m_leftPenumbraPointID==m_rightPenumbraPointID){
             
+            }else{//m_leftPenumbraPointID!=m_rightPenumbraPointID
+                
+                
+                int nPoint=(int)m_polygon.m_pointList.size();
+                int index=m_leftPenumbraPointID;
+                while(1){
+                    const CCPoint&p=m_polygon.m_pointList[index];
+                    const CCPoint&pn=m_polygon.m_pointList[(index+1)%nPoint];
+                    //
+                    const CCPoint&p0=intersectOfPenumbraLines;
+                    const CCPoint&p1=pn;
+                    const CCPoint&p2=p;
+                    //v0
+                    Cv2 pos0=ccpTov2(p0);
+                    Cv2 texCoord0=Cv2(0,0);
+                    Cv4 color0=Cv4(1,1,0,1);
+                    //v1
+                    Cv2 pos1=ccpTov2(p1);
+                    Cv2 texCoord1=Cv2(0,0);
+                    Cv4 color1=Cv4(1,1,0,1);
+                    //v2
+                    Cv2 pos2=ccpTov2(p2);
+                    Cv2 texCoord2=Cv2(0,0);
+                    Cv4 color2=Cv4(1,1,0,1);
+                    //add v0
+                    m_mesh->vlist.push_back(pos0);
+                    m_mesh->texCoordList.push_back(texCoord0);
+                    m_mesh->colorList.push_back(color0);
+                    int ID0=(int)m_mesh->vlist.size()-1;
+                    //add v1
+                    m_mesh->vlist.push_back(pos1);
+                    m_mesh->texCoordList.push_back(texCoord1);
+                    m_mesh->colorList.push_back(color1);
+                    int ID1=(int)m_mesh->vlist.size()-1;
+                    //add v2
+                    m_mesh->vlist.push_back(pos2);
+                    m_mesh->texCoordList.push_back(texCoord2);
+                    m_mesh->colorList.push_back(color2);
+                    int ID2=(int)m_mesh->vlist.size()-1;
+                    //add IDtri
+                    m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                    index=(index+1)%nPoint;
+                    if(index==m_rightPenumbraPointID)break;
+                    
+                }
+
+            }
+            //down fan
+            {
+                const float dA=45;
+                const CCPoint startDir=ccpNormalize(m_leftPenumbraLine[2]-intersectOfPenumbraLines);
+                const CCPoint endDir=ccpNormalize(m_rightPenumbraLine[0]-m_rightPenumbraLine[1]);
+                CCPoint dir=startDir;
+                CCPoint dirfoe;
+                while(1){
+                    dirfoe=dir;
+                    dir=rotateVector2(dir, dA);
+                    bool isFinishCurLoopAndStop=false;
+                    if(ccpCross(dir, endDir)<0//surpass endDir
+                       ){
+                        dir=endDir;
+                        isFinishCurLoopAndStop=true;
+                    }
+                    //make triangle between dirfoe and dir
+                    const CCPoint&p0=intersectOfPenumbraLines;
+                    const CCPoint&p1=intersectOfPenumbraLines+ccpMult(dirfoe, m_shadowLength);
+                    const CCPoint&p2=intersectOfPenumbraLines+ccpMult(dir, m_shadowLength);
+                    //v0
+                    Cv2 pos0=ccpTov2(p0);
+                    Cv2 texCoord0=Cv2(0,0);
+                    Cv4 color0=Cv4(1,1,0,1);
+                    //v1
+                    Cv2 pos1=ccpTov2(p1);
+                    Cv2 texCoord1=Cv2(0,0);
+                    Cv4 color1=Cv4(1,1,0,1);
+                    //v2
+                    Cv2 pos2=ccpTov2(p2);
+                    Cv2 texCoord2=Cv2(0,0);
+                    Cv4 color2=Cv4(1,1,0,1);
+                    //add v0
+                    m_mesh->vlist.push_back(pos0);
+                    m_mesh->texCoordList.push_back(texCoord0);
+                    m_mesh->colorList.push_back(color0);
+                    int ID0=(int)m_mesh->vlist.size()-1;
+                    //add v1
+                    m_mesh->vlist.push_back(pos1);
+                    m_mesh->texCoordList.push_back(texCoord1);
+                    m_mesh->colorList.push_back(color1);
+                    int ID1=(int)m_mesh->vlist.size()-1;
+                    //add v2
+                    m_mesh->vlist.push_back(pos2);
+                    m_mesh->texCoordList.push_back(texCoord2);
+                    m_mesh->colorList.push_back(color2);
+                    int ID2=(int)m_mesh->vlist.size()-1;
+                    //add IDtri
+                    m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                    //stop
+                    if(isFinishCurLoopAndStop)break;
+                }
+            }
+            //up fan
+            {
+                const float dA=45;
+                const CCPoint startDir=ccpNormalize(m_leftPenumbraLine[0]-m_leftPenumbraLine[1]);
+                const CCPoint endDir=ccpNormalize(m_rightPenumbraLine[2]-m_rightPenumbraLine[1]);//ccpNormalize(m_rightPenumbraLine[0]-m_rightPenumbraLine[1]);//ccpNormalize(m_rightPenumbraLine[2]-intersectOfPenumbraLines);
+                CCPoint dir=startDir;
+                CCPoint dirfoe;
+                while(1){
+                    dirfoe=dir;
+                    dir=rotateVector2(dir, dA);
+                    bool isFinishCurLoopAndStop=false;
+                    if(ccpCross(dir, endDir)<0//surpass endDir
+                       ){
+                        dir=endDir;
+                        isFinishCurLoopAndStop=true;
+                    }
+                    //make triangle between dirfoe and dir
+                    const CCPoint&p0=intersectOfPenumbraLines;
+                    const CCPoint&p1=intersectOfPenumbraLines+ccpMult(dirfoe, m_shadowLength);
+                    const CCPoint&p2=intersectOfPenumbraLines+ccpMult(dir, m_shadowLength);
+                    //v0
+                    Cv2 pos0=ccpTov2(p0);
+                    Cv2 texCoord0=Cv2(0,0);
+                    Cv4 color0=Cv4(1,1,0,1);
+                    //v1
+                    Cv2 pos1=ccpTov2(p1);
+                    Cv2 texCoord1=Cv2(0,0);
+                    Cv4 color1=Cv4(1,1,0,1);
+                    //v2
+                    Cv2 pos2=ccpTov2(p2);
+                    Cv2 texCoord2=Cv2(0,0);
+                    Cv4 color2=Cv4(1,1,0,1);
+                    //add v0
+                    m_mesh->vlist.push_back(pos0);
+                    m_mesh->texCoordList.push_back(texCoord0);
+                    m_mesh->colorList.push_back(color0);
+                    int ID0=(int)m_mesh->vlist.size()-1;
+                    //add v1
+                    m_mesh->vlist.push_back(pos1);
+                    m_mesh->texCoordList.push_back(texCoord1);
+                    m_mesh->colorList.push_back(color1);
+                    int ID1=(int)m_mesh->vlist.size()-1;
+                    //add v2
+                    m_mesh->vlist.push_back(pos2);
+                    m_mesh->texCoordList.push_back(texCoord2);
+                    m_mesh->colorList.push_back(color2);
+                    int ID2=(int)m_mesh->vlist.size()-1;
+                    //add IDtri
+                    m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                    //stop?
+                    if(isFinishCurLoopAndStop)break;
+                }
+            }
+            //right fan
+            {
+                const float dA=45;
+                const CCPoint startDir=ccpNormalize(m_rightPenumbraLine[0]-m_rightPenumbraLine[1]);
+                const CCPoint endDir=ccpNormalize(m_leftPenumbraLine[0]-m_leftPenumbraLine[1]);
+                CCPoint dir=startDir;
+                CCPoint dirfoe;
+                while(1){
+                    dirfoe=dir;
+                    dir=rotateVector2(dir, dA);
+                    bool isFinishCurLoopAndStop=false;
+                    if(ccpCross(dir, endDir)<0//surpass endDir
+                       ){
+                        dir=endDir;
+                        isFinishCurLoopAndStop=true;
+                    }
+                    //make triangle between dirfoe and dir
+                    const CCPoint&p0=intersectOfPenumbraLines;
+                    const CCPoint&p1=intersectOfPenumbraLines+ccpMult(dirfoe, m_shadowLength);
+                    const CCPoint&p2=intersectOfPenumbraLines+ccpMult(dir, m_shadowLength);
+                    //v0
+                    Cv2 pos0=ccpTov2(p0);
+                    Cv2 texCoord0=Cv2(0,0);
+                    Cv4 color0=Cv4(1,1,0,1);
+                    //v1
+                    Cv2 pos1=ccpTov2(p1);
+                    Cv2 texCoord1=Cv2(0,0);
+                    Cv4 color1=Cv4(1,1,0,1);
+                    //v2
+                    Cv2 pos2=ccpTov2(p2);
+                    Cv2 texCoord2=Cv2(0,0);
+                    Cv4 color2=Cv4(1,1,0,1);
+                    //add v0
+                    m_mesh->vlist.push_back(pos0);
+                    m_mesh->texCoordList.push_back(texCoord0);
+                    m_mesh->colorList.push_back(color0);
+                    int ID0=(int)m_mesh->vlist.size()-1;
+                    //add v1
+                    m_mesh->vlist.push_back(pos1);
+                    m_mesh->texCoordList.push_back(texCoord1);
+                    m_mesh->colorList.push_back(color1);
+                    int ID1=(int)m_mesh->vlist.size()-1;
+                    //add v2
+                    m_mesh->vlist.push_back(pos2);
+                    m_mesh->texCoordList.push_back(texCoord2);
+                    m_mesh->colorList.push_back(color2);
+                    int ID2=(int)m_mesh->vlist.size()-1;
+                    //add IDtri
+                    m_mesh->IDtriList.push_back(CIDTriangle(ID0,ID1,ID2));
+                    //stop?
+                    if(isFinishCurLoopAndStop)break;
+                }
             }
             
             
         }
+       
+        
         
         
         
@@ -679,12 +1131,15 @@ protected:
     
     }
     void submit(GLenum usage){
+        //submit mesh
         m_indexVBO->submitPos(m_mesh->vlist, usage);
         m_indexVBO->submitTexCoord(m_mesh->texCoordList, usage);
         m_indexVBO->submitColor(m_mesh->colorList, usage);
         m_indexVBO->submitIndex(m_mesh->IDtriList, usage);
+     
+
     }
-    
+
 protected:
     Cpolygon m_polygon;
     vector<CPointType> m_pointTypeList;
@@ -703,10 +1158,142 @@ protected:
     Cmesh*m_mesh;
     CindexVBO*m_indexVBO;
     CGLProgramWithUnifos*m_program;
+    float m_lightStrength;
+    bool m_isDrawDebug;
+    bool m_isDrawNonDebug;
+    bool m_isUpdateShadowSucc;
 };
 
 
+class CshadowRoot:public CCNode
+{
+public:
+    CshadowRoot(){
+        m_shadowRT=NULL;
+        m_program=NULL;
+        m_light=NULL;
+        m_isDrawDebug=false;
+    }
+    virtual~CshadowRoot(){
+        if(m_shadowRT)m_shadowRT->release();
+        if(m_program)m_program->release();
+    
+    }
+    bool init(){
+        CCSize winSize=CCDirector::sharedDirector()->getWinSize();
+        m_shadowRT=CCRenderTexture::create(winSize.width, winSize.height);
+        m_shadowRT->retain();
+        m_shadowRT->setPosition(ccp(winSize.width/2,winSize.height/2));
+        //----create and set shader program
+        {
+            GLchar * fragSource = (GLchar*) CCString::createWithContentsOfFile(CCFileUtils::sharedFileUtils()->fullPathForFilename("shaders/2DSoftShadow_renderShadow.fsh").c_str())->getCString();
+            CGLProgramWithUnifos* program = new CGLProgramWithUnifos();
+            program->autorelease();
+            program->initWithVertexShaderByteArray(ccPositionTextureColor_vert, fragSource);
+            //bind attribute
+            program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
+            program->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
+            program->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
+            //link  (must after bindAttribute)
+            program->link();
+            //get cocos2d-x build-in uniforms
+            program->updateUniforms();
+            //get my own uniforms
+            //...
+            //set program
+            m_program=program;
+            m_program->retain();
+            //check gl error
+            CHECK_GL_ERROR_DEBUG();
+        }
+        //change shader for m_shadowRT
+        m_shadowRT->getSprite()->setShaderProgram(m_program);
+        //set blendFunc for m_shadowRT
+        ccBlendFunc blendFunc={GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA};
+        m_shadowRT->getSprite()->setBlendFunc(blendFunc);
+        return true;
+    }
+    void setLight(ClightNode*light){
+        assert(light);
+        if(m_light==NULL){
+            m_light=light;
+            addChild(m_light);
+        }else{
+            m_light->removeFromParentAndCleanup(true);
+            m_light=light;
+            addChild(m_light);
+        }
+        
+    }
 
+    void addObj(C2DSoftShadowNode*obj){
+        assert(obj);
+        m_objList.push_back(obj);
+        addChild(obj);
+    }
+    void visit(){
+        
 
+        
+        //push matrix
+        kmGLPushMatrix();
+        //transform
+        this->transform();
+        {
+            //set objs' isDrawDebug
+            int nObj=(int)m_objList.size();
+            for(int i=0;i<nObj;i++){
+                C2DSoftShadowNode*obj=m_objList[i];
+                obj->setIsDrawDebug(m_isDrawDebug);
+            }
+            //set light's isDrawDebug
+            m_light->setIsDrawDebug(m_isDrawDebug);
+            //render to shadowRT
+            m_shadowRT->beginWithClear(0, 0, 0, 1);
+            {
+                
+                int nObj=(int)m_objList.size();
+                float lightStrength=1.0/nObj;
+                for(int i=0;i<nObj;i++){
+                    C2DSoftShadowNode*obj=m_objList[i];
+                    obj->setLightStrength(lightStrength);
+                    bool isDrawDebugOld=obj->getIsDrawDebug();
+                    obj->setIsDrawDebug(false);
+                    obj->visit();
+                    obj->setIsDrawDebug(isDrawDebugOld);
+                }
+                
+            }
+            m_shadowRT->end();
+            //visit shadowRT
+            m_shadowRT->visit();
+            //draw objs' debug
+            for(int i=0;i<nObj;i++){
+                C2DSoftShadowNode*obj=m_objList[i];
+                bool isDrawNonDebugOld=obj->getIsDrawNonDebug();
+                obj->setIsDrawNonDebug(false);
+                obj->visit();
+                obj->setIsDrawNonDebug(isDrawNonDebugOld);
+            }
+        
+ 
+            //draw light' debug
+            m_light->visit();
+        
+       
+        }
+        //pop matrix
+        kmGLPopMatrix();
+    }
+    void setIsDrawDebug(bool value){m_isDrawDebug=value;}
+    bool getIsDrawDebug()const{return m_isDrawDebug;}
+    CCRenderTexture* getShadowRT(){return m_shadowRT;}
+protected:
+    CCRenderTexture* m_shadowRT;
+    CGLProgramWithUnifos*m_program;
+    vector<C2DSoftShadowNode*> m_objList;
+    ClightNode*m_light;
+    bool m_isDrawDebug;
+};
 namespace_ens_end
 #endif

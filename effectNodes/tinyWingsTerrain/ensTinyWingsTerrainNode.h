@@ -16,6 +16,8 @@ using namespace std;
 using namespace cocos2d;
 #include "common/ensCommon.h"
 namespace_ens_begin
+//ref to: http://www.cnblogs.com/andyque/archive/2011/07/01/2095479.html
+//and https://github.com/diwu/Tiny-Wings-Remake-on-Android
 class CtinyWingsTerrainSprite:public CCSprite{
 public:
     CtinyWingsTerrainSprite(){

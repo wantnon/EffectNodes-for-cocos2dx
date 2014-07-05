@@ -168,5 +168,6 @@ public:
     
 };
 Cpolygon makeRegularPolygon(int r,int n);
+Cpolygon makeRectPolygon(float rx,float ry);
 namespace_ens_end
 #endif /* defined(__HelloCpp__ensSimpleClasses__) */
