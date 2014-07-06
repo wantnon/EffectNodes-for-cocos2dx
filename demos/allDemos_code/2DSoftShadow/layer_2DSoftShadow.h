@@ -28,9 +28,9 @@ public:
         m_sprite2=NULL;
         m_sprite3=NULL;
         m_sprite_light=NULL;
-        m_2DSoftShadowNode=NULL;
-        m_2DSoftShadowNode2=NULL;
-        m_2DSoftShadowNode3=NULL;
+        m_shadowObj=NULL;
+        m_shadowObj2=NULL;
+        m_shadowObj3=NULL;
         m_light=NULL;
         m_backGround=NULL;
         m_shadowRoot=NULL;
@@ -47,6 +47,10 @@ protected:
 	virtual void ccTouchesMoved(CCSet* touches , CCEvent* event);
 	virtual void ccTouchesEnded(CCSet* touches , CCEvent* event);
 protected:
+    //slider
+    CCControlSlider* m_pSliderCtl;
+    void sliderAction(CCObject* sender, CCControlEvent controlEvent);
+    CCLabelTTF* m_label;
     //back
     CCControlButton* m_controlButton_back;
     void controlButtonEvent_back(CCObject *senderz, CCControlEvent controlEvent);
@@ -56,16 +60,17 @@ protected:
     CCLabelTTF* m_label_debugState;
     bool m_isDebugOn;
 protected:
-    CshadowRoot* m_shadowRoot;
+    CCSprite*m_backGround;
     CCSprite*m_sprite;
     CCSprite*m_sprite2;
     CCSprite*m_sprite3;
     CCSprite*m_sprite_light;
-    C2DSoftShadowNode*m_2DSoftShadowNode;
-    C2DSoftShadowNode*m_2DSoftShadowNode2;
-    C2DSoftShadowNode*m_2DSoftShadowNode3;
+    C2DSoftShadowRoot* m_shadowRoot;
+    C2DSoftShadowObj*m_shadowObj;
+    C2DSoftShadowObj*m_shadowObj2;
+    C2DSoftShadowObj*m_shadowObj3;
     ClightNode*m_light;
-    CCSprite*m_backGround;
+    
     
 };
 

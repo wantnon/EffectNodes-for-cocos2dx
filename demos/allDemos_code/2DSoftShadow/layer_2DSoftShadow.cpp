@@ -21,7 +21,7 @@ bool Clayer_2DSoftShadow::init()
 
     
     
-    m_shadowRoot=new CshadowRoot();
+    m_shadowRoot=new C2DSoftShadowRoot();
     m_shadowRoot->autorelease();
     m_shadowRoot->init();
     addChild(m_shadowRoot);
@@ -30,30 +30,30 @@ bool Clayer_2DSoftShadow::init()
     
     m_light=new ClightNode();
     m_light->autorelease();
-    m_light->init(80*0.6);//(40);
+    m_light->init(48);
     m_shadowRoot->setLight(m_light);
     m_light->setPosition(ccp(winSize.width/4*3,winSize.height/3*2));
     
-    m_2DSoftShadowNode=new C2DSoftShadowNode();
-    m_2DSoftShadowNode->autorelease();
-    m_2DSoftShadowNode->init(makeRegularPolygon(140*0.6,8));
-    m_2DSoftShadowNode->setLight(m_light);
-    m_shadowRoot->addObj(m_2DSoftShadowNode);
-    m_2DSoftShadowNode->setPosition(ccp(winSize.width/2,winSize.height/2));
+    m_shadowObj=new C2DSoftShadowObj();
+    m_shadowObj->autorelease();
+    m_shadowObj->init(makeRegularPolygon(84,8));
+    m_shadowObj->setLight(m_light);
+    m_shadowRoot->addObj(m_shadowObj);
+    m_shadowObj->setPosition(ccp(winSize.width/2,winSize.height/2));
     
-    m_2DSoftShadowNode2=new C2DSoftShadowNode();
-    m_2DSoftShadowNode2->autorelease();
-    m_2DSoftShadowNode2->init(makeRegularPolygon(20, 8));
-    m_2DSoftShadowNode2->setLight(m_light);
-    m_shadowRoot->addObj(m_2DSoftShadowNode2);
-    m_2DSoftShadowNode2->setPosition(ccp(winSize.width/3*2,winSize.height/3));
+    m_shadowObj2=new C2DSoftShadowObj();
+    m_shadowObj2->autorelease();
+    m_shadowObj2->init(makeRegularPolygon(20, 8));
+    m_shadowObj2->setLight(m_light);
+    m_shadowRoot->addObj(m_shadowObj2);
+    m_shadowObj2->setPosition(ccp(winSize.width/3*2,winSize.height/3));
     
-    m_2DSoftShadowNode3=new C2DSoftShadowNode();
-    m_2DSoftShadowNode3->autorelease();
-    m_2DSoftShadowNode3->init(makeRectPolygon(64.0/2,95.0/2));
-    m_2DSoftShadowNode3->setLight(m_light);
-    m_shadowRoot->addObj(m_2DSoftShadowNode3);
-    m_2DSoftShadowNode3->setPosition(ccp(winSize.width/2,winSize.height/3*2.5));
+    m_shadowObj3=new C2DSoftShadowObj();
+    m_shadowObj3->autorelease();
+    m_shadowObj3->init(makeRectPolygon(32,47.5));
+    m_shadowObj3->setLight(m_light);
+    m_shadowRoot->addObj(m_shadowObj3);
+    m_shadowObj3->setPosition(ccp(winSize.width/2,winSize.height/6*5));
 
 
     m_sprite=CCSprite::create();
@@ -70,16 +70,40 @@ bool Clayer_2DSoftShadow::init()
     m_sprite3=CCSprite::create();
     m_sprite3->initWithFile("demoRes/cigaretteBox.png");
     addChild(m_sprite3,20);
-    m_sprite3->setPosition(ccp(winSize.width/2,winSize.height/3*2.5));
+    m_sprite3->setPosition(ccp(winSize.width/2,winSize.height/6*5));
     
     m_sprite_light=CCSprite::create();
     m_sprite_light->initWithFile("demoRes/light2.png");
     addChild(m_sprite_light,20);
     m_sprite_light->setPosition(ccp(winSize.width/4*3,winSize.height/3*2));
-    m_sprite_light->setScale(1.5*3.0*m_light->getR()/(m_sprite_light->getContentSize().width/2));
+    m_sprite_light->setScale(4.5*m_light->getR()/(m_sprite_light->getContentSize().width/2));
     ccBlendFunc blendFunc={GL_ONE,GL_ONE};
     m_sprite_light->setBlendFunc(blendFunc);
     
+    //slider
+	{
+		CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+		CCControlSlider *slider = CCControlSlider::create("uiRes/sliderTrack.png",
+                                                          "uiRes/sliderProgress.png" ,
+                                                          "uiRes/sliderThumb.png");
+		slider->setAnchorPoint(ccp(0.5f, 0.5f));
+		slider->setMinimumValue(0); // Sets the min value of range
+		slider->setMaximumValue(1); // Sets the max value of range
+		slider->setValue(m_shadowRoot->getShadowDarkness());
+		slider->setPosition(ccp(winSize.width *0.5, 80));
+		slider->addTargetWithActionForControlEvents(this, cccontrol_selector(Clayer_2DSoftShadow::sliderAction), CCControlEventValueChanged);
+		m_pSliderCtl=slider;
+		addChild(m_pSliderCtl,100);
+		//title
+		CCLabelTTF* pLabel = CCLabelTTF::create("shadowDark ", "Arial", 40);
+		pLabel->setPosition(ccp(slider->getPositionX()-slider->getContentSize().width/2-pLabel->getContentSize().width/2, slider->getPositionY()));
+        this->addChild(pLabel, 1);
+        //label
+        m_label=CCLabelTTF::create(valueToStr(m_shadowRoot->getShadowDarkness()).c_str(), "Arial", 40);
+        m_label->setPosition(ccp(20+slider->getPositionX()+slider->getContentSize().width/2+m_label->getContentSize().width/2, slider->getPositionY()));
+        this->addChild(m_label);
+        
+	}
     //debug button
     {
         CCScale9Sprite* btnUp=CCScale9Sprite::create("uiRes/button.png");
@@ -112,6 +136,16 @@ bool Clayer_2DSoftShadow::init()
         this->addChild(controlButton);
         m_controlButton_back=controlButton;
     }
+    //instruction
+    {
+        CCLabelTTF* pLabel = CCLabelTTF::create("move the light...", "Arial", 30);
+        
+        // position the label on the center of the screen
+        pLabel->setPosition(ccp(winSize.width *0.25, winSize.height/3));
+        
+        // add the label as a child to this layer
+        this->addChild(pLabel, 100);
+    }
     //title
     {
 
@@ -142,6 +176,19 @@ bool Clayer_2DSoftShadow::init()
 	
     return true;
 }
+
+void Clayer_2DSoftShadow::sliderAction(CCObject* sender, CCControlEvent controlEvent)
+{
+    CCControlSlider* pSlider = (CCControlSlider*)sender;
+    float value=pSlider->getValue();
+    m_shadowRoot->setShadowDarkness(value);
+    m_label->setString(valueToStr(value).c_str());
+    m_label->setPosition(ccp(
+                             20+m_pSliderCtl->getPositionX()+m_pSliderCtl->getContentSize().width/2+m_label->getContentSize().width/2,
+                             m_pSliderCtl->getPositionY()));
+    
+}
+
 void Clayer_2DSoftShadow::controlButtonEvent_debug(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
     m_isDebugOn=!m_isDebugOn;
     

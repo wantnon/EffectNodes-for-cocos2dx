@@ -42,7 +42,7 @@ bool Clayer_normalMapped::init()
 		m_pSliderCtl=slider;
 		addChild(m_pSliderCtl,100);
 		//title
-		CCLabelTTF* pLabel = CCLabelTTF::create("light R ", "Arial", 40);
+		CCLabelTTF* pLabel = CCLabelTTF::create("R ", "Arial", 40);
 		pLabel->setPosition(ccp(slider->getPositionX()-slider->getContentSize().width/2-pLabel->getContentSize().width/2, slider->getPositionY()));
         this->addChild(pLabel, 1);
   
@@ -62,7 +62,7 @@ bool Clayer_normalMapped::init()
 		m_pSliderCtl2=slider;
 		addChild(m_pSliderCtl2,100);
 		//title
-		CCLabelTTF* pLabel = CCLabelTTF::create("light G ", "Arial", 40);
+		CCLabelTTF* pLabel = CCLabelTTF::create("G ", "Arial", 40);
 		pLabel->setPosition(ccp(slider->getPositionX()-slider->getContentSize().width/2-pLabel->getContentSize().width/2, slider->getPositionY()));
         this->addChild(pLabel, 1);
 
@@ -82,7 +82,7 @@ bool Clayer_normalMapped::init()
 		m_pSliderCtl3=slider;
 		addChild(m_pSliderCtl3,100);
 		//title
-		CCLabelTTF* pLabel = CCLabelTTF::create("light B ", "Arial", 40);
+		CCLabelTTF* pLabel = CCLabelTTF::create("B ", "Arial", 40);
 		pLabel->setPosition(ccp(slider->getPositionX()-slider->getContentSize().width/2-pLabel->getContentSize().width/2, slider->getPositionY()));
         this->addChild(pLabel, 1);
 	}

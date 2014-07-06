@@ -9,7 +9,7 @@
 #include "2DSoftShadow/ens2DSoftShadowNode.h"
 namespace_ens_begin
 
-bool C2DSoftShadowNode::init(const Cpolygon&polygon){
+bool C2DSoftShadowObj::init(const Cpolygon&polygon){
     m_polygon=polygon;
     //init this sprite
     this->CCSprite::init();
@@ -52,7 +52,7 @@ bool C2DSoftShadowNode::init(const Cpolygon&polygon){
     
     return true;
 }
-void C2DSoftShadowNode::update(float dt){
+void C2DSoftShadowObj::update(float dt){
     m_isUpdateShadowSucc=updateShadow();
     if(m_isUpdateShadowSucc==false){
         makeFullWindowRectMesh();
@@ -63,7 +63,7 @@ void C2DSoftShadowNode::update(float dt){
     submit(GL_DYNAMIC_DRAW);
 }
 
-bool C2DSoftShadowNode::updateShadow(){
+bool C2DSoftShadowObj::updateShadow(){
     if(m_light==NULL)return false;
     CCPoint lightPosLocal=getLightPosLocal();
     m_pointTypeList.clear();
@@ -262,7 +262,7 @@ bool C2DSoftShadowNode::updateShadow(){
     
     return true;
 }
-void C2DSoftShadowNode::draw(){
+void C2DSoftShadowObj::draw(){
     
     //----draw mesh
     if(m_isDrawNonDebug)
@@ -369,7 +369,7 @@ void C2DSoftShadowNode::draw(){
     
     
 }
-void C2DSoftShadowNode::setLight(ClightNode*light){
+void C2DSoftShadowObj::setLight(ClightNode*light){
     if(m_light==NULL){
         m_light=light;
         m_light->retain();
@@ -382,12 +382,12 @@ void C2DSoftShadowNode::setLight(ClightNode*light){
 }
 
 
-CCPoint C2DSoftShadowNode::getLightPosLocal(){
+CCPoint C2DSoftShadowObj::getLightPosLocal(){
     CCPoint lightPosWorld=m_light->convertToWorldSpaceAR(ccp(0,0));
     CCPoint lightPosLocal=this->convertToNodeSpace(lightPosWorld);
     return lightPosLocal;
 }
-void C2DSoftShadowNode::makeFullWindowRectMesh(){
+void C2DSoftShadowObj::makeFullWindowRectMesh(){
     m_mesh->clear();
     CCSize winSize=CCDirector::sharedDirector()->getWinSize();
     const CCPoint p0World=CCPoint(winSize.width,winSize.height);//RU
@@ -440,7 +440,7 @@ void C2DSoftShadowNode::makeFullWindowRectMesh(){
     
     
 }
-void C2DSoftShadowNode::updateMesh(){
+void C2DSoftShadowObj::updateMesh(){
     m_mesh->clear();
     CCPoint lightPosLocal=getLightPosLocal();
     //----right penumbra mesh
@@ -1021,7 +1021,7 @@ void C2DSoftShadowNode::updateMesh(){
     
     
 }
-void C2DSoftShadowNode::submit(GLenum usage){
+void C2DSoftShadowObj::submit(GLenum usage){
     //submit mesh
     m_indexVBO->submitPos(m_mesh->vlist, usage);
     m_indexVBO->submitTexCoord(m_mesh->texCoordList, usage);
@@ -1032,7 +1032,7 @@ void C2DSoftShadowNode::submit(GLenum usage){
 }
 //---------------------------------------------
 
-bool CshadowRoot::init(){
+bool C2DSoftShadowRoot::init(){
     CCSize winSize=CCDirector::sharedDirector()->getWinSize();
     m_shadowRT=CCRenderTexture::create(winSize.width, winSize.height);
     m_shadowRT->retain();
@@ -1067,7 +1067,7 @@ bool CshadowRoot::init(){
     m_shadowRT->getSprite()->setBlendFunc(blendFunc);
     return true;
 }
-void CshadowRoot::setLight(ClightNode*light){
+void C2DSoftShadowRoot::setLight(ClightNode*light){
     assert(light);
     if(m_light==NULL){
         m_light=light;
@@ -1080,15 +1080,12 @@ void CshadowRoot::setLight(ClightNode*light){
     
 }
 
-void CshadowRoot::addObj(C2DSoftShadowNode*obj){
+void C2DSoftShadowRoot::addObj(C2DSoftShadowObj*obj){
     assert(obj);
     m_objList.push_back(obj);
     addChild(obj);
 }
-void CshadowRoot::visit(){
-    
-    
-    
+void C2DSoftShadowRoot::visit(){
     //push matrix
     kmGLPushMatrix();
     //transform
@@ -1097,7 +1094,7 @@ void CshadowRoot::visit(){
         //set objs' isDrawDebug
         int nObj=(int)m_objList.size();
         for(int i=0;i<nObj;i++){
-            C2DSoftShadowNode*obj=m_objList[i];
+            C2DSoftShadowObj*obj=m_objList[i];
             obj->setIsDrawDebug(m_isDrawDebug);
         }
         //set light's isDrawDebug
@@ -1109,7 +1106,7 @@ void CshadowRoot::visit(){
             int nObj=(int)m_objList.size();
             float oneDivObjCount=1.0/nObj;
             for(int i=0;i<nObj;i++){
-                C2DSoftShadowNode*obj=m_objList[i];
+                C2DSoftShadowObj*obj=m_objList[i];
                 obj->setOneDivObjCount(oneDivObjCount);
                 bool isDrawDebugOld=obj->getIsDrawDebug();
                 obj->setIsDrawDebug(false);
@@ -1128,18 +1125,14 @@ void CshadowRoot::visit(){
         m_shadowRT->visit();
         //draw objs' debug
         for(int i=0;i<nObj;i++){
-            C2DSoftShadowNode*obj=m_objList[i];
+            C2DSoftShadowObj*obj=m_objList[i];
             bool isDrawNonDebugOld=obj->getIsDrawNonDebug();
             obj->setIsDrawNonDebug(false);
             obj->visit();
             obj->setIsDrawNonDebug(isDrawNonDebugOld);
         }
-        
-        
         //draw light' debug
         m_light->visit();
-        
-        
     }
     //pop matrix
     kmGLPopMatrix();

@@ -77,10 +77,10 @@ enum eSideType{
     eRightSide,
     eOn,
 };
-class C2DSoftShadowNode:public CCSprite
+class C2DSoftShadowObj:public CCSprite
 {
 public:
-    C2DSoftShadowNode(){
+    C2DSoftShadowObj(){
         m_light=NULL;
         m_mesh=NULL;
         m_finTexture=NULL;
@@ -100,7 +100,7 @@ public:
         m_isDrawNonDebug=true;
         m_isUpdateShadowSucc=false;
     }
-    virtual~C2DSoftShadowNode(){
+    virtual~C2DSoftShadowObj(){
         if(m_mesh)m_mesh->release();
         if(m_finTexture)m_finTexture->release();
         if(m_indexVBO)m_indexVBO->release();
@@ -147,23 +147,23 @@ protected:
 };
 
 
-class CshadowRoot:public CCNode
+class C2DSoftShadowRoot:public CCNode
 {
 public:
-    CshadowRoot(){
+    C2DSoftShadowRoot(){
         m_shadowRT=NULL;
         m_program=NULL;
         m_light=NULL;
         m_isDrawDebug=false;
         m_shadowDarkness=0.5;
     }
-    virtual~CshadowRoot(){
+    virtual~C2DSoftShadowRoot(){
         if(m_shadowRT)m_shadowRT->release();
         if(m_program)m_program->release();
     }
     bool init();
     void setLight(ClightNode*light);
-    void addObj(C2DSoftShadowNode*obj);
+    void addObj(C2DSoftShadowObj*obj);
     void visit();
     void setIsDrawDebug(bool value){m_isDrawDebug=value;}
     bool getIsDrawDebug()const{return m_isDrawDebug;}
@@ -173,7 +173,7 @@ public:
 protected:
     CCRenderTexture* m_shadowRT;
     CGLProgramWithUnifos*m_program;
-    vector<C2DSoftShadowNode*> m_objList;
+    vector<C2DSoftShadowObj*> m_objList;
     ClightNode*m_light;
     bool m_isDrawDebug;
     float m_shadowDarkness;

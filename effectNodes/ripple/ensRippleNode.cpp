@@ -87,7 +87,11 @@ bool CrippleSprite::init(string texFileName,float gridSideLen){
     return true;
 }
 void CrippleSprite::update(float dt){
-    updateOnce();
+    m_time+=dt;
+    if(m_time>=1.0/45){
+        updateOnce();
+        m_time=0;
+    }
 }
 void CrippleSprite::updateOnce(){
     //update buffer and mesh

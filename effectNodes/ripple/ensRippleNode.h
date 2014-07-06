@@ -27,6 +27,7 @@ public:
         m_nCol=0;
         m_rippleStrength=8;
         m_isDrawDebug=false;
+        m_time=0;
         
     }
 	virtual ~CrippleSprite(){
@@ -56,6 +57,7 @@ protected:
     vector<Cv2> m_texCoordList_store;
     float m_rippleStrength;
     bool m_isDrawDebug;
+    float m_time;
 
 };
 namespace_ens_end

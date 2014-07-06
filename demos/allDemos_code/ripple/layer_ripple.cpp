@@ -131,7 +131,7 @@ void Clayer_ripple::ccTouchesMoved(CCSet* touches , CCEvent* event)
         
         location = CCDirector::sharedDirector()->convertToGL(location);
         //    cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-		m_rippleSprite->doTouch(location, 512, 2*2*2*1.5);
+		m_rippleSprite->doTouch(location, 512, 12);
       //  break;
     }
     
@@ -151,7 +151,7 @@ void Clayer_ripple::ccTouchesBegan(CCSet* touches, CCEvent* event)
         
         location = CCDirector::sharedDirector()->convertToGL(location);
         //  cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-		m_rippleSprite->doTouch(location, 512, 2*2*2*1.5);
+		m_rippleSprite->doTouch(location, 512, 12);
      //   break;
     }
 }
