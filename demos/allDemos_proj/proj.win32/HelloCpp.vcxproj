@@ -120,6 +120,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\effectNodes\2DSoftShadow\ens2DSoftShadowNode.cpp" />
     <ClCompile Include="..\..\..\effectNodes\break\ensBreakNode.cpp" />
     <ClCompile Include="..\..\..\effectNodes\colorAdjust\ensColorAdjustNode.cpp" />
     <ClCompile Include="..\..\..\effectNodes\common\ensDefine.cpp" />
@@ -137,6 +138,8 @@
     <ClCompile Include="..\..\..\effectNodes\shatter\ensShatterNode.cpp" />
     <ClCompile Include="..\..\..\effectNodes\tail\ensTailNode.cpp" />
     <ClCompile Include="..\..\..\effectNodes\tinyWingsTerrain\ensTinyWingsTerrainNode.cpp" />
+    <ClCompile Include="..\..\allDemos_code\2DSoftShadow\layer_2DSoftShadow.cpp" />
+    <ClCompile Include="..\..\allDemos_code\2DSoftShadow\scene_2DSoftShadow.cpp" />
     <ClCompile Include="..\..\allDemos_code\break\layer_break.cpp" />
     <ClCompile Include="..\..\allDemos_code\break\scene_break.cpp" />
     <ClCompile Include="..\..\allDemos_code\chooseDemoUI\chooseLayer.cpp" />
@@ -164,6 +167,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\effectNodes\2DSoftShadow\ens2DSoftShadowNode.h" />
     <ClInclude Include="..\..\..\effectNodes\break\ensBreakNode.h" />
     <ClInclude Include="..\..\..\effectNodes\colorAdjust\ensColorAdjustNode.h" />
     <ClInclude Include="..\..\..\effectNodes\common\ensCommon.h" />
@@ -182,6 +186,8 @@
     <ClInclude Include="..\..\..\effectNodes\shatter\ensShatterNode.h" />
     <ClInclude Include="..\..\..\effectNodes\tail\ensTailNode.h" />
     <ClInclude Include="..\..\..\effectNodes\tinyWingsTerrain\ensTinyWingsTerrainNode.h" />
+    <ClInclude Include="..\..\allDemos_code\2DSoftShadow\layer_2DSoftShadow.h" />
+    <ClInclude Include="..\..\allDemos_code\2DSoftShadow\scene_2DSoftShadow.h" />
     <ClInclude Include="..\..\allDemos_code\break\layer_break.h" />
     <ClInclude Include="..\..\allDemos_code\break\scene_break.h" />
     <ClInclude Include="..\..\allDemos_code\chooseDemoUI\chooseLayer.h" />

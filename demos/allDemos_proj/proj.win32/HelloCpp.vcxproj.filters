@@ -84,6 +84,12 @@
     <Filter Include="allDemos_code\tinyWingsTerrain">
       <UniqueIdentifier>{684abcf9-ca7e-48e6-88d4-8d5296842ebd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="allDemos_code\2DSoftShadow">
+      <UniqueIdentifier>{c1b96f81-a786-45d0-89aa-980e0e5acf79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\2DSoftShadow">
+      <UniqueIdentifier>{c2e04b59-e5c5-4015-a296-7121b691c4d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -211,6 +217,15 @@
     </ClCompile>
     <ClCompile Include="..\..\allDemos_code\tinyWingsTerrain\scene_tinyWingsTerrain.cpp">
       <Filter>allDemos_code\tinyWingsTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\2DSoftShadow\layer_2DSoftShadow.cpp">
+      <Filter>allDemos_code\2DSoftShadow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\allDemos_code\2DSoftShadow\scene_2DSoftShadow.cpp">
+      <Filter>allDemos_code\2DSoftShadow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\2DSoftShadow\ens2DSoftShadowNode.cpp">
+      <Filter>effectNodes\2DSoftShadow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +363,15 @@
     </ClInclude>
     <ClInclude Include="..\..\allDemos_code\tinyWingsTerrain\scene_tinyWingsTerrain.h">
       <Filter>allDemos_code\tinyWingsTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\2DSoftShadow\layer_2DSoftShadow.h">
+      <Filter>allDemos_code\2DSoftShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\allDemos_code\2DSoftShadow\scene_2DSoftShadow.h">
+      <Filter>allDemos_code\2DSoftShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\2DSoftShadow\ens2DSoftShadowNode.h">
+      <Filter>effectNodes\2DSoftShadow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
