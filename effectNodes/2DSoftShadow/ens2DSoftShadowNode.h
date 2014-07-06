@@ -17,6 +17,9 @@ using namespace cocos2d;
 #include "common/ensCommon.h"
 
 namespace_ens_begin
+//this effect was inspired by:
+//http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/dynamic-2d-soft-shadows-r2032
+
 class Cedge{
 public:
     CCPoint m_start;
