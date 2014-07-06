@@ -32,7 +32,7 @@ bool Clayer_2DSoftShadow::init()
     m_light->autorelease();
     m_light->init(80*0.6);//(40);
     m_shadowRoot->setLight(m_light);
-    m_light->setPosition(ccp(winSize.width/2,winSize.height/2));
+    m_light->setPosition(ccp(winSize.width/4*3,winSize.height/3*2));
     
     m_2DSoftShadowNode=new C2DSoftShadowNode();
     m_2DSoftShadowNode->autorelease();
@@ -54,7 +54,7 @@ bool Clayer_2DSoftShadow::init()
     m_2DSoftShadowNode3->setLight(m_light);
     m_shadowRoot->addObj(m_2DSoftShadowNode3);
     m_2DSoftShadowNode3->setPosition(ccp(winSize.width/2,winSize.height/3*2.5));
-    
+
 
     m_sprite=CCSprite::create();
     m_sprite->initWithFile("demoRes/dish.png");
@@ -75,7 +75,7 @@ bool Clayer_2DSoftShadow::init()
     m_sprite_light=CCSprite::create();
     m_sprite_light->initWithFile("demoRes/light2.png");
     addChild(m_sprite_light,20);
-    m_sprite_light->setPosition(ccp(winSize.width/2,winSize.height/2));
+    m_sprite_light->setPosition(ccp(winSize.width/4*3,winSize.height/3*2));
     m_sprite_light->setScale(1.5*3.0*m_light->getR()/(m_sprite_light->getContentSize().width/2));
     ccBlendFunc blendFunc={GL_ONE,GL_ONE};
     m_sprite_light->setBlendFunc(blendFunc);
@@ -112,28 +112,33 @@ bool Clayer_2DSoftShadow::init()
         this->addChild(controlButton);
         m_controlButton_back=controlButton;
     }
- /*   //title
+    //title
     {
+
         {
             CCLabelTTF* pLabel = CCLabelTTF::create("2D Soft Shadow", "Arial", 45);
             
             // position the label on the center of the screen
-            pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
+            pLabel->setPosition(ccp(origin.x +pLabel->getContentSize().width/2+30,
                                     origin.y + visibleSize.height - pLabel->getContentSize().height));
             
             // add the label as a child to this layer
             this->addChild(pLabel, 100);
+
         }
         {
-            CCLabelTTF* pLabel = CCLabelTTF::create("2014-7-6", "Arial", 30);
-            pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
-                                    origin.y + visibleSize.height - pLabel->getContentSize().height-60));
-            this->addChild(pLabel, 100);
+            {
+                CCLabelTTF* pLabel = CCLabelTTF::create("2014-7-6", "Arial", 30);
+                pLabel->setPosition(ccp(origin.x +pLabel->getContentSize().width/2+30,
+                                        origin.y + visibleSize.height - pLabel->getContentSize().height-60));
+                this->addChild(pLabel, 100);
+            }
+
         }
 
   
         
-    }   */
+    }
 	
     return true;
 }

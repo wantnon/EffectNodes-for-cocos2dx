@@ -94,7 +94,7 @@ public:
         m_rightPenumbraPointID=-1;
         m_leftUmbraPointID=-1;
         m_rightUmbraPointID=-1;
-        m_lightStrength=1.0;
+        m_oneDivObjCount=1.0;
         m_isDrawDebug=false;
         m_isDrawNonDebug=true;
         m_isUpdateShadowSucc=false;
@@ -138,7 +138,7 @@ public:
             //get cocos2d-x build-in uniforms
             program->updateUniforms();
             //get my own uniforms
-            program->attachUniform("u_lightStrength");
+            program->attachUniform("u_oneDivObjCount");
             //set program
             m_program=program;
             m_program->retain();
@@ -377,7 +377,7 @@ public:
                 program->use();
                 program->setUniformsForBuiltins();
                 //pass values for my own uniforms
-                program->passUnifoValue1f("u_lightStrength", m_lightStrength);
+                program->passUnifoValue1f("u_oneDivObjCount", m_oneDivObjCount);
                 //enable attributes
                 bool isAttribPositionOn=CindexVBO::isEnabledAttribArray_position();
                 bool isAttribColorOn=CindexVBO::isEnabledAttribArray_color();
@@ -477,8 +477,8 @@ public:
         }
     
     }
-    void setLightStrength(float value){m_lightStrength=value;}
-    float getLightStrength()const{return m_lightStrength;}
+    void setOneDivObjCount(float value){m_oneDivObjCount=value;}
+    float getOneDivObjCount()const{return m_oneDivObjCount;}
     void setIsDrawDebug(bool value){
         m_isDrawDebug=value;
     }
@@ -1158,7 +1158,7 @@ protected:
     Cmesh*m_mesh;
     CindexVBO*m_indexVBO;
     CGLProgramWithUnifos*m_program;
-    float m_lightStrength;
+    float m_oneDivObjCount;
     bool m_isDrawDebug;
     bool m_isDrawNonDebug;
     bool m_isUpdateShadowSucc;
@@ -1173,6 +1173,7 @@ public:
         m_program=NULL;
         m_light=NULL;
         m_isDrawDebug=false;
+        m_shadowDarkness=0.5;
     }
     virtual~CshadowRoot(){
         if(m_shadowRT)m_shadowRT->release();
@@ -1199,7 +1200,8 @@ public:
             //get cocos2d-x build-in uniforms
             program->updateUniforms();
             //get my own uniforms
-            //...
+            program->attachUniform("u_objCount");
+            program->attachUniform("u_shadowDarkness");
             //set program
             m_program=program;
             m_program->retain();
@@ -1253,10 +1255,10 @@ public:
             {
                 
                 int nObj=(int)m_objList.size();
-                float lightStrength=1.0/nObj;
+                float oneDivObjCount=1.0/nObj;
                 for(int i=0;i<nObj;i++){
                     C2DSoftShadowNode*obj=m_objList[i];
-                    obj->setLightStrength(lightStrength);
+                    obj->setOneDivObjCount(oneDivObjCount);
                     bool isDrawDebugOld=obj->getIsDrawDebug();
                     obj->setIsDrawDebug(false);
                     obj->visit();
@@ -1265,6 +1267,11 @@ public:
                 
             }
             m_shadowRT->end();
+            //pass uniform value for m_shadowRT's program
+            CGLProgramWithUnifos*program=(CGLProgramWithUnifos*)m_shadowRT->getSprite()->getShaderProgram();
+            program->use();//must call this!
+            program->passUnifoValue1i("u_objCount", nObj);
+            program->passUnifoValue1f("u_shadowDarkness", m_shadowDarkness);
             //visit shadowRT
             m_shadowRT->visit();
             //draw objs' debug
@@ -1287,6 +1294,8 @@ public:
     }
     void setIsDrawDebug(bool value){m_isDrawDebug=value;}
     bool getIsDrawDebug()const{return m_isDrawDebug;}
+    void setShadowDarkness(float value){m_shadowDarkness=value;}
+    float getShadowDarkness()const{return m_shadowDarkness;}
     CCRenderTexture* getShadowRT(){return m_shadowRT;}
 protected:
     CCRenderTexture* m_shadowRT;
@@ -1294,6 +1303,7 @@ protected:
     vector<C2DSoftShadowNode*> m_objList;
     ClightNode*m_light;
     bool m_isDrawDebug;
+    float m_shadowDarkness;
 };
 namespace_ens_end
 #endif
