@@ -1,7 +1,7 @@
 
 
-#ifndef HelloWorld_ensShatterAction_h
-#define HelloWorld_ensShatterAction_h
+#ifndef HelloWorld_ensShatterNode_h
+#define HelloWorld_ensShatterNode_h
 
 #include <vector>
 #include<iostream>
