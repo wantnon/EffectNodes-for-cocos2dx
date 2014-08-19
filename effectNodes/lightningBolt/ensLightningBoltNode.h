@@ -78,8 +78,9 @@ namespace lightningBolt {
         void updateNGeneration();
         void draw();
         bool init();
-        void setEndPoint(CCPoint endPointWorld);
-        void setStartPoint(CCPoint startPointWorld);
+         void setStartAndEnd(CCPoint start,CCPoint end);
+    //    void setEndPoint(CCPoint endPointWorld);
+    //    void setStartPoint(CCPoint startPointWorld);
         void genLighting();
         void doJitter();
 		bool getIsDrawDebug()const{return m_isDrawDebug;}
@@ -136,7 +137,13 @@ public:
     }
     virtual~ClightningBoltNode(){}
     bool init(const CCPoint&start,const CCPoint&end);
-    void setStart(const CCPoint&point){
+    void setStartAndEnd(const CCPoint&start,const CCPoint&end){
+        m_start=start;
+        m_end=end;
+        m_lbSprite->setStartAndEnd(m_start, m_end);
+        m_lbSprite2->setStartAndEnd(m_start, m_end);
+    }
+/*    void setStart(const CCPoint&point){
         m_start=point;
         m_lbSprite->setStartPoint(m_start);
         m_lbSprite2->setStartPoint(m_start);
@@ -145,7 +152,7 @@ public:
         m_end=point;
         m_lbSprite->setEndPoint(m_end);
         m_lbSprite2->setEndPoint(m_end);
-    }
+    }*/
     CCPoint getStart()const{return m_start;}
     CCPoint getEnd()const{return m_end;}
 	bool getIsDrawDebug()const{

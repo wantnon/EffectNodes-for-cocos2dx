@@ -465,6 +465,65 @@ void ClightningBoltSprite::genMesh(){
     
     
 }
+
+void ClightningBoltSprite::setStartAndEnd(CCPoint start,CCPoint end){
+    m_startPoint_parentSpace=start;
+    m_endPoint_parentSpace=end;
+    m_startPoint= CCPointApplyAffineTransform(m_startPoint_parentSpace,this->parentToNodeTransform());
+    m_endPoint=CCPointApplyAffineTransform(m_endPoint_parentSpace,this->parentToNodeTransform());
+    //startPoint and endPoint is changed
+    
+    //relocate all the seges in segList
+    if(m_headSeg&&m_tailSeg)
+    {
+        //move all seges let headStart equals to startPoint
+        CCPoint vec_headStartToStart=m_startPoint-m_headSeg->startPoint;
+        int nseg=(int)m_segList.size();
+        for(int i=0;i<nseg;i++){
+            ClineSeg*seg=m_segList[i];
+            seg->startPoint=seg->startPoint+vec_headStartToStart;
+            seg->endPoint=seg->endPoint+vec_headStartToStart;
+            if(seg->branchID==1&&seg->father->branchID==0){//secondary branch root seg
+                seg->branchEndPoint=seg->branchEndPoint+vec_headStartToStart;
+            }
+        }
+        
+        
+        //rotate all seges in segList
+        CCPoint vec_headStartToTailEnd=m_tailSeg->endPoint-m_headSeg->startPoint;
+        CCPoint vec_headStartToEnd=this->m_endPoint-m_headSeg->startPoint;
+        CCPoint cosA_sinA=calculateCosASinAOfVec1ToVec2(vec_headStartToTailEnd, vec_headStartToEnd);
+        float cosA=cosA_sinA.x;
+        float sinA=cosA_sinA.y;
+        for(int i=0;i<nseg;i++){
+            ClineSeg*seg=m_segList[i];
+            seg->startPoint=m_headSeg->startPoint+rotateVector2(seg->startPoint-m_headSeg->startPoint, cosA,sinA);
+            seg->endPoint=m_headSeg->startPoint+rotateVector2(seg->endPoint-m_headSeg->startPoint, cosA,sinA);
+            if(seg->branchID==1&&seg->father->branchID==0){//secondary branch root seg
+                seg->branchEndPoint=m_headSeg->startPoint+rotateVector2(seg->branchEndPoint-m_headSeg->startPoint, cosA, sinA);
+            }
+        }
+        //scale segList, use headSeg->startPoint as the center
+        float dis_headStartToEnd=ccpDistance(m_headSeg->startPoint, this->m_endPoint);
+        float dis_headStartToTailEnd=ccpDistance(m_headSeg->startPoint, m_tailSeg->endPoint);
+        float scaleFactor=dis_headStartToTailEnd==0?1:dis_headStartToEnd/dis_headStartToTailEnd;
+        for(int i=0;i<nseg;i++){
+            ClineSeg*seg=m_segList[i];
+            seg->startPoint=m_headSeg->startPoint+ccpMult(seg->startPoint-m_headSeg->startPoint, scaleFactor);
+            seg->endPoint=m_headSeg->startPoint+ccpMult(seg->endPoint-m_headSeg->startPoint, scaleFactor);
+            if(seg->branchID==1&&seg->father->branchID==0){//secondary branch root seg
+                seg->branchEndPoint=m_headSeg->startPoint+ccpMult(seg->branchEndPoint-m_headSeg->startPoint, scaleFactor);
+            }
+        }
+        //because segList changed, so must re-generate mesh and glow sprites
+        genMesh();
+    }
+    //update nGeneration
+    updateNGeneration();
+    
+}
+
+/*
 void ClightningBoltSprite::setStartPoint(CCPoint startPoint){
     if(isPointEqual(m_startPoint_parentSpace, startPoint, 0.0))return;
     m_startPoint_parentSpace=startPoint;
@@ -555,7 +614,7 @@ void ClightningBoltSprite::setEndPoint(CCPoint endPoint){
     updateNGeneration();
     
 }
-
+*/
 void ClightningBoltSprite::debugDraw_segWireFrame(float lineWidth){
     glLineWidth(lineWidth);
     //draw mesh wireframe
@@ -633,8 +692,9 @@ bool ClightningBoltNode::init(const CCPoint&start,const CCPoint&end){
         m_lbSprite=new ClightningBoltSprite();
         m_lbSprite->autorelease();
         m_lbSprite->init();
-        m_lbSprite->setStartPoint(m_start);
-        m_lbSprite->setEndPoint(m_end);
+        m_lbSprite->setStartAndEnd(m_start, m_end);
+   //     m_lbSprite->setStartPoint(m_start);
+   //     m_lbSprite->setEndPoint(m_end);
         m_lbSprite->genLighting();
         this->addChild(m_lbSprite);
     }
@@ -643,8 +703,9 @@ bool ClightningBoltNode::init(const CCPoint&start,const CCPoint&end){
         m_lbSprite2=new ClightningBoltSprite();
         m_lbSprite2->autorelease();
         m_lbSprite2->init();
-        m_lbSprite2->setStartPoint(m_start);
-        m_lbSprite2->setEndPoint(m_end);
+        m_lbSprite2->setStartAndEnd(m_start, m_end);
+   //     m_lbSprite2->setStartPoint(m_start);
+   //     m_lbSprite2->setEndPoint(m_end);
         m_lbSprite2->genLighting();
         this->addChild(m_lbSprite2);
         
