@@ -153,7 +153,7 @@ void Clayer_ripple_horizontal::ccTouchesBegan(CCSet* touches, CCEvent* event)
         location = CCDirector::sharedDirector()->convertToGL(location);
         //  cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
 
-          m_ripple_horizontalNode->pressAtX(location.x, 7,150);
+          m_ripple_horizontalNode->pressAtX(location.x, 9,150);
         break;
     }
 }

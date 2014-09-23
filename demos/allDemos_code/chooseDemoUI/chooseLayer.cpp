@@ -18,6 +18,7 @@
 #include "ripple_horizontal/scene_ripple_horizontal.h"
 #include "tinyWingsTerrain/scene_tinyWingsTerrain.h"
 #include "2DSoftShadow/scene_2DSoftShadow.h"
+#include "laser/laserScene.h";
 bool CchooseLayer::init(){
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
@@ -25,18 +26,21 @@ bool CchooseLayer::init(){
     
     //enable touch
 	setTouchEnabled( true );
+    //hide frame rate
+   // CCDirector::sharedDirector()->setDisplayStats(false);
+    
     //sinSize
     CCSize winSize=CCDirector::sharedDirector()->getWinSize();//winSize equals to designResolutionSize
     //head line
     {
         CCLabelTTF* title = CCLabelTTF::create("Effect Nodes Demos", "Arial", 50);
-        title->setPosition(ccp(winSize.width/2,winSize.height-60));
+        title->setPosition(ccp(winSize.width/2,winSize.height-50));
         this->addChild(title, 1);
     }
     
     m_demoNameList.push_back("lightningBolt");
     m_demoNameList.push_back("tail");
-   // m_demoNameList.push_back("ghost-like");//copyright issue
+    m_demoNameList.push_back("ghost-like");
     m_demoNameList.push_back("ripple");
     m_demoNameList.push_back("ripple_horizontal");
     m_demoNameList.push_back("break");
@@ -45,11 +49,12 @@ bool CchooseLayer::init(){
     m_demoNameList.push_back("shatter");
     m_demoNameList.push_back("tinyWingsTerrain");
     m_demoNameList.push_back("2DSoftShadow");
+    m_demoNameList.push_back("laser");
     //head line height
-    float headlineHeight=100;
+    float headlineHeight=80;
     //button size and margin
-    CCSize buttonSize=CCSize(150,150);
-    CCSize buttonMargin=CCSize(20,60);
+    CCSize buttonSize=CCSize(140,140);
+    CCSize buttonMargin=CCSize(20,40);
     CCSize buttonSizeEx=CCSize(buttonSize.width+buttonMargin.width,buttonSize.height+buttonMargin.height);
     //how many Button one row
     int nButtonPerRow=floorf(visibleSize.width/buttonSizeEx.width);
@@ -72,7 +77,7 @@ bool CchooseLayer::init(){
         controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&CchooseLayer::controlButtonEvent), CCControlEventTouchUpInside);
         this->addChild(controlButton);
         m_controlButtonList.push_back(controlButton);
-        CCLabelTTF*label=CCLabelTTF::create(demoName.c_str(), "Arial", 22);
+        CCLabelTTF*label=CCLabelTTF::create(demoName.c_str(), "Arial", 18);
         addChild(label);
         label->setPosition(ccp(x,y-controlButton->getContentSize().height/2-label->getContentSize().height/2));
         //thumbnail
@@ -160,6 +165,12 @@ void CchooseLayer::controlButtonEvent(CCObject *senderz, CCControlEvent controlE
         
     }else if(demoName=="2DSoftShadow"){
         Cscene_2DSoftShadow *scene=new Cscene_2DSoftShadow();
+        scene->autorelease();
+        scene->init();
+        CCDirector::sharedDirector()->replaceScene(scene);
+        
+    }else if(demoName=="laser"){
+        Cscene_laser *scene=new Cscene_laser();
         scene->autorelease();
         scene->init();
         CCDirector::sharedDirector()->replaceScene(scene);

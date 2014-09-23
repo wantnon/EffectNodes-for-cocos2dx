@@ -265,6 +265,8 @@
 		186E7BF319D11FA800A6D6DF /* scene_tinyWingsTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7BF019D11FA800A6D6DF /* scene_tinyWingsTerrain.cpp */; };
 		186E7BF819D11FB800A6D6DF /* layer_2DSoftShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7BF419D11FB800A6D6DF /* layer_2DSoftShadow.cpp */; };
 		186E7BF919D11FB800A6D6DF /* scene_2DSoftShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7BF619D11FB800A6D6DF /* scene_2DSoftShadow.cpp */; };
+		186E7C4719D1323A00A6D6DF /* laserLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7C4419D1323A00A6D6DF /* laserLayer.cpp */; };
+		186E7C4A19D132D900A6D6DF /* laserScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7C4819D132D900A6D6DF /* laserScene.cpp */; };
 		189B0C211816A280003CDFEE /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 189B0C181816A21F003CDFEE /* AppDelegate.cpp */; };
 		189B0C221816A280003CDFEE /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = 189B0C191816A21F003CDFEE /* AppDelegate.h */; };
 		189B0C231816A280003CDFEE /* AppMacros.h in Sources */ = {isa = PBXBuildFile; fileRef = 189B0C1A1816A21F003CDFEE /* AppMacros.h */; };
@@ -853,6 +855,10 @@
 		186E7BF519D11FB800A6D6DF /* layer_2DSoftShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer_2DSoftShadow.h; sourceTree = "<group>"; };
 		186E7BF619D11FB800A6D6DF /* scene_2DSoftShadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_2DSoftShadow.cpp; sourceTree = "<group>"; };
 		186E7BF719D11FB800A6D6DF /* scene_2DSoftShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_2DSoftShadow.h; sourceTree = "<group>"; };
+		186E7C4419D1323A00A6D6DF /* laserLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laserLayer.cpp; sourceTree = "<group>"; };
+		186E7C4519D1323A00A6D6DF /* laserLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laserLayer.h; sourceTree = "<group>"; };
+		186E7C4819D132D900A6D6DF /* laserScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laserScene.cpp; sourceTree = "<group>"; };
+		186E7C4919D132D900A6D6DF /* laserScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laserScene.h; sourceTree = "<group>"; };
 		189B0C181816A21F003CDFEE /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		189B0C191816A21F003CDFEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		189B0C1A1816A21F003CDFEE /* AppMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMacros.h; sourceTree = "<group>"; };
@@ -1944,6 +1950,7 @@
 			isa = PBXGroup;
 			children = (
 				1857A4FA194C866F0013E716 /* common */,
+				186E7C4119D1323A00A6D6DF /* laser */,
 				1857A505194C866F0013E716 /* lightningBolt */,
 				57165AB0194EC8D90080F872 /* tail */,
 				575CD77D1950314C00A0450F /* ripple */,
@@ -1993,6 +2000,17 @@
 				1857A510194C8E940013E716 /* ensLightningBoltNode.h */,
 			);
 			path = lightningBolt;
+			sourceTree = "<group>";
+		};
+		186E7C4119D1323A00A6D6DF /* laser */ = {
+			isa = PBXGroup;
+			children = (
+				186E7C4819D132D900A6D6DF /* laserScene.cpp */,
+				186E7C4919D132D900A6D6DF /* laserScene.h */,
+				186E7C4419D1323A00A6D6DF /* laserLayer.cpp */,
+				186E7C4519D1323A00A6D6DF /* laserLayer.h */,
+			);
+			path = laser;
 			sourceTree = "<group>";
 		};
 		18B41E4B1802FBB7007B8CDD /* Classes */ = {
@@ -2476,6 +2494,7 @@
 				1839B26218029A9C005EA308 /* cpPivotJoint.c in Sources */,
 				1839B26318029A9C005EA308 /* cpRatchetJoint.c in Sources */,
 				186E7BD419D11F4F00A6D6DF /* layer_ripple.cpp in Sources */,
+				186E7C4719D1323A00A6D6DF /* laserLayer.cpp in Sources */,
 				1839B26418029A9C005EA308 /* cpRotaryLimitJoint.c in Sources */,
 				1839B26518029A9C005EA308 /* cpSimpleMotor.c in Sources */,
 				1839B26618029A9C005EA308 /* cpSlideJoint.c in Sources */,
@@ -2613,6 +2632,7 @@
 				1839B54B18029AC8005EA308 /* CCSSceneReader.cpp in Sources */,
 				1839B54C18029AC8005EA308 /* CCControl.cpp in Sources */,
 				1839B54D18029AC8005EA308 /* CCControlButton.cpp in Sources */,
+				186E7C4A19D132D900A6D6DF /* laserScene.cpp in Sources */,
 				1839B54E18029AC8005EA308 /* CCControlColourPicker.cpp in Sources */,
 				57165AB3194EC8D90080F872 /* ensTailNode.cpp in Sources */,
 				186E7BF219D11FA800A6D6DF /* layer_tinyWingsTerrain.cpp in Sources */,

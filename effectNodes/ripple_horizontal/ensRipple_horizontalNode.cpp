@@ -171,14 +171,7 @@ void Cripple_horizontalNode::updateMesh(){
         
     }
 }
-void Cripple_horizontalNode::surfaceRise(float dh){
-    int nPoint=(int)m_surfacePointList.size();
-    for(int i=0;i<nPoint;i++){
-        CCPoint&point=m_surfacePointList[i];
-        point.y+=dh;
-    }
 
-}
 void Cripple_horizontalNode::updateRipple(){
     
     CCSize contentSize=this->getContentSize();
@@ -187,8 +180,8 @@ void Cripple_horizontalNode::updateRipple(){
         int nPoint=(int)m_surfacePointList.size();
         for(int i=0;i<nPoint;i++){
             //start and end point not update
-           // if(i==0)continue;
-           // if(i==nPoint-1)continue;
+        //    if(i==0)continue;
+        //    if(i==nPoint-1)continue;
             CCPoint&point=m_surfacePointList[i];
             CCPoint&pointf=m_surfacePointList[i==0?nPoint-1:i-1];
             CCPoint&pointn=m_surfacePointList[i==nPoint-1?0:i+1];

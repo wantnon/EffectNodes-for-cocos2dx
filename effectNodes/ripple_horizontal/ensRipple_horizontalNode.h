@@ -19,11 +19,11 @@ namespace_ens_begin
 class Cripple_horizontalNode:public CCSprite{
 public:
     Cripple_horizontalNode(){
-        m_dx=5;//10;
+        m_dx=10;//10;
         m_mesh=NULL;
         m_indexVBO=NULL;
         m_isDrawDebug=false;
-        m_reduceStep=7;
+        m_reduceStep=3;
     }
     virtual~Cripple_horizontalNode(){
         if(m_mesh)m_mesh->release();
@@ -36,7 +36,7 @@ public:
     void update(float dt);
     bool getIsDrawDebug()const {return m_isDrawDebug;}
     void setIsDrawDebug(bool value){m_isDrawDebug=value;}
-    void surfaceRise(float dh);
+  
 protected:
     void initMesh();
     void updateMesh();
