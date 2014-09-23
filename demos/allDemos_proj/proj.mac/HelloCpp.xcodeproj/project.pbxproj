@@ -34,6 +34,8 @@
 		186E7C3B19D128B300A6D6DF /* layer_2DSoftShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7C3719D128B300A6D6DF /* layer_2DSoftShadow.cpp */; };
 		186E7C3C19D128B300A6D6DF /* scene_2DSoftShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186E7C3919D128B300A6D6DF /* scene_2DSoftShadow.cpp */; };
 		1888155519687ACB00212422 /* ens2DSoftShadowNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1888155319687ACB00212422 /* ens2DSoftShadowNode.cpp */; };
+		18B48FD419D1D2CF0018B8FE /* laserLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18B48FCF19D1D2CF0018B8FE /* laserLayer.cpp */; };
+		18B48FD519D1D2CF0018B8FE /* laserScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18B48FD119D1D2CF0018B8FE /* laserScene.cpp */; };
 		18FC1B2A1960775900B7695D /* ensTinyWingsTerrainNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B281960775900B7695D /* ensTinyWingsTerrainNode.cpp */; };
 		41BC70AD15BF7CCE006A0A6C /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 41BC70AC15BF7CCE006A0A6C /* Icon.icns */; };
 		41CD6C6515BF7574005E6F29 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41CD6C6315BF7574005E6F29 /* AppController.mm */; };
@@ -358,6 +360,10 @@
 		186E7C3A19D128B300A6D6DF /* scene_2DSoftShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_2DSoftShadow.h; sourceTree = "<group>"; };
 		1888155319687ACB00212422 /* ens2DSoftShadowNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ens2DSoftShadowNode.cpp; sourceTree = "<group>"; };
 		1888155419687ACB00212422 /* ens2DSoftShadowNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ens2DSoftShadowNode.h; sourceTree = "<group>"; };
+		18B48FCF19D1D2CF0018B8FE /* laserLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laserLayer.cpp; sourceTree = "<group>"; };
+		18B48FD019D1D2CF0018B8FE /* laserLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laserLayer.h; sourceTree = "<group>"; };
+		18B48FD119D1D2CF0018B8FE /* laserScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laserScene.cpp; sourceTree = "<group>"; };
+		18B48FD219D1D2CF0018B8FE /* laserScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laserScene.h; sourceTree = "<group>"; };
 		18FC1B281960775900B7695D /* ensTinyWingsTerrainNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ensTinyWingsTerrainNode.cpp; sourceTree = "<group>"; };
 		18FC1B291960775900B7695D /* ensTinyWingsTerrainNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ensTinyWingsTerrainNode.h; sourceTree = "<group>"; };
 		41BC70AC15BF7CCE006A0A6C /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -908,6 +914,17 @@
 			path = 2DSoftShadow;
 			sourceTree = "<group>";
 		};
+		18B48FCC19D1D2CF0018B8FE /* laser */ = {
+			isa = PBXGroup;
+			children = (
+				18B48FCF19D1D2CF0018B8FE /* laserLayer.cpp */,
+				18B48FD019D1D2CF0018B8FE /* laserLayer.h */,
+				18B48FD119D1D2CF0018B8FE /* laserScene.cpp */,
+				18B48FD219D1D2CF0018B8FE /* laserScene.h */,
+			);
+			path = laser;
+			sourceTree = "<group>";
+		};
 		18FC1B271960775900B7695D /* tinyWingsTerrain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1011,6 +1028,7 @@
 		5796324B195BFAB200F29877 /* effectNodes */ = {
 			isa = PBXGroup;
 			children = (
+				18B48FCC19D1D2CF0018B8FE /* laser */,
 				5796324C195BFAB200F29877 /* break */,
 				5796324F195BFAB200F29877 /* colorAdjust */,
 				57963252195BFAB200F29877 /* common */,
@@ -2121,6 +2139,7 @@
 				5796371C195C02CB00F29877 /* b2World.cpp in Sources */,
 				186E7BFF19D127DE00A6D6DF /* layer_break.cpp in Sources */,
 				5796371F195C02CB00F29877 /* b2ChainAndPolygonContact.cpp in Sources */,
+				18B48FD519D1D2CF0018B8FE /* laserScene.cpp in Sources */,
 				579635AB195C015800F29877 /* CCBatchNode.cpp in Sources */,
 				186E7C3619D128A000A6D6DF /* scene_tinyWingsTerrain.cpp in Sources */,
 				57963589195C015800F29877 /* CCBFileLoader.cpp in Sources */,
@@ -2239,6 +2258,7 @@
 				5796361F195C015800F29877 /* RegionAttachment.cpp in Sources */,
 				5796358D195C015800F29877 /* CCBSequenceProperty.cpp in Sources */,
 				5796358B195C015800F29877 /* CCBReader.cpp in Sources */,
+				18B48FD419D1D2CF0018B8FE /* laserLayer.cpp in Sources */,
 				186E7C0B19D1280900A6D6DF /* layer_ghostlike.cpp in Sources */,
 				5796359E195C015800F29877 /* CCScrollViewLoader.cpp in Sources */,
 				579635C3195C015800F29877 /* UIHelper.cpp in Sources */,

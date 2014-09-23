@@ -40,7 +40,7 @@ bool CchooseLayer::init(){
     
     m_demoNameList.push_back("lightningBolt");
     m_demoNameList.push_back("tail");
-    m_demoNameList.push_back("ghost-like");
+   // m_demoNameList.push_back("ghost-like");//masked
     m_demoNameList.push_back("ripple");
     m_demoNameList.push_back("ripple_horizontal");
     m_demoNameList.push_back("break");
