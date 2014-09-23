@@ -1,6 +1,6 @@
 #include "normalMapped/layer_normalMapped.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
+
 bool Clayer_normalMapped::init()
 {
     this->setTouchEnabled(true);

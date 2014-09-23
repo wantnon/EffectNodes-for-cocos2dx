@@ -7,7 +7,6 @@
 //
 
 #include "chooseLayer.h"
-#include "common/common.h"
 #include "lightningBolt/scene_lightningBolt.h"
 #include "tail/scene_tail.h"
 #include "ghost-like/scene_ghostlike.h"

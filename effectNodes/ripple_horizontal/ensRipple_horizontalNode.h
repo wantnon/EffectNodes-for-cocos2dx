@@ -19,33 +19,38 @@ namespace_ens_begin
 class Cripple_horizontalNode:public CCSprite{
 public:
     Cripple_horizontalNode(){
-        m_dx=10;
+        m_dx=5;//10;
         m_mesh=NULL;
         m_indexVBO=NULL;
         m_isDrawDebug=false;
+        m_reduceStep=7;
     }
     virtual~Cripple_horizontalNode(){
         if(m_mesh)m_mesh->release();
         if(m_indexVBO)m_indexVBO->release();
     }
     void init(const string&texFileName);
-    void pressAtX(float x,float h_press,float r_press=80);
+    void pressAtX(float x,float h_press,float r_press=120);
     void draw();
     void drawWire();
     void update(float dt);
     bool getIsDrawDebug()const {return m_isDrawDebug;}
     void setIsDrawDebug(bool value){m_isDrawDebug=value;}
+    void surfaceRise(float dh);
 protected:
     void initMesh();
     void updateMesh();
     void updateRipple();
 protected:
+    vector<CCPoint> m_surfacePointList_reduced;
+    int m_reduceStep;
     vector<CCPoint> m_surfacePointList;//in local space
     vector<CCPoint> m_surfacePointList_back;//back up buffer
     float m_dx;
     Cmesh*m_mesh;
     CindexVBO*m_indexVBO;
     bool m_isDrawDebug;
+
 
 };
 

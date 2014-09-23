@@ -6,7 +6,7 @@
 //
 //
 
-#include "ripple_horizontal/ensRipple_horizontalNode.h"
+#include "ensRipple_horizontalNode.h"
 namespace_ens_begin
 void Cripple_horizontalNode::init(const string&texFileName){
     this->CCSprite::initWithFile(texFileName.c_str());
@@ -77,13 +77,20 @@ void Cripple_horizontalNode::pressAtX(float x,float h_press,float r_press)
 }
 void Cripple_horizontalNode::initMesh(){
     m_mesh->clear();
-    CCPoint startPoint=m_surfacePointList[0];
-    CCPoint endPoint=m_surfacePointList[(int)m_surfacePointList.size()-1];
+    m_surfacePointList_reduced.clear();
+    for(int i=0;i<(int)m_surfacePointList.size();i+=m_reduceStep){
+        CCPoint pos=m_surfacePointList[i];
+        m_surfacePointList_reduced.push_back(pos);
+    }
+    m_surfacePointList_reduced.push_back(m_surfacePointList[(int)m_surfacePointList.size()-1]);
+    //got m_surfacePointList_reduced
+    CCPoint startPoint=m_surfacePointList_reduced[0];
+    CCPoint endPoint=m_surfacePointList_reduced[(int)m_surfacePointList_reduced.size()-1];
     const float len=endPoint.x-startPoint.x;
-    int nPoint=(int)m_surfacePointList.size();
+    int nPoint=(int)m_surfacePointList_reduced.size();
     for(int i=0;i<nPoint-1;i++){
-        const CCPoint&p=m_surfacePointList[i];
-        const CCPoint&pn=m_surfacePointList[i+1];
+        const CCPoint&p=m_surfacePointList_reduced[i];
+        const CCPoint&pn=m_surfacePointList_reduced[i+1];
         //LU
         Cv2 posLU=Cv2(p.x,p.y);
         Cv2 texCoordLU=Cv2((posLU.x()-startPoint.x)/len, 0);
@@ -135,14 +142,23 @@ void Cripple_horizontalNode::initMesh(){
     
 }
 void Cripple_horizontalNode::updateMesh(){
+   
+    m_surfacePointList_reduced.clear();
+    for(int i=0;i<(int)m_surfacePointList.size();i+=m_reduceStep){
+        CCPoint pos=m_surfacePointList[i];
+        m_surfacePointList_reduced.push_back(pos);
+    }
+    m_surfacePointList_reduced.push_back(m_surfacePointList[(int)m_surfacePointList.size()-1]);
+    //got m_surfacePointList_reduced
+    
     int nV=(int)m_mesh->vlist.size();
-    int nPoint=(int)m_surfacePointList.size();
+    int nPoint=(int)m_surfacePointList_reduced.size();
     for(int i=0;i<nPoint;i++){
-        const CCPoint&p=m_surfacePointList[i];
-        //  0     1     2
+        const CCPoint&p=m_surfacePointList_reduced[i];
+        //  0           1            2
         //  *-----*-----*
         //    0-3   4-7
-        //    | |   | |
+        //    |    |    |    |
         //    1-2   5-6
         int imul4=i*4;
         if(imul4<nV){
@@ -155,22 +171,31 @@ void Cripple_horizontalNode::updateMesh(){
         
     }
 }
+void Cripple_horizontalNode::surfaceRise(float dh){
+    int nPoint=(int)m_surfacePointList.size();
+    for(int i=0;i<nPoint;i++){
+        CCPoint&point=m_surfacePointList[i];
+        point.y+=dh;
+    }
+
+}
 void Cripple_horizontalNode::updateRipple(){
+    
     CCSize contentSize=this->getContentSize();
     //update surfacePointList's point height
     {
         int nPoint=(int)m_surfacePointList.size();
         for(int i=0;i<nPoint;i++){
             //start and end point not update
-            if(i==0)continue;
-            if(i==nPoint-1)continue;
+           // if(i==0)continue;
+           // if(i==nPoint-1)continue;
             CCPoint&point=m_surfacePointList[i];
-            CCPoint&pointf=m_surfacePointList[i-1];
-            CCPoint&pointn=m_surfacePointList[i+1];
+            CCPoint&pointf=m_surfacePointList[i==0?nPoint-1:i-1];
+            CCPoint&pointn=m_surfacePointList[i==nPoint-1?0:i+1];
             CCPoint&point_back=m_surfacePointList_back[i];
             point_back.y=contentSize.height+((pointf.y-contentSize.height)
                                              +(pointn.y-contentSize.height)
-                                             -(point_back.y-contentSize.height))*(1.0-1.0/20);
+                                             -(point_back.y-contentSize.height))*(1.0-1.0/150);
         }
         //switch surfacePointList and surfacePointList_back
         vector<CCPoint> temp=m_surfacePointList;
@@ -178,17 +203,18 @@ void Cripple_horizontalNode::updateRipple(){
         m_surfacePointList_back=temp;
         
     }
+   
+
     updateMesh();
     m_indexVBO->submitPos(m_mesh->vlist, GL_DYNAMIC_DRAW);
 }
 void Cripple_horizontalNode::update(float dt){
+ 
     updateRipple();
+
 }
 void Cripple_horizontalNode::draw(){
-    if(m_isDrawDebug){
-        drawWire();
-    }
-    //
+   
     //----change shader
     ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
     ccGLEnable(m_eGLServerState);
@@ -216,6 +242,9 @@ void Cripple_horizontalNode::draw(){
     CindexVBO::enableAttribArray_position(isAttribPositionOn);
     CindexVBO::enableAttribArray_color(isAttribColorOn);
     CindexVBO::enableAttribArray_texCoord(isAttribTexCoordOn);
+     if(m_isDrawDebug){
+    drawWire();
+     }
     
     
 }
@@ -224,11 +253,11 @@ void Cripple_horizontalNode::drawWire(){
     //draw segList
     glLineWidth(2);
     ccPointSize(4);
-    int nPoint=(int)m_surfacePointList.size();
+    int nPoint=(int)m_surfacePointList_reduced.size();
     int nSeg=nPoint-1;
     for(int i=0;i<nSeg;i++){
-        CCPoint point=m_surfacePointList[i];
-        CCPoint pointn=m_surfacePointList[i+1];
+        CCPoint point=m_surfacePointList_reduced[i];
+        CCPoint pointn=m_surfacePointList_reduced[i+1];
         ccDrawLine(point, pointn);
         ccDrawPoint(point);
         ccDrawPoint(pointn);

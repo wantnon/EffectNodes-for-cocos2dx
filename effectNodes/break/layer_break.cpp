@@ -1,24 +1,26 @@
-#include "ripple/layer_ripple.h"
+#include "break/layer_break.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
 
-bool Clayer_ripple::init()
+bool Clayer_break::init()
 {
     this->setTouchEnabled(true);
     
     CCSize winSize=CCDirector::sharedDirector()->getWinSize();//winSize equals to designResolutionSize
+    
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-    
-    
-	m_rippleSprite=new CrippleSprite();
-    m_rippleSprite->autorelease();
-	m_rippleSprite->init("demoRes/frozen_small.png",8);
-	m_rippleSprite->setPosition(ccp(winSize.width/2,winSize.height/2));
-    m_rippleSprite->scheduleUpdate();
-    addChild(m_rippleSprite);
 
-  
+
+    
+    
+    m_breakSprite=new CbreakSprite();
+    m_breakSprite->autorelease();
+    m_breakSprite->init("demoRes/frozen_small.png");
+    m_breakSprite->setAnchorPoint(ccp(0.5,0.5));
+    m_breakSprite->setPosition(ccp(winSize.width/2, winSize.height/2));
+
+    this->addChild(m_breakSprite);
+    
     //debug button
     {
         CCScale9Sprite* btnUp=CCScale9Sprite::create("uiRes/button.png");
@@ -28,7 +30,7 @@ bool Clayer_ripple::init()
         controlButton->setBackgroundSpriteForState(btnDn,CCControlStateHighlighted);
         controlButton->setPreferredSize(CCSize(100,50));
         controlButton->setPosition(ccp(origin.x+controlButton->getContentSize().width/2,winSize.height-150));
-        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_ripple::controlButtonEvent_debug), CCControlEventTouchDown);
+        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_break::controlButtonEvent_debug), CCControlEventTouchDown);
         this->addChild(controlButton);
         m_controlButton_debug=controlButton;
         //label
@@ -37,7 +39,7 @@ bool Clayer_ripple::init()
                                             m_controlButton_debug->getPositionY()));
         this->addChild(m_label_debugState, 1);
     }
-    
+
     //back button
     {
         CCScale9Sprite* btnUp=CCScale9Sprite::create("uiRes/button.png");
@@ -47,14 +49,14 @@ bool Clayer_ripple::init()
         controlButton->setBackgroundSpriteForState(btnDn,CCControlStateHighlighted);
         controlButton->setPreferredSize(CCSize(100,50));
         controlButton->setPosition(ccp(origin.x+visibleSize.width-controlButton->getContentSize().width/2,origin.y+controlButton->getContentSize().height/2));
-        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_ripple::controlButtonEvent_back), CCControlEventTouchUpInside);
+        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_break::controlButtonEvent_back), CCControlEventTouchUpInside);
         this->addChild(controlButton);
         m_controlButton_back=controlButton;
     }
     //title
     {
         {
-            CCLabelTTF* pLabel = CCLabelTTF::create("Ripple", "Arial", 45);
+            CCLabelTTF* pLabel = CCLabelTTF::create("Break", "Arial", 45);
             
             // position the label on the center of the screen
             pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
@@ -64,41 +66,40 @@ bool Clayer_ripple::init()
             this->addChild(pLabel, 1);
         }
         {
-            CCLabelTTF* pLabel = CCLabelTTF::create("2013-10-20", "Arial", 30);
+            CCLabelTTF* pLabel = CCLabelTTF::create("2013-12-1", "Arial", 30);
             pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
                                     origin.y + visibleSize.height - pLabel->getContentSize().height-60));
             this->addChild(pLabel, 1);
         }
-
+        
         
     }
-	
     return true;
 }
-void Clayer_ripple::controlButtonEvent_debug(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
+void Clayer_break::controlButtonEvent_debug(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
     m_isDebugOn=!m_isDebugOn;
     
     if(m_isDebugOn){
         m_label_debugState->setString("debug: on") ;
-        m_rippleSprite->setIsDrawDebug(true);
-        
+        m_breakSprite->setIsDrawDebug(true);
     }else{
         m_label_debugState->setString("debug: off") ;
-        m_rippleSprite->setIsDrawDebug(false);
+        m_breakSprite->setIsDrawDebug(false);
     }
     
 }
 
-void Clayer_ripple::controlButtonEvent_back(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
+void Clayer_break::controlButtonEvent_back(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
     CchooseScene*scene=new CchooseScene();
     scene->autorelease();
     scene->init();
     CCDirector::sharedDirector()->replaceScene(scene);
 }
 
-void Clayer_ripple::ccTouchesEnded(CCSet* touches, CCEvent* event)
+void Clayer_break::ccTouchesEnded(CCSet* touches, CCEvent* event)
 {
-    //Add a new body/atlas sprite at the touched location
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    
     CCSetIterator it;
     CCTouch* touch;
     
@@ -109,15 +110,16 @@ void Clayer_ripple::ccTouchesEnded(CCSet* touches, CCEvent* event)
         if(!touch)
             break;
         
-        CCPoint location = touch->getLocationInView();
+        CCPoint loc_winSpace = touch->getLocationInView();
+        CCPoint loc_GLSpace = CCDirector::sharedDirector()->convertToGL(loc_winSpace);
         
-        location = CCDirector::sharedDirector()->convertToGL(location);
-        //    cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-        break;
+        
     }
 }
-void Clayer_ripple::ccTouchesMoved(CCSet* touches , CCEvent* event)
+void Clayer_break::ccTouchesMoved(cocos2d::CCSet* touches , cocos2d::CCEvent* event)
 {
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    
     CCSetIterator it;
     CCTouch* touch;
     for( it = touches->begin(); it != touches->end(); it++)
@@ -127,18 +129,19 @@ void Clayer_ripple::ccTouchesMoved(CCSet* touches , CCEvent* event)
         if(!touch)
             break;
         
-        CCPoint location = touch->getLocationInView();
+        CCPoint loc_winSpace = touch->getLocationInView();
+        CCPoint loc_GLSpace = CCDirector::sharedDirector()->convertToGL(loc_winSpace);
         
-        location = CCDirector::sharedDirector()->convertToGL(location);
-        //    cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-		m_rippleSprite->doTouch(location, 512, 12);
-      //  break;
+        
+
     }
     
 }
 
-void Clayer_ripple::ccTouchesBegan(CCSet* touches, CCEvent* event)
+void Clayer_break::ccTouchesBegan(CCSet* touches, CCEvent* event)
 {
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    
     CCSetIterator it;
     CCTouch* touch;
 	for( it = touches->begin(); it != touches->end(); it++)
@@ -147,11 +150,33 @@ void Clayer_ripple::ccTouchesBegan(CCSet* touches, CCEvent* event)
         if(!touch)
             break;
         
-        CCPoint location = touch->getLocationInView();
+        CCPoint loc_winSpace = touch->getLocationInView();
+        CCPoint loc_GLSpace = CCDirector::sharedDirector()->convertToGL(loc_winSpace);
+        //CCLOG("loc_GLSpace:%f,%f",loc_GLSpace.x,loc_GLSpace.y);
         
-        location = CCDirector::sharedDirector()->convertToGL(location);
-        //  cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-		m_rippleSprite->doTouch(location, 512, 12);
-     //   break;
+        
+        switch (m_breakSprite->getState()) {
+            case ens::breakEffect::eState_well:
+                m_breakSprite->doCrack(loc_GLSpace);
+                break;
+            case ens::breakEffect::eState_crack:
+            {
+                m_breakSprite->generateDelayTimes(15);
+                breakEffect::CfallOffAction*breakAction=breakEffect::CfallOffAction::create(30);
+                m_breakSprite->runAction(breakAction);
+            }
+                break;
+            case ens::breakEffect::eState_fallOff:
+                m_breakSprite->reSet();
+                break;
+            default:
+                break;
+        }
+        
+        
+        
+        
     }
 }
+
+

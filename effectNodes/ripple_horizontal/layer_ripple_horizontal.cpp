@@ -1,8 +1,8 @@
-#include "shatter/layer_shatter.h"
+#include "ripple_horizontal/layer_ripple_horizontal.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
 
-bool Clayer_shatter::init()
+
+bool Clayer_ripple_horizontal::init()
 {
     this->setTouchEnabled(true);
     
@@ -11,15 +11,33 @@ bool Clayer_shatter::init()
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
     
     
+	m_ripple_horizontalNode=new Cripple_horizontalNode();
+    m_ripple_horizontalNode->autorelease();
+	m_ripple_horizontalNode->init("demoRes/water.png");
+	m_ripple_horizontalNode->setPosition(ccp(winSize.width/2,winSize.height/2));
+    m_ripple_horizontalNode->scheduleUpdate();
+    addChild(m_ripple_horizontalNode);
 
-    //sprite
-    m_shatterSprite=new CshatterSprite();
-	m_shatterSprite->autorelease();
-    m_shatterSprite->init("demoRes/fish2.png");
-    m_shatterSprite->setPosition(ccp(winSize.width/2, winSize.height/2));
-    this->addChild(m_shatterSprite);
   
-                                                 
+    //debug button
+    {
+        CCScale9Sprite* btnUp=CCScale9Sprite::create("uiRes/button.png");
+        CCScale9Sprite* btnDn=CCScale9Sprite::create("uiRes/button_dn.png");
+        CCLabelTTF*title=CCLabelTTF::create("debug", "Helvetica", 30);
+        CCControlButton* controlButton=CCControlButton::create(title, btnUp);
+        controlButton->setBackgroundSpriteForState(btnDn,CCControlStateHighlighted);
+        controlButton->setPreferredSize(CCSize(100,50));
+        controlButton->setPosition(ccp(origin.x+controlButton->getContentSize().width/2,winSize.height-150));
+        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_ripple_horizontal::controlButtonEvent_debug), CCControlEventTouchDown);
+        this->addChild(controlButton);
+        m_controlButton_debug=controlButton;
+        //label
+        m_label_debugState = CCLabelTTF::create("debug: off", "Arial", 30);
+        m_label_debugState->setPosition(ccp(m_controlButton_debug->getPositionX()+m_controlButton_debug->getContentSize().width/2+m_label_debugState->getContentSize().width/2+10,
+                                            m_controlButton_debug->getPositionY()));
+        this->addChild(m_label_debugState, 1);
+    }
+    
     //back button
     {
         CCScale9Sprite* btnUp=CCScale9Sprite::create("uiRes/button.png");
@@ -29,14 +47,15 @@ bool Clayer_shatter::init()
         controlButton->setBackgroundSpriteForState(btnDn,CCControlStateHighlighted);
         controlButton->setPreferredSize(CCSize(100,50));
         controlButton->setPosition(ccp(origin.x+visibleSize.width-controlButton->getContentSize().width/2,origin.y+controlButton->getContentSize().height/2));
-        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_shatter::controlButtonEvent_back), CCControlEventTouchUpInside);
+        controlButton->addTargetWithActionForControlEvents(this, (SEL_CCControlHandler)(&Clayer_ripple_horizontal::controlButtonEvent_back), CCControlEventTouchUpInside);
         this->addChild(controlButton);
         m_controlButton_back=controlButton;
     }
+
     //title
     {
         {
-            CCLabelTTF* pLabel = CCLabelTTF::create("Shatter", "Arial", 45);
+            CCLabelTTF* pLabel = CCLabelTTF::create("Ripple (horizontal)", "Arial", 45);
             
             // position the label on the center of the screen
             pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
@@ -46,31 +65,39 @@ bool Clayer_shatter::init()
             this->addChild(pLabel, 1);
         }
         {
-            CCLabelTTF* pLabel = CCLabelTTF::create("2013-11-11", "Arial", 30);
+            CCLabelTTF* pLabel = CCLabelTTF::create("2013-7-28", "Arial", 30);
             pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
                                     origin.y + visibleSize.height - pLabel->getContentSize().height-60));
-            this->addChild(pLabel, 1);
-        }
-        {
-            CCLabelTTF* pLabel = CCLabelTTF::create("touch it...", "Arial", 30);
-            pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
-                                    origin.y + visibleSize.height - pLabel->getContentSize().height-120));
             this->addChild(pLabel, 1);
         }
         
         
     }
-	
     return true;
 }
-void Clayer_shatter::controlButtonEvent_back(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
+
+void Clayer_ripple_horizontal::controlButtonEvent_debug(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
+    m_isDebugOn=!m_isDebugOn;
+    
+    if(m_isDebugOn){
+        m_label_debugState->setString("debug: on") ;
+        m_ripple_horizontalNode->setIsDrawDebug(true);
+
+    }else{
+        m_label_debugState->setString("debug: off") ;
+        m_ripple_horizontalNode->setIsDrawDebug(false);
+    }
+    
+}
+
+void Clayer_ripple_horizontal::controlButtonEvent_back(CCObject *senderz, cocos2d::extension::CCControlEvent controlEvent){
     CchooseScene*scene=new CchooseScene();
     scene->autorelease();
     scene->init();
     CCDirector::sharedDirector()->replaceScene(scene);
 }
 
-void Clayer_shatter::ccTouchesEnded(CCSet* touches, CCEvent* event)
+void Clayer_ripple_horizontal::ccTouchesEnded(CCSet* touches, CCEvent* event)
 {
     //Add a new body/atlas sprite at the touched location
     CCSetIterator it;
@@ -87,12 +114,10 @@ void Clayer_shatter::ccTouchesEnded(CCSet* touches, CCEvent* event)
         
         location = CCDirector::sharedDirector()->convertToGL(location);
         //    cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-        
-        
         break;
     }
 }
-void Clayer_shatter::ccTouchesMoved(CCSet* touches , CCEvent* event)
+void Clayer_ripple_horizontal::ccTouchesMoved(CCSet* touches , CCEvent* event)
 {
     CCSetIterator it;
     CCTouch* touch;
@@ -107,14 +132,13 @@ void Clayer_shatter::ccTouchesMoved(CCSet* touches , CCEvent* event)
         
         location = CCDirector::sharedDirector()->convertToGL(location);
         //    cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
-
-        
+   m_ripple_horizontalNode->pressAtX(location.x, 0.8);
         break;
     }
     
 }
 
-void Clayer_shatter::ccTouchesBegan(CCSet* touches, CCEvent* event)
+void Clayer_ripple_horizontal::ccTouchesBegan(CCSet* touches, CCEvent* event)
 {
     CCSetIterator it;
     CCTouch* touch;
@@ -129,16 +153,7 @@ void Clayer_shatter::ccTouchesBegan(CCSet* touches, CCEvent* event)
         location = CCDirector::sharedDirector()->convertToGL(location);
         //  cout<<"mos pos:"<<location.x<<" "<<location.y<<endl;
 
-        if(m_shatterSprite->getOpacity()==0){
-            m_shatterSprite->setOpacity(255);
-		}else{
-           m_shatterSprite->setOpacity(0);
-		   m_shatterSprite->stopAllActions();
-            shatter::CshatterAction*shatter=shatter::CshatterAction::create(4);
-            m_shatterSprite->runAction(shatter);
-			
-        }
-        
+          m_ripple_horizontalNode->pressAtX(location.x, 7,150);
         break;
     }
 }

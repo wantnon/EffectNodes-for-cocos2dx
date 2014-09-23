@@ -1,6 +1,6 @@
 #include "tinyWingsTerrain/layer_tinyWingsTerrain.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
+
 
 bool Clayer_tinyWingsTerrain::init()
 {

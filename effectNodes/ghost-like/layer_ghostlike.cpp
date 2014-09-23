@@ -1,6 +1,6 @@
 #include "ghost-like/layer_ghostlike.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
+
 
 bool Clayer_ghostlike::init()
 {

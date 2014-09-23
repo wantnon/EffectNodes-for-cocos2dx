@@ -8,7 +8,7 @@
 
 #include "lightningBolt/layer_lightningBolt.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
+
 bool Clayer_lightningBolt::init(){
     CCSize winSize=CCDirector::sharedDirector()->getWinSize();
     

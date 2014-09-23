@@ -1,6 +1,5 @@
 #include "2DSoftShadow/layer_2DSoftShadow.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
 
 bool Clayer_2DSoftShadow::init()
 {

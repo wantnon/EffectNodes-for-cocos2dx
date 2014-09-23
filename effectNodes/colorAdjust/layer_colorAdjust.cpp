@@ -1,6 +1,6 @@
 #include "colorAdjust/layer_colorAdjust.h"
 #include "chooseDemoUI/chooseScene.h"
-#include "common/common.h"
+
 bool Clayer_colorAdjust::init()
 {
     
