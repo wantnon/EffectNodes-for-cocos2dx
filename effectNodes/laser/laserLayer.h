@@ -2,10 +2,10 @@
 #define __laserLayer_H__
 
 #include "cocos2d.h"
-#include "ensCommon.h"
 using namespace cocos2d;
 #include "cocos-ext.h"
 using namespace cocos2d::extension;
+#include "common/ensCommon.h"
 class ChalfLaser:public CCSprite{
 public:
     ChalfLaser(){

@@ -45,50 +45,17 @@
     <Filter Include="effectNodes\tail">
       <UniqueIdentifier>{aad96384-66e2-4418-b684-679a28925dc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="allDemos_code\break">
-      <UniqueIdentifier>{7f1b5589-5fa2-4896-8e7e-55b61210d592}</UniqueIdentifier>
-    </Filter>
     <Filter Include="allDemos_code\chooseDemoUI">
       <UniqueIdentifier>{1c539feb-c52f-41f1-a4f0-311d92e3bd65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\colorAdjust">
-      <UniqueIdentifier>{88d2e562-094c-4011-919e-ca56940983a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\common">
-      <UniqueIdentifier>{34243e8c-a321-463f-9819-8398f7d13583}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\ghost-like">
-      <UniqueIdentifier>{dbef0d17-44ce-45e1-9cb3-075210011bbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\lightningBolt">
-      <UniqueIdentifier>{d7511256-3d6c-4bb2-ae8c-79ac78484bcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\normalMapped">
-      <UniqueIdentifier>{8f29918d-d8f4-4c75-8f8b-7b7a168723f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\ripple">
-      <UniqueIdentifier>{96163068-44a6-4ff3-90cf-c6b6c4238a93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\ripple_horizontal">
-      <UniqueIdentifier>{8e3241a7-f495-4184-bbf2-519dd5fc5e6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\shatter">
-      <UniqueIdentifier>{a6744dc6-1310-4a8e-bf33-ec3bca21807b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\tail">
-      <UniqueIdentifier>{6cb2bd64-7245-4e94-9b96-eb8dce6815b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="effectNodes\tinyWingsTerrain">
       <UniqueIdentifier>{f028ec17-00f5-4653-b819-3f4ac5b84fa6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="allDemos_code\tinyWingsTerrain">
-      <UniqueIdentifier>{684abcf9-ca7e-48e6-88d4-8d5296842ebd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="allDemos_code\2DSoftShadow">
-      <UniqueIdentifier>{c1b96f81-a786-45d0-89aa-980e0e5acf79}</UniqueIdentifier>
-    </Filter>
     <Filter Include="effectNodes\2DSoftShadow">
       <UniqueIdentifier>{c2e04b59-e5c5-4015-a296-7121b691c4d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effectNodes\laser">
+      <UniqueIdentifier>{971cab24-284c-4ced-8b9b-a913fb2fa925}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -143,68 +110,11 @@
     <ClCompile Include="..\..\..\effectNodes\tail\ensTailNode.cpp">
       <Filter>effectNodes\tail</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\break\layer_break.cpp">
-      <Filter>allDemos_code\break</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\break\scene_break.cpp">
-      <Filter>allDemos_code\break</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\allDemos_code\chooseDemoUI\chooseLayer.cpp">
       <Filter>allDemos_code\chooseDemoUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\allDemos_code\chooseDemoUI\chooseScene.cpp">
       <Filter>allDemos_code\chooseDemoUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\colorAdjust\layer_colorAdjust.cpp">
-      <Filter>allDemos_code\colorAdjust</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\colorAdjust\scene_colorAdjust.cpp">
-      <Filter>allDemos_code\colorAdjust</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\common\func.cpp">
-      <Filter>allDemos_code\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\ghost-like\layer_ghostlike.cpp">
-      <Filter>allDemos_code\ghost-like</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\ghost-like\scene_ghostlike.cpp">
-      <Filter>allDemos_code\ghost-like</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\lightningBolt\layer_lightningBolt.cpp">
-      <Filter>allDemos_code\lightningBolt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\lightningBolt\scene_lightningBolt.cpp">
-      <Filter>allDemos_code\lightningBolt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\normalMapped\layer_normalMapped.cpp">
-      <Filter>allDemos_code\normalMapped</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\normalMapped\scene_normalMapped.cpp">
-      <Filter>allDemos_code\normalMapped</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\ripple\layer_ripple.cpp">
-      <Filter>allDemos_code\ripple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\ripple\scene_ripple.cpp">
-      <Filter>allDemos_code\ripple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\shatter\layer_shatter.cpp">
-      <Filter>allDemos_code\shatter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\shatter\scene_shatter.cpp">
-      <Filter>allDemos_code\shatter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\tail\layer_tail.cpp">
-      <Filter>allDemos_code\tail</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\tail\scene_tail.cpp">
-      <Filter>allDemos_code\tail</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\ripple_horizontal\layer_ripple_horizontal.cpp">
-      <Filter>allDemos_code\ripple_horizontal</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\ripple_horizontal\scene_ripple_horizontal.cpp">
-      <Filter>allDemos_code\ripple_horizontal</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\effectNodes\shatter\ensShatterNode.cpp">
       <Filter>effectNodes\shatter</Filter>
@@ -212,20 +122,80 @@
     <ClCompile Include="..\..\..\effectNodes\tinyWingsTerrain\ensTinyWingsTerrainNode.cpp">
       <Filter>effectNodes\tinyWingsTerrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\tinyWingsTerrain\layer_tinyWingsTerrain.cpp">
-      <Filter>allDemos_code\tinyWingsTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\tinyWingsTerrain\scene_tinyWingsTerrain.cpp">
-      <Filter>allDemos_code\tinyWingsTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\2DSoftShadow\layer_2DSoftShadow.cpp">
-      <Filter>allDemos_code\2DSoftShadow</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\allDemos_code\2DSoftShadow\scene_2DSoftShadow.cpp">
-      <Filter>allDemos_code\2DSoftShadow</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\effectNodes\2DSoftShadow\ens2DSoftShadowNode.cpp">
       <Filter>effectNodes\2DSoftShadow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\2DSoftShadow\layer_2DSoftShadow.cpp">
+      <Filter>effectNodes\2DSoftShadow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\2DSoftShadow\scene_2DSoftShadow.cpp">
+      <Filter>effectNodes\2DSoftShadow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\break\scene_break.cpp">
+      <Filter>effectNodes\break</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\break\layer_break.cpp">
+      <Filter>effectNodes\break</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\colorAdjust\layer_colorAdjust.cpp">
+      <Filter>effectNodes\colorAdjust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\colorAdjust\scene_colorAdjust.cpp">
+      <Filter>effectNodes\colorAdjust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ghost-like\layer_ghostlike.cpp">
+      <Filter>effectNodes\ghost-like</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ghost-like\scene_ghostlike.cpp">
+      <Filter>effectNodes\ghost-like</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\lightningBolt\layer_lightningBolt.cpp">
+      <Filter>effectNodes\lightningBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\lightningBolt\scene_lightningBolt.cpp">
+      <Filter>effectNodes\lightningBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\normalMapped\layer_normalMapped.cpp">
+      <Filter>effectNodes\normalMapped</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\normalMapped\scene_normalMapped.cpp">
+      <Filter>effectNodes\normalMapped</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ripple\layer_ripple.cpp">
+      <Filter>effectNodes\ripple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ripple\scene_ripple.cpp">
+      <Filter>effectNodes\ripple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ripple_horizontal\layer_ripple_horizontal.cpp">
+      <Filter>effectNodes\ripple_horizontal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\ripple_horizontal\scene_ripple_horizontal.cpp">
+      <Filter>effectNodes\ripple_horizontal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\shatter\layer_shatter.cpp">
+      <Filter>effectNodes\shatter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\shatter\scene_shatter.cpp">
+      <Filter>effectNodes\shatter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\tail\layer_tail.cpp">
+      <Filter>effectNodes\tail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\tail\scene_tail.cpp">
+      <Filter>effectNodes\tail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\tinyWingsTerrain\layer_tinyWingsTerrain.cpp">
+      <Filter>effectNodes\tinyWingsTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\tinyWingsTerrain\scene_tinyWingsTerrain.cpp">
+      <Filter>effectNodes\tinyWingsTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\laser\laserLayer.cpp">
+      <Filter>effectNodes\laser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\effectNodes\laser\laserScene.cpp">
+      <Filter>effectNodes\laser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,71 +256,11 @@
     <ClInclude Include="..\..\..\effectNodes\tail\ensTailNode.h">
       <Filter>effectNodes\tail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\break\layer_break.h">
-      <Filter>allDemos_code\break</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\break\scene_break.h">
-      <Filter>allDemos_code\break</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\allDemos_code\chooseDemoUI\chooseLayer.h">
       <Filter>allDemos_code\chooseDemoUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\allDemos_code\chooseDemoUI\chooseScene.h">
       <Filter>allDemos_code\chooseDemoUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\colorAdjust\layer_colorAdjust.h">
-      <Filter>allDemos_code\colorAdjust</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\colorAdjust\scene_colorAdjust.h">
-      <Filter>allDemos_code\colorAdjust</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\common\common.h">
-      <Filter>allDemos_code\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\common\func.h">
-      <Filter>allDemos_code\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\ghost-like\layer_ghostlike.h">
-      <Filter>allDemos_code\ghost-like</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\ghost-like\scene_ghostlike.h">
-      <Filter>allDemos_code\ghost-like</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\lightningBolt\layer_lightningBolt.h">
-      <Filter>allDemos_code\lightningBolt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\lightningBolt\scene_lightningBolt.h">
-      <Filter>allDemos_code\lightningBolt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\normalMapped\layer_normalMapped.h">
-      <Filter>allDemos_code\normalMapped</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\normalMapped\scene_normalMapped.h">
-      <Filter>allDemos_code\normalMapped</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\ripple\layer_ripple.h">
-      <Filter>allDemos_code\ripple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\ripple\scene_ripple.h">
-      <Filter>allDemos_code\ripple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\shatter\layer_shatter.h">
-      <Filter>allDemos_code\shatter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\shatter\scene_shatter.h">
-      <Filter>allDemos_code\shatter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\tail\layer_tail.h">
-      <Filter>allDemos_code\tail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\tail\scene_tail.h">
-      <Filter>allDemos_code\tail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\ripple_horizontal\layer_ripple_horizontal.h">
-      <Filter>allDemos_code\ripple_horizontal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\ripple_horizontal\scene_ripple_horizontal.h">
-      <Filter>allDemos_code\ripple_horizontal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\effectNodes\shatter\ensShatterNode.h">
       <Filter>effectNodes\shatter</Filter>
@@ -358,20 +268,80 @@
     <ClInclude Include="..\..\..\effectNodes\tinyWingsTerrain\ensTinyWingsTerrainNode.h">
       <Filter>effectNodes\tinyWingsTerrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\tinyWingsTerrain\layer_tinyWingsTerrain.h">
-      <Filter>allDemos_code\tinyWingsTerrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\tinyWingsTerrain\scene_tinyWingsTerrain.h">
-      <Filter>allDemos_code\tinyWingsTerrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\2DSoftShadow\layer_2DSoftShadow.h">
-      <Filter>allDemos_code\2DSoftShadow</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\allDemos_code\2DSoftShadow\scene_2DSoftShadow.h">
-      <Filter>allDemos_code\2DSoftShadow</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\effectNodes\2DSoftShadow\ens2DSoftShadowNode.h">
       <Filter>effectNodes\2DSoftShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\2DSoftShadow\layer_2DSoftShadow.h">
+      <Filter>effectNodes\2DSoftShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\2DSoftShadow\scene_2DSoftShadow.h">
+      <Filter>effectNodes\2DSoftShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\break\layer_break.h">
+      <Filter>effectNodes\break</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\break\scene_break.h">
+      <Filter>effectNodes\break</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\colorAdjust\layer_colorAdjust.h">
+      <Filter>effectNodes\colorAdjust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\colorAdjust\scene_colorAdjust.h">
+      <Filter>effectNodes\colorAdjust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ghost-like\layer_ghostlike.h">
+      <Filter>effectNodes\ghost-like</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ghost-like\scene_ghostlike.h">
+      <Filter>effectNodes\ghost-like</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\lightningBolt\layer_lightningBolt.h">
+      <Filter>effectNodes\lightningBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\lightningBolt\scene_lightningBolt.h">
+      <Filter>effectNodes\lightningBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\normalMapped\layer_normalMapped.h">
+      <Filter>effectNodes\normalMapped</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\normalMapped\scene_normalMapped.h">
+      <Filter>effectNodes\normalMapped</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ripple\layer_ripple.h">
+      <Filter>effectNodes\ripple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ripple\scene_ripple.h">
+      <Filter>effectNodes\ripple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ripple_horizontal\layer_ripple_horizontal.h">
+      <Filter>effectNodes\ripple_horizontal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\ripple_horizontal\scene_ripple_horizontal.h">
+      <Filter>effectNodes\ripple_horizontal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\shatter\layer_shatter.h">
+      <Filter>effectNodes\shatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\shatter\scene_shatter.h">
+      <Filter>effectNodes\shatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\tail\layer_tail.h">
+      <Filter>effectNodes\tail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\tail\scene_tail.h">
+      <Filter>effectNodes\tail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\tinyWingsTerrain\layer_tinyWingsTerrain.h">
+      <Filter>effectNodes\tinyWingsTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\tinyWingsTerrain\scene_tinyWingsTerrain.h">
+      <Filter>effectNodes\tinyWingsTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\laser\laserLayer.h">
+      <Filter>effectNodes\laser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\effectNodes\laser\laserScene.h">
+      <Filter>effectNodes\laser</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
