@@ -19,11 +19,11 @@ namespace_ens_begin
 class Cripple_horizontalNode:public CCSprite{
 public:
     Cripple_horizontalNode(){
-        m_dx=10;//10;
+        m_dx=5;//10;
         m_mesh=NULL;
         m_indexVBO=NULL;
         m_isDrawDebug=false;
-        m_reduceStep=3;
+        m_reduceStep=7;
     }
     virtual~Cripple_horizontalNode(){
         if(m_mesh)m_mesh->release();

@@ -188,8 +188,21 @@ void Cripple_horizontalNode::updateRipple(){
             CCPoint&point_back=m_surfacePointList_back[i];
             point_back.y=contentSize.height+((pointf.y-contentSize.height)
                                              +(pointn.y-contentSize.height)
-                                             -(point_back.y-contentSize.height))*(1.0-1.0/150);
+                                             -(point_back.y-contentSize.height))*(1.0-1.0/60);//150);
         }
+        //move to right  [hack]
+        {
+            int nPoint=(int)m_surfacePointList.size();
+            CCPoint lastPoint=m_surfacePointList[nPoint-1];
+            CCPoint lastPoint_back=m_surfacePointList_back[nPoint-1];
+            for(int i=nPoint-1;i>=1;i--){
+                m_surfacePointList[i].y=m_surfacePointList[i-1].y;
+                m_surfacePointList_back[i].y=m_surfacePointList_back[i-1].y;
+            }
+            m_surfacePointList[0].y=lastPoint.y;
+            m_surfacePointList_back[0].y=lastPoint_back.y;
+        }
+        //---
         //switch surfacePointList and surfacePointList_back
         vector<CCPoint> temp=m_surfacePointList;
         m_surfacePointList=m_surfacePointList_back;
