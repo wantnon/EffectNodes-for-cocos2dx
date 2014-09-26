@@ -41,7 +41,8 @@ bool catchProbability(float p)
     
 }
 float calculateAngleFromCosAndSin(float cosA,float sinA){
-    float angle=acosf(cosA)/M_PI*180;
+    ////float angle=acosf(cosA)/M_PI*180;
+     float angle=acosf(MAX(-1,MIN(1,cosA)))/M_PI*180;//issue: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/issues/2
     if(sinA>0){
         return angle;
     }else{
