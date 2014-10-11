@@ -1,5 +1,6 @@
 #ifdef GL_ES
-precision mediump float;
+//precision mediump float;
+precision highp float;//only to avoid u_time overflow
 #endif
 
 //this shader is ref to ccShader_PositionTextureColor_frag.h
