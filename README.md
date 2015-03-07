@@ -17,15 +17,15 @@ here is executable for win32 and mac(可执行程序下载): http://git.oschina.
   
 screenshots:  
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/frontPage.png)  
+![screenshot](https://github.com/wantnon2/EffectNodes-for-cocos2dx/raw/v2/resource/screenshots/frontPage.png)  
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/lightningBolt.png)   
+![screenshot](https://github.com/wantnon2/EffectNodes-for-cocos2dx/raw/v2/resource/screenshots/lightningBolt.png)   
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/break.png)      
+![screenshot](https://github.com/wantnon2/EffectNodes-for-cocos2dx/raw/v2/resource/screenshots/break.png)      
     
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/normalMapped.png)    
+![screenshot](https://github.com/wantnon2/EffectNodes-for-cocos2dx/raw/v2/resource/screenshots/normalMapped.png)    
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/2DSoftShadow.png)    
+![screenshot](https://github.com/wantnon2/EffectNodes-for-cocos2dx/raw/v2/resource/screenshots/2DSoftShadow.png)    
   
 qq group: 338565878   
   
