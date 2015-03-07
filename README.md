@@ -2,7 +2,7 @@ EffectNodes for Cocos2dx 3.x (EffectNodes v3)
 ==========
 by yang chao (wantnon), 2015–3-7  
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/demos/allDemos_proj/proj.ios/Icon-144.png)    
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/logo.png)    
   
 EffectNodes for Cocos2dx is a collection of 2d special effects implemented with cocos2dx. i will add more when i got good effects. now EffectNodes have translated to transplant cocos2dx 3.x!  
  
