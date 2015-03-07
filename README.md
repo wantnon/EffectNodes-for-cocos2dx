@@ -10,8 +10,7 @@ EffectNodes is based on cocos2d-x 2.2.0
    
 currently, iOS, Mac and Win32 project are available.  
   
-how to run the demo: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/wikis/how-to-run-the-demo  
-如何运行demo: http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/wikis/如何运行demo  
+how to run the demo: see how_to_run_demos_of_v2.txt   
   
 here is executable for win32 and mac(可执行程序下载): http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
   

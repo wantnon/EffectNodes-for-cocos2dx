@@ -1,0 +1,48 @@
+—— How to run demos of EffectNodes v2:
+
+note: if you follow below steps and successfully compiled the Demo project but crash at running time, it may be caused by a bug of cocos2d-x 2.2.0, the solution is here: https://github.com/wantnon2/3DToolKit-for-cocos2dx/issues/1
+
+compile and run the Demo project：
+
+iOS：
+1, download a cocos2d-x 2.2.0 .
+2, put the 'EffectNodes-for-cocos2dx' folder you git under 'cocos2d-x-2.2' folder.
+3, compile and run the iOS project under 'cocos2d-x-2.2.0\EffectNodes-for-cocos2dx\demos\allDemoes_proj' folder with Xcode.
+
+Mac:
+1, download a cocos2d-x 2.2.0 .
+2, put the 'EffectNodes-for-cocos2dx' folder you git under 'cocos2d-x-2.2' folder.
+3, compile and run the Mac project under 'cocos2d-x-2.2.0\EffectNodes-for-cocos2dx\demos\allDemoes_proj' folder with Xcode.
+
+Win32: (note: some times win32 project may not works when i have no time to re-configure it.)
+1, download a cocos2d-x 2.2.0 .
+2, put the 'EffectNodes-for-cocos2dx' folder you git under 'cocos2d-x-2.2' folder.
+3, open cocos2d-win32.vc2010.sln under 'cocos2d-x-2.2' folder with vs2010.
+4, add the Win32 project under 'cocos2d-x-2.2.0\EffectNodes-for-cocos2dx\demos\allDemoes_proj' to solution and set it as startup project.
+5, compile and run.
+
+note: if you meet "can not open xxx.lib" error, you should select "TestCpp" project in Solution Explorer, set it as startup project and build it. when build finished, set the demo as startup project and run it again.
+
+—— 如何运行EffectNodes v2示例:
+
+注意：如果你按下面方法成功编译了Demo工程，但是运行的时候崩溃，可能是由于cocos2d-x 2.2.0的一个bug造成的，解决办法看这里：https://github.com/wantnon2/3DToolKit-for-cocos2dx/issues/1
+
+编译运行Demo工程：
+一，iOS：
+1，下载一个cocos2d-x 2.2.0 。
+2，将git下来的EffectNodes-for-cocos2dx文件夹放到cocos2d-x-2.2目录下。
+3，用xcode编译运行cocos2d-x-2.2.0\EffectNodes-for-cocos2dx\demos\allDemoes_proj目录下的ios工程。
+
+二，Mac:
+1，下载一个cocos2d-x 2.2.0 。
+2，将git下来的EffectNodes-for-cocos2dx文件夹放到cocos2d-x-2.2目录下。
+3，用xcode编译运行cocos2d-x-2.2.0\EffectNodes-for-cocos2dx\demos\allDemoes_proj目录下的mac工程。
+
+三，Win32: (注意，win32工程有时可能不可用，因为我有时候可能没时间去重新配置它。)
+1，下载一个cocos2d-x 2.2.0 。
+2，将git下来的EffectNodes-for-cocos2dx文件夹放到cocos2d-x-2.2目录下。
+3，用vs2010打开cocos2d-x-2.2下的cocos2d-win32.vc2010.sln。
+4，将cocos2d-x-2.2.0\EffectNodes-for-cocos2dx\demos\allDemoes_proj目录下的win32工程添加到解决方案中，并设为启动项。
+5，编译运行。
+
+注意：如果遇到"无法打开xxx.lib"错误，可以在解决方案管理器中选择TestCpp工程，将其设为启动项并编译。编译成功后重新将demo工程设为启动项再运行。
