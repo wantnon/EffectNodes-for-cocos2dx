@@ -10,7 +10,10 @@ EffectNodes v3 is based on cocos2d-x 3.3
    
 currently, iOS and Mac project are available.  
   
-how to run demos: see how_to_run_demos_of_v3.txt   
+how to run demos of v3:  
+1, open effectNodes-for-cocos2dx-3x/project/proj.ios_mac/effectNodes-for-cocos2dx3x.xcodeproj with Xcode.  
+2, select iOS or Mac target.  
+3, build and run.  
   
 screenshots:  
   

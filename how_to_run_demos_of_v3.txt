@@ -1,4 +1,0 @@
-how to run demos of v3:
-1, open effectNodes-for-cocos2dx-3x/project/proj.ios_mac/effectNodes-for-cocos2dx3x.xcodeproj with Xcode.
-2, select iOS or Mac target.
-3, build and run.
