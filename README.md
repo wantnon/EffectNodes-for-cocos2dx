@@ -22,7 +22,9 @@ screenshots:
     
 ![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/normalMapped.png)    
   
-![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/2DSoftShadow.png)    
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/2DSoftShadow.png)   
+  
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/splash.png)   
   
 qq group: 338565878   
   
