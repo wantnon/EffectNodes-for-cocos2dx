@@ -14,15 +14,15 @@ how to run demos: see how_to_run_demos_of_v3.txt
   
 screenshots:  
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/frontPage.png)  
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/frontPage.png)  
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/lightningBolt.png)   
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/lightningBolt.png)   
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/break.png)      
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/break.png)      
     
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/normalMapped.png)    
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/normalMapped.png)    
   
-![screenshot](http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/raw/master/resource/screenshots/2DSoftShadow.png)    
+![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/2DSoftShadow.png)    
   
 qq group: 338565878   
   
