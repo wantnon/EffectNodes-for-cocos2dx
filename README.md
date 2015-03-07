@@ -18,7 +18,7 @@ EffectNodes for cocos2dx 2.x (EffectNodes v2): https://git.oschina.net/wantnon2/
 EffectNodes for cocos2dx 3.x (EffectNodes v3): https://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/tree/v3/    
   
   
-here is executable for win32 and mac(可执行程序下载): http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
+executable program download(可执行程序下载): http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
   
 screenshots:  
   
