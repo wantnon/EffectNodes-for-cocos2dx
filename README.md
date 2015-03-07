@@ -12,7 +12,7 @@ currently, iOS and Mac project are available.
   
 how to run the demo: see how_to_run_demos_of_v3.txt   
   
-here is executable for win32 and mac(可执行程序下载): http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
+executable program download(可执行程序下载): http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
   
 screenshots:  
   
