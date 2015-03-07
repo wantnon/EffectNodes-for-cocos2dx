@@ -7,10 +7,15 @@ by yang chao (wantnon), 2014-6-26
 EffectNodes for Cocos2dx is a collection of 2d special effects implemented with cocos2dx. i will add more when i got good effects.  
 
   
-EffectNodes is based on cocos2dx  
+EffectNodes is based on cocos2dx. there are branches for cocos2dx 2.x and cococs2dx 3.x:  
    
+on Github:  
 EffectNodes for cocos2dx 2.x (EffectNodes v2): https://github.com/wantnon2/EffectNodes-for-cocos2dx/tree/v2  
 EffectNodes for cocos2dx 3.x (EffectNodes v3): https://github.com/wantnon2/EffectNodes-for-cocos2dx/tree/v3  
+  
+on git.osc:    
+EffectNodes for cocos2dx 2.x (EffectNodes v2): https://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/tree/v2/  
+EffectNodes for cocos2dx 3.x (EffectNodes v3): https://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/tree/v3/    
   
   
 here is executable for win32 and mac(可执行程序下载): http://git.oschina.net/wantnon2/EffectNodes-for-Cocos2dx/attach_files  
