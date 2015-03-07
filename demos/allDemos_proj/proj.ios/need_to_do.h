@@ -10,7 +10,6 @@
 #define HelloCpp_need_to_do_h
 /*
  
- 闪电效果的动画应封装成action
  
  */
 

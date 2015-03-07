@@ -10,7 +10,7 @@
 #define HelloCpp_note_h
 
 /*
- if we do not want clean project each time we modify the shader, it is better to use yellow folder.
+
  */
 
 #endif
