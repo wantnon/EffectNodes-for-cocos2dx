@@ -2488,7 +2488,7 @@
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/mac/libraries\"",
 					"\"$(SRCROOT)/../../../../external/libwebsockets/mac/lib\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = HelloCpp;
@@ -2538,7 +2538,7 @@
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/mac/libraries\"",
 					"\"$(SRCROOT)/../../../../external/libwebsockets/mac/lib\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = HelloCpp;

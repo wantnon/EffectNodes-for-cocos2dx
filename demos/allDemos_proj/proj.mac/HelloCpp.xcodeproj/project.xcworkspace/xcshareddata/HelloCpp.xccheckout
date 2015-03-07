@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>C1F33D63-C5FE-4F56-BBC1-4852DA3D943A</string>
+	<string>DC062F0D-0173-40AF-A0E2-1D1E5923D55C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>HelloCpp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,7 +14,7 @@
 		<string>https://github.com/wantnon2/EffectNodes-for-cocos2dx.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>demos/allDemos_proj/proj.ios/HelloCpp.xcodeproj</string>
+	<string>demos/allDemos_proj/proj.mac/HelloCpp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E1957285740E35B5D2D4D09A59974CE54C5A4805</key>

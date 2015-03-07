@@ -2742,7 +2742,7 @@
 					"\"$(SRCROOT)/../../../effectNodes\"",
 				);
 				INFOPLIST_FILE = "HelloCpp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/ios/libraries\"",
@@ -2795,7 +2795,7 @@
 					"\"$(SRCROOT)/../../../effectNodes\"",
 				);
 				INFOPLIST_FILE = "HelloCpp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/ios/libraries\"",

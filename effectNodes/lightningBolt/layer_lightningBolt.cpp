@@ -15,8 +15,8 @@ bool Clayer_lightningBolt::init(){
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
     
-    CCPoint start=CCPoint(189,winSize.height/2);
-    CCPoint end=CCPoint(947,winSize.height/2);
+    CCPoint start=CCPoint(winSize.width*189/1136,winSize.height/2);
+    CCPoint end=CCPoint(winSize.width*947/1136,winSize.height/2);
     
     m_lbNode=new ClightningBoltNode();
     m_lbNode->autorelease();

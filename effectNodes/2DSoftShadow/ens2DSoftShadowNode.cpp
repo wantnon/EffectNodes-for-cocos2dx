@@ -362,7 +362,7 @@ void C2DSoftShadowObj::draw(){
                 ccPointSize(5);
                 ccDrawPoint(m_rightUmbraLine[1]);
             }
-            
+            ccDrawColor4F(1, 1, 1, 1);
             
         }
     }

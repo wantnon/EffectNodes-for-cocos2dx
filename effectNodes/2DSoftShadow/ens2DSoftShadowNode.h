@@ -46,6 +46,7 @@ public:
             glLineWidth(2);
             ccDrawColor4F(0, 0, 1, 1);
             ccDrawCircle(CCPoint(0,0), m_r, 360, 30, false, 1, 1);
+            ccDrawColor4F(1, 1, 1, 1);
         }
     }
     void setIsDrawDebug(bool value){m_isDrawDebug=value;}
