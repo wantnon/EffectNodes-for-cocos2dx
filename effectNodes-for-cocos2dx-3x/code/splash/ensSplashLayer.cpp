@@ -40,7 +40,7 @@ void CensSplashLayer::onStart(const CCPoint&pos){
         if(i==0){
             r=130;
         }else{
-            r=ens::randomInRange(10, /*50*/80);//200;//ens::randomInRange(100, 200);
+            r=ens::randomInRange(20, /*50*/80);//200;//ens::randomInRange(100, 200);
         }
 
         float A;
@@ -50,7 +50,7 @@ void CensSplashLayer::onStart(const CCPoint&pos){
         }else{
             A=ens::randomInRange(0, 360);
             CCPoint dir=ccp(cosf(A*M_PI/180),sinf(A*M_PI/180));
-            float speed=MIN(400,20+ens::randomInRange(30, 200)*1.0/r*130);
+            float speed=MIN(400,40+ens::randomInRange(30, 200)*1.0/r*100);
             velocity=dir*speed;
         }
         float damping;
