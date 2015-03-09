@@ -30,6 +30,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::create("EffectNodes for Cocos2dx 3.x");
         director->setOpenGLView(glview);
     }
+    
+    //added by[yang chao]
+    //by default glview is created "fullscreen", namely screenSize = designResolutionSize.width = eaglview size
+    //but this is not what we want, we want use our own designResolutionSize, so we should set designResolution ourselves
+    {
+        director->getOpenGLView()->setDesignResolutionSize(1136,640,ResolutionPolicy::NO_BORDER);
+    }
 
     // turn on display FPS
     director->setDisplayStats(true);
