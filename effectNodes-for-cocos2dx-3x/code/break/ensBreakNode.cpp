@@ -506,7 +506,13 @@ void CbreakSprite::doCrack(const CCPoint&touchPoint){
             CCPoint p1=v2Toccp(tri.m_pos[1]);
             CCPoint p2=v2Toccp(tri.m_pos[2]);
             vector<CCPoint> points=makeTriangleSmaller(p0, p1, p2, dOffset);
-            tri.setPositions(ccpTov2(points[0]), ccpTov2(points[1]), ccpTov2(points[2]));
+            if((int)points.size()==3){
+                tri.setPositions(ccpTov2(points[0]), ccpTov2(points[1]), ccpTov2(points[2]));
+            }else if((int)points.size()<3){
+                //do nothing
+            }else{//(int)points.size()>3
+                assert(false);
+            }
         }
     }
     //----calculate texCoord for each vertex of each tri
