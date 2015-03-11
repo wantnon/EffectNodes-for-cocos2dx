@@ -121,7 +121,7 @@ public:
             GLchar * fragSource = (GLchar*) CCString::createWithContentsOfFile(CCFileUtils::sharedFileUtils()->fullPathForFilename("shaders/splash/metaBall.fsh").c_str())->getCString();
             ens::CGLProgramWithUnifos* program = new ens::CGLProgramWithUnifos();
             program->autorelease();
-            program->initWithVertexShaderByteArray(ccPositionTextureColor_vert, fragSource);
+            program->initWithVertexShaderByteArray(ccPositionTextureColor_noMVP_vert, fragSource);
             //            --below code is no longer needed, because bindPredefinedVertexAttribs() is called in link() in 3.x
             //            --bind attribute
             //            --program->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
