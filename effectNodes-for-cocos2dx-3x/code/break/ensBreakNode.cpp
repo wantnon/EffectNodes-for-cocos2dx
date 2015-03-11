@@ -159,6 +159,7 @@ void CbreakSprite::doCrack(const CCPoint&touchPoint){
     //get contentSize
     CCSize contentSize=this->getContentSize();
     //touchPoint is in parent space, convert it to local space
+    this->getNodeToParentTransform();//in order this->parentToNodeTransform() got right result, we must call this->getNodeToParentTransform() first, this is a bug of cocos2dx 3.3,see:http://www.cnblogs.com/wantnon/p/4330226.html
     CCAffineTransform parentToNodeTransform=this->parentToNodeTransform();
     CCPoint touchPoint_localSpace=CCPointApplyAffineTransform(touchPoint,parentToNodeTransform);
     //---make m_pointList and m_nRow,m_nCol

@@ -470,6 +470,7 @@ void ClightningBoltSprite::genMesh(){
 void ClightningBoltSprite::setStartAndEnd(CCPoint start,CCPoint end){
     m_startPoint_parentSpace=start;
     m_endPoint_parentSpace=end;
+    this->getNodeToParentTransform();//in order this->parentToNodeTransform() got right result, we must call this->getNodeToParentTransform() first, this is a bug of cocos2dx 3.3,see:http://www.cnblogs.com/wantnon/p/4330226.html
     m_startPoint= CCPointApplyAffineTransform(m_startPoint_parentSpace,this->parentToNodeTransform());
     m_endPoint=CCPointApplyAffineTransform(m_endPoint_parentSpace,this->parentToNodeTransform());
     //startPoint and endPoint is changed

@@ -59,6 +59,7 @@ void Cripple_horizontalNode::pressAtX(float x,float h_press,float r_press)
         assert(leftPoint.x!=rightPoint.x);
         float y=(leftPoint.y-rightPoint.y)/(leftPoint.x-rightPoint.x)*(x-leftPoint.x)+leftPoint.y;
         CCPoint touchPoint(x,y);//parent space touchPoint
+        this->getNodeToParentTransform();//in order this->parentToNodeTransform() got right result, we must call this->getNodeToParentTransform() first, this is a bug of cocos2dx 3.3,see:http://www.cnblogs.com/wantnon/p/4330226.html
         CCPoint touchPoint_local=CCPointApplyAffineTransform(touchPoint,parentToNodeTransform());
         //use touchPoint_local.x to press the surfacePointList
         float touchx=touchPoint_local.x;

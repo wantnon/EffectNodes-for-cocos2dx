@@ -131,6 +131,7 @@ void CrippleSprite::updateOnce(){
 }
 void CrippleSprite::doTouch(const CCPoint&touchPoint,float depth,float r){
     //touchPoint is in parent space, convert it to local space
+    this->getNodeToParentTransform();//in order this->parentToNodeTransform() got right result, we must call this->getNodeToParentTransform() first, this is a bug of cocos2dx 3.3,see:http://www.cnblogs.com/wantnon/p/4330226.html
     CCAffineTransform parentToNodeTransform=this->parentToNodeTransform();
     CCPoint touchPoint_localSpace=CCPointApplyAffineTransform(touchPoint,parentToNodeTransform);
     //convert touchPoint_localSpace to OLU (origin at left up corner) space

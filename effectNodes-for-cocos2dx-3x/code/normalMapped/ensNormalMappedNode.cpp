@@ -71,6 +71,7 @@ void CnormalMappedSprite::onPassUnifoAndBindTex(const Mat4 &transform, uint32_t 
         m_lightSprite->getAmbient().b,m_lightSprite->getAmbient().a};
     float contentSize_tmp[2]={this->getContentSize().width,this->getContentSize().height};
     CCSize contentSize=this->getContentSize();
+    this->getNodeToParentTransform();//in order this->parentToNodeTransform() got right result, we must call this->getNodeToParentTransform() first, this is a bug of cocos2dx 3.3,see:http://www.cnblogs.com/wantnon/p/4330226.html
     CCPoint lightPosInLocalSpace=CCPointApplyAffineTransform(m_lightSprite->getPosition(),this->parentToNodeTransform());
     float lightPosInLocalSpace_tmp[4]={lightPosInLocalSpace.x,lightPosInLocalSpace.y,m_lightSprite->getZ(),1};
     CGLProgramWithUnifos*program=(CGLProgramWithUnifos*)this->getShaderProgram();
