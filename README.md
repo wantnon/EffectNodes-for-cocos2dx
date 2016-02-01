@@ -34,7 +34,7 @@ screenshots:
   
 ![screenshot](https://raw.githubusercontent.com/wantnon2/EffectNodes-for-cocos2dx/v3/effectNodes-for-cocos2dx-3x/resource/screenshots/splash.png)   
       
-weibo: weibo.com/superGerm  
+weibo: http://weibo.com/superGerm  
   
 qq group: 338565878   
   
