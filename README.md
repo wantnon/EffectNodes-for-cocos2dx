@@ -26,8 +26,10 @@ screenshots:
   
 ![screenshot](https://github.com/wantnon2/EffectNodes-for-cocos2dx/raw/v2/resource/screenshots/2DSoftShadow.png)    
   
+
+weibo: http://weibo.com/superGerm  
+  
 qq group: 338565878   
   
 email: 350479720@qq.com  
-  
 blog: http://user.qzone.qq.com/350479720/blog/1403785410
