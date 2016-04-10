@@ -43,6 +43,10 @@ bool CshatterSprite::init(const string&texFileName){
 		int nRow=(int)m_grid.size();
 		int nCol=(nRow==0?0:(int)m_grid[0].size());
 		const float halfGridSideLen=0.5*m_gridSideLen;
+		
+		int offsetX = this->getTextureRect().origin.x;
+		int offsetY = this->getTextureRect().origin.y;
+
 		for(int i=0;i<nRow;i++){
 			for(int j=0;j<nCol;j++){
 				Cfrag*frag=m_grid[i][j];
@@ -50,7 +54,7 @@ bool CshatterSprite::init(const string&texFileName){
 				float x=j*m_gridSideLen+halfGridSideLen;
 				float y=contentSize.height-(i*m_gridSideLen+halfGridSideLen);
 				//texture and textureRect
-				frag->setTextureRect(CCRect(x-halfGridSideLen,(contentSize.height-y)-halfGridSideLen,m_gridSideLen,m_gridSideLen));
+				frag->setTextureRect(CCRect(x-halfGridSideLen+offsetX,(contentSize.height-y)-halfGridSideLen+offsetY,m_gridSideLen,m_gridSideLen));
 				//set position
 				frag->setPosition(ccp(x,y));
 				//scale
